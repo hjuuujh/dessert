@@ -17,7 +17,8 @@ encrypt:
   key-store:
     alias: encryptionKey
     password: dessertEncryptionKey
-    location: file:/encryptionKey.jks
+    location: encryptionKey.jks
+#    location: file:/encryptionKey.jks
 
 management:
   endpoints:

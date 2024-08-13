@@ -3,3 +3,5 @@ trust_key.cer
 
 build/
 out/
+
+src/main/resources/encryprionKey.jks

@@ -7,56 +7,58 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: open-api
-          uri: http://localhost:8090
-          predicates:
-            - Path=/api/member/signup, /api/member/signin # 회원가입과 로그인은 필터 적용 안함
-        - id: member-api
-          uri: http://localhost:8090
-          predicates:
-            - Path=/api/member/**
-          filters:
-            - name: AuthorizationHeaderFilter
-              args:
-                headerName: Authorization
-                granted: Bearer
-        - id: store-api
-          uri: http://localhost:8091
-          predicates:
-            - Path=/api/store/**
-          filters:
-            - name: AuthorizationHeaderFilter
-              args:
-                headerName: Authorization
-                granted: Bearer
-                role: ROLE_PARTNER
-        - id: reservation-api-customer
-          uri: http://localhost:8092
-          predicates:
-            - Path=/api/reservation/customer/**
-          filters:
-            - name: AuthorizationHeaderFilter
-              args:
-                headerName: Authorization
-                granted: Bearer
-                role: ROLE_CUSTOMER
-        - id: reservation-api-partner
-          uri: http://localhost:8092
-          predicates:
-            - Path=/api/reservation/partner/**
-          filters:
-            - name: AuthorizationHeaderFilter
-              args:
-                headerName: Authorization
-                granted: Bearer
-                role: ROLE_PARTNER
+#        - id: open-api
+#          uri: http://localhost:8090
+#          predicates:
+#            - Path=/api/member/signup, /api/member/signin # 회원가입과 로그인은 필터 적용 안함
+#        - id: member-api
+#          uri: http://localhost:8090
+#          predicates:
+#            - Path=/api/member/**
+#          filters:
+#            - name: AuthorizationHeaderFilter
+#              args:
+#                headerName: Authorization
+#                granted: Bearer
+#        - id: store-api
+#          uri: http://localhost:8091
+#          predicates:
+#            - Path=/api/store/**
+#          filters:
+#            - name: AuthorizationHeaderFilter
+#              args:
+#                headerName: Authorization
+#                granted: Bearer
+#                role: ROLE_PARTNER
+#        - id: reservation-api-customer
+#          uri: http://localhost:8092
+#          predicates:
+#            - Path=/api/reservation/customer/**
+#            - name: AuthorizationHeaderFilter
+#              args:
+#                headerName: Authorization
+#                granted: Bearer
+#                role: ROLE_CUSTOMER
+#        - id: reservation-api-partner
+#          uri: http://localhost:8092
+#          predicates:
+#            - Path=/api/reservation/partner/**
+#          filters:
+#            - name: AuthorizationHeaderFilter
+#              args:
+#                headerName: Authorization
+#                granted: Bearer
+#                role: ROLE_PARTNER
     config:
       label: master
       profile: dev
       uri: http://localhost:8888 # jwt secret key 있는 config server와 연결
+      name: api-gateway
 
   config:
     import: optional:configserver:http://localhost:8888 # jwt secret key 있는 config server와 연결 & optional : config server 에서 응답을 받지 못해도 client 애플리케이션은 구동
+  profiles:
+    active: dev
 
 eureka: # eureka client 등록
   instance:
