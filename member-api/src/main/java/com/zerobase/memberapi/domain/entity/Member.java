@@ -86,4 +86,8 @@ public class Member extends BaseEntity implements UserDetails {
                 .roles(form.getRoles())
                 .build();
     }
+
+    public void changeBalance(int balance) {
+        this.balance = balance;
+    }
 }

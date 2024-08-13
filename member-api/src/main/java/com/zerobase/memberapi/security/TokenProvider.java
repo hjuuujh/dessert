@@ -3,6 +3,8 @@ package com.zerobase.memberapi.security;
 import com.zerobase.memberapi.service.MemberService;
 import com.zerobase.memberapi.util.Aes256Util;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -39,11 +43,14 @@ public class TokenProvider {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + TOKEN_EXPIRE_TIME); // 만료 기간 : 1일
 
+
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        Key key = Keys.hmacShaKeyFor(keyBytes);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now) // 토큰 생성 시간
                 .setExpiration(expiryDate) // 토큰 만료 시간
-                .signWith(SignatureAlgorithm.HS512, this.secretKey) // 사용할 암호화 알고리즘, 비밀키
+                .signWith(key, SignatureAlgorithm.HS512) // 사용할 암호화 알고리즘, 비밀키
                 .compact();
 
     }
@@ -69,7 +76,8 @@ public class TokenProvider {
     // jwt 파싱해 claims 얻어옴
     private Claims parseClaims(String token) {
         try {
-            return Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody();
+            byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+            return Jwts.parserBuilder().setSigningKey(keyBytes).build().parseClaimsJws(token).getBody();
 
         } catch (ExpiredJwtException e) {
             return e.getClaims();
@@ -81,8 +89,8 @@ public class TokenProvider {
         if (!StringUtils.hasText(token)) return false;
 
         try {
-
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(keyBytes).build().parseClaimsJws(token);
 
             return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (SecurityException | MalformedJwtException e) {
