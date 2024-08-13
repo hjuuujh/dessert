@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/hjuuujh/dessert-msa-config # 설정파일 있는 git 주소
+          default-label: master # 설정파일 있는 git branch
+        encrypt:
+          enabled: true
+
+encrypt:
+  key-store:
+    alias: encryptionKey
+    password: dessertEncryptionKey
+    location: file:/encryptionKey.jks
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
