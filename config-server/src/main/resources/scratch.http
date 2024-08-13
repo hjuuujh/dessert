@@ -2,7 +2,7 @@
 GET http://localhost:8888/api-gateway/dev
 
 ### get config
-GET http://localhost:8888/store-api/local
+GET http://localhost:8888/member-api/dev
 
 ### get encrypt
 GET http://localhost:8888/actuator/health
@@ -11,13 +11,13 @@ GET http://localhost:8888/actuator/health
 POST http://localhost:8888/encrypt
 Content-Type: application/x-www-form-urlencoded
 
-zerobasedeseertmsaproject
+1234
 
 ### decrypt
 POST localhost:8888/decrypt
 Content-Type: application/x-www-form-urlencoded
 
-AQAeLnIFhXLNqy/NrWq4FzWmM5bT+Di+MmoEQhcHTB68Hugkcojg1lcw0TlcU5R+csUFdBEAzUEI5GgNDJFimXZ1ioZSuY/Y02T5+gA1R73F0yGxYYeNrFGGtmV7xg8a1i3OqBcimKk9D32IARKPipM4FROOkcnScJn+AZfapvJjoxOmn0c9zmsODKPtvpCDpDYK9z3lpzf7ws/nsjPR4yY9ASJbnhHTfSzeVvOO4TitfRgh2Ut6YcfpJPzUqpq5k/l61hQR+jwe4jFDhUcH//A9Z/rX8c9HNSaJtWDWXeF7W5lxzfHcKtrPFOP4pkJMK/SHrCfSZeGLeX249zv1KKpAR500v1oqZWrgjayhxBcfdFWXVS4/UBIA6WE4rP3EkooRvS5UxS6Wo9UAiQ/pQmy6
+AQAeDtv5DcgoyuaEtKp4+VkBHqcMmI21aSV5ShWhfIM6nZVhCNUzxZmLji039e7PbIMXLNgEcc90lnr/tZulZbgCJYdOYoYvV8TaI6GUtK8hEXUxOp64igwn8fUgVXOhHAPnqcfxtLAb6O5YXtX2hYEKTycB+q+ySXnusE2fkNDaHltU3mxYvoMO/WGv+Wn6RvODctdLutn8atYBj179fcN1JPakhpmT2i1NkfoqOnhBQROmwVvbyNwaPI7r0ywB+pp0zJHwnHGUiUD0Dn7qwRW5oq60RXsRC69FAUq2a/XIj8X+TLBF39wlVcUT1ex0luaFoo8fU5sRNEUuK9Q0+UdEt+x+tIlKduFZZhXs3aN0l9vTDNf+EeTTOIJHN9eZMng=
 
 ###
 

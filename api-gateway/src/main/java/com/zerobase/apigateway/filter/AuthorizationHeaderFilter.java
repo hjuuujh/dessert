@@ -27,6 +27,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     @Override
     public GatewayFilter apply(Config config) {
+        log.info("##########################");
         return (exchange, chain) -> {
             String requiredRole = config.getRole();
             String authorizationHeader = Objects.requireNonNull(exchange.getRequest().getHeaders().get(config.getHeaderName())).get(0); // Authorization의 value(token) 가져옴 & [] 제외

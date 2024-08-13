@@ -1,0 +1,12 @@
+### signup member
+POST http://localhost:8080/api/member/signup
+Content-Type: application/json
+
+{
+  "email": "user1@gmail.com",
+  "name": "user1",
+  "password": "qwerty",
+  "phone": "01012345678",
+  "roles": ["ROLE_SELLER"]
+}
+
