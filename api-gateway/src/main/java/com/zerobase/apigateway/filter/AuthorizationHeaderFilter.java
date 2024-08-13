@@ -27,9 +27,13 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     @Override
     public GatewayFilter apply(Config config) {
-        log.info("##########################");
         return (exchange, chain) -> {
             String requiredRole = config.getRole();
+            boolean hasToken = exchange.getRequest().getHeaders().containsKey("Authorization");
+            if (!hasToken) {
+                return unauthorizedResponse(exchange);
+            }
+
             String authorizationHeader = Objects.requireNonNull(exchange.getRequest().getHeaders().get(config.getHeaderName())).get(0); // Authorization의 value(token) 가져옴 & [] 제외
             if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith(config.getGranted())) {
                 String token = authorizationHeader.substring(config.getGranted().length()); // Bearer 제외
@@ -41,6 +45,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                     } else {
                         log.error("토큰이 유효하지 않음");
                     }
+                    System.out.println(userRole);
+                    System.out.println(requiredRole);
                     if (requiredRole.equalsIgnoreCase(userRole)) {
                         log.info("권한 확인 완료");
                         return chain.filter(exchange); // 토큰과 권한이 모두 유효하므로 filter 계속

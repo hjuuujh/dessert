@@ -1,6 +1,7 @@
 package com.zerobase.apigateway.filter;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,8 @@ public class TokenProvider {
 
     String resolveTokenRole(String token) {
         try {
-            return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("roles").toString();
+            byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+            return Jwts.parserBuilder().setSigningKey(keyBytes).build().parseClaimsJws(token).getBody().get("roles").toString();
         } catch (Exception e) {
             log.info("유저 권한 체크 실패");
             return "e";
@@ -34,8 +36,9 @@ public class TokenProvider {
         log.info("token: {}", token);
 
         try {
+            byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(keyBytes).build().parseClaimsJws(token);
             log.info("claims: {}", claimsJws.getBody());
             return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (SecurityException | MalformedJwtException e) {

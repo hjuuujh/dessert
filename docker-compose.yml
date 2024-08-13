@@ -1,8 +1,8 @@
 version: "3"
 services:
-  db-member:
+  db:
     image: mysql:8.0.22
-    container_name: dessert-mysql
+    container_name: dessert-db
     cap_add:
       - SYS_NICE
     environment:
@@ -69,18 +69,18 @@ services:
 #        condition: service_started
 #      store-api:
 #        condition: service_started
-#      member-api:
-#        condition: service_started
+      member-api:
+        condition: service_started
     environment: # docker-compose.yml에 설정한 환경변수가 기존의 환경변수 덮어씌움
       spring.cloud.config.uri: http://config-server:8888
       spring.config.import: optional:configserver:http://config-server:8888
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
-#      SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: open-api
-#      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://member-api:8090
-#      SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path= /api/member/signup, /api/member/signin
-#      spring.cloud.gateway.routes[1].id: member-api
-#      spring.cloud.gateway.routes[1].uri: http://member-api:8090
-#      spring.cloud.gateway.routes[1].predicates[0]: Path= /api/member/**
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: open-api
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://member-api:8090
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path= /api/member/signup, /api/member/signin
+      spring.cloud.gateway.routes[1].id: member-api
+      spring.cloud.gateway.routes[1].uri: http://member-api:8090
+      spring.cloud.gateway.routes[1].predicates[0]: Path= /api/member/**
 #      spring.cloud.gateway.routes[2].id: store-api
 #      spring.cloud.gateway.routes[2].uri: http://store-api:8091
 #      spring.cloud.gateway.routes[2].predicates[0]: Path= /api/store/**
@@ -91,28 +91,28 @@ services:
     networks:
       - dessert-network
 
-#  member-api:
-#    build:
-#      context: ./member-api
-#    ports:
-#      - 8090:8090
-#    environment:
-##      SPRING_DATASOURCE_URL: jdbc:mysql://store-mysql:3306/store?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
-##      SPRING_DATASOURCE_USERNAME: "root"
-##      SPRING_DATASOURCE_PASSWORD: "1234"
-#      eureka.client.serviceUrl.defaultZone: http://discovery-server:8761/eureka
-#      spring.cloud.config.uri: http://config-server:8888
-#      spring.config.import: optional:configserver:http://config-server:8888
-#    depends_on:
-#      db:
-#        condition: service_healthy
-#      discovery-server:
-#        condition: service_started
-#      config-server:
-#        condition: service_started
-#    container_name: store-member-api
-#    networks:
-#      - dessert-network
+  member-api:
+    build:
+      context: ./member-api
+    ports:
+      - 8090:8090
+    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://store-mysql:3306/store?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+#      SPRING_DATASOURCE_USERNAME: "root"
+#      SPRING_DATASOURCE_PASSWORD: "1234"
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      spring.cloud.config.uri: http://config-server:8888
+      spring.config.import: optional:configserver:http://config-server:8888
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      config-server:
+        condition: service_started
+    container_name: dessert-member-api
+    networks:
+      - dessert-network
 #
 #  store-api:
 #    build:

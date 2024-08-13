@@ -20,6 +20,7 @@ spring:
               args:
                 headerName: Authorization
                 granted: Bearer
+                role: ROLE_CUSTOMER
 
     config:
       label: master
@@ -50,5 +51,5 @@ management:
 
 logging:
   level:
-#    org.springframework.security: trace
-    root: debug
+    org.springframework.security: debug
+#    root: debug

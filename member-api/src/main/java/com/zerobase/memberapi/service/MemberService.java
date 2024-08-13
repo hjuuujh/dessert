@@ -3,6 +3,8 @@ package com.zerobase.memberapi.service;
 
 import com.zerobase.memberapi.domain.dto.MemberDto;
 import com.zerobase.memberapi.domain.entity.Member;
+import com.zerobase.memberapi.domain.form.ChargeForm;
+import com.zerobase.memberapi.domain.form.SignIn;
 import com.zerobase.memberapi.domain.form.SignUp;
 import com.zerobase.memberapi.exception.ErrorCode;
 import com.zerobase.memberapi.exception.MemberException;
@@ -15,6 +17,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.Valid;
+
+import static com.zerobase.memberapi.exception.ErrorCode.CHECK_AMOUNT;
 
 @Service
 @Slf4j
@@ -67,4 +73,48 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    /**
+     * 이메일과 패스워드로 로그인
+     *
+     * @param form : email, password
+     *             excpetion : LOGIN_CHECK_FAIL "이메일과 패스워드를 확인해주세요."
+     * @return 이메일, 비밀번호 확인 통해 얻은 유저 정보
+     */
+    public MemberDto signInMember(SignIn form) {
+        // 이메일 이용해 유저정보 찾음
+        // 이메일로 가입된 정보가 없는 경우 예외발생
+        Member member = memberRepository.findByEmail(form.getEmail())
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+
+        // 로그인 시도한 비밀번호와 저장된 비밀번호가 같은지 확인
+        if (!passwordEncoder.matches(form.getPassword(), member.getPassword())) {
+            throw new MemberException(ErrorCode.LOGIN_CHECK_FAIL);
+        }
+        return MemberDto.from(member);
+    }
+
+    /**
+     * token 이용해 찾은 user id로 유저 정보 찾음
+     *
+     * @param id excpetion : NOT_FOUND_USER "일치하는 회원이 없습니다."
+     * @return 유저 정보
+     */
+    public MemberDto findMember(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+        return MemberDto.from(member);
+    }
+
+    @Transactional
+    public MemberDto chargeBalance(Long id, ChargeForm form) {
+        if(form.getAmount()<0){
+            throw new MemberException(CHECK_AMOUNT);
+        }
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+
+        member.changeBalance(form.getAmount());
+
+        return MemberDto.from(member);
+    }
 }
