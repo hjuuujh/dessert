@@ -10,8 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -38,6 +37,8 @@ public class Member extends BaseEntity implements UserDetails {
 
     @DefaultValue("0")
     private int balance;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Long> followList;
 
 
     @Override
@@ -84,10 +85,19 @@ public class Member extends BaseEntity implements UserDetails {
                 .name(form.getName())
                 .phone(form.getPhone())
                 .roles(form.getRoles())
+                .followList(new HashSet<>())
                 .build();
     }
 
     public void changeBalance(int balance) {
         this.balance = balance;
+    }
+
+    public void follow(Long storeId) {
+        followList.add(storeId);
+    }
+
+    public void unfollow(Long storeId) {
+        followList.remove(storeId);
     }
 }

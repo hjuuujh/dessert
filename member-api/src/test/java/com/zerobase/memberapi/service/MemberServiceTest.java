@@ -1,5 +1,6 @@
 package com.zerobase.memberapi.service;
 
+import com.zerobase.memberapi.client.StoreClient;
 import com.zerobase.memberapi.domain.dto.MemberDto;
 import com.zerobase.memberapi.domain.entity.Member;
 import com.zerobase.memberapi.domain.form.ChargeForm;
@@ -16,8 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,6 +32,8 @@ class MemberServiceTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private MemberRepository memberRepository;
+    @Mock
+    private StoreClient storeClient;
     @InjectMocks
     private MemberService memberService;
 
@@ -213,5 +215,49 @@ class MemberServiceTest {
         //then
         assertEquals(ErrorCode.CHECK_AMOUNT, exception.getErrorCode());
         assertEquals("충전 금액을 확인해주세요.", exception.getErrorMessage());
+    }
+
+    @Test
+    void successFollow(){
+        //given
+        given(storeClient.increaseFollow(any()))
+                .willReturn(true);
+
+        Member member = Member.builder()
+                .id(1L)
+                .followList(new HashSet<>())
+                .build();
+
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+
+        //when
+        MemberDto memberDto = memberService.follow(1L, 1L);
+
+        //then
+        assertEquals(1, memberDto.getFollowList().size());
+    }
+
+    @Test
+    void successUnFollow(){
+        //given
+        given(storeClient.decreaseFollow(any()))
+                .willReturn(true);
+
+        Set<Long> followList = new HashSet<>();
+        followList.add(1L);
+        Member member = Member.builder()
+                .id(1L)
+                .followList(followList)
+                .build();
+
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+
+        //when
+        MemberDto memberDto = memberService.unfollow(1L, 1L);
+
+        //then
+        assertEquals(0, memberDto.getFollowList().size());
     }
 }

@@ -52,4 +52,12 @@ public class Store extends BaseEntity {
     public void delete() {
         this.deleted = true;
     }
+
+    public void increaseFollow() {
+        followCount++;
+    }
+
+    public void decreaseFollow() {
+        followCount--;
+    }
 }

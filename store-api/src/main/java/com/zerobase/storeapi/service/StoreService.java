@@ -1,5 +1,6 @@
 package com.zerobase.storeapi.service;
 
+import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Store;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
@@ -12,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import java.util.List;
-
-import static com.zerobase.storeapi.exception.ErrorCode.DUPLICATE_STORE_NAME;
-import static com.zerobase.storeapi.exception.ErrorCode.UNMATCHED_SELLER_STORE;
+import static com.zerobase.storeapi.exception.ErrorCode.*;
 
 @Service
 @Slf4j
@@ -69,4 +67,28 @@ public class StoreService {
         return store.isDeleted();
     }
 
+    @Transactional
+    public boolean followIncrease(FollowForm form) {
+        try {
+            Store store = storeRepository.findById(form.getStoreId())
+                    .orElseThrow(() -> new StoreException(NOT_FOUND_STORE));
+            store.increaseFollow();
+            return true;
+        }catch (StoreException e) {
+            return false;
+        }
+
+    }
+
+    @Transactional
+    public boolean followDecrease(FollowForm form) {
+        try {
+            Store store = storeRepository.findById(form.getStoreId())
+                    .orElseThrow(() -> new StoreException(NOT_FOUND_STORE));
+            store.decreaseFollow();
+            return true;
+        }catch (StoreException e) {
+            return false;
+        }
+    }
 }

@@ -47,5 +47,24 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzU1NjkwOSwiZXhwIjoxNzIzNjQzMzA5fQ.NRDq_KBfJR9FRgi6Rd1IIcKOaHZfJVUruohUAOphhdH4PQ_9PJstTZqof6bAPhhWYy-j87UnjhhY9GnrdzFI7Q
 
 {
+  "email": "user2@gmail.com",
   "amount": 1000
+}
+
+### follow store
+POST http://localhost:8080/api/member/follow
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzU1NjkwOSwiZXhwIjoxNzIzNjQzMzA5fQ.NRDq_KBfJR9FRgi6Rd1IIcKOaHZfJVUruohUAOphhdH4PQ_9PJstTZqof6bAPhhWYy-j87UnjhhY9GnrdzFI7Q
+
+{
+  "storeId": 1
+}
+
+### unfollow store
+POST http://localhost:8080/api/member/unfollow
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzU1NjkwOSwiZXhwIjoxNzIzNjQzMzA5fQ.NRDq_KBfJR9FRgi6Rd1IIcKOaHZfJVUruohUAOphhdH4PQ_9PJstTZqof6bAPhhWYy-j87UnjhhY9GnrdzFI7Q
+
+{
+  "storeId": 1
 }

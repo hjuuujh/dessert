@@ -2,10 +2,7 @@ package com.zerobase.memberapi.controller;
 
 import com.zerobase.memberapi.aop.BalanceLock;
 import com.zerobase.memberapi.domain.dto.MemberDto;
-import com.zerobase.memberapi.domain.form.ChargeForm;
-import com.zerobase.memberapi.domain.form.SignIn;
-import com.zerobase.memberapi.domain.form.SignUp;
-import com.zerobase.memberapi.domain.form.TokenResponse;
+import com.zerobase.memberapi.domain.form.*;
 import com.zerobase.memberapi.security.TokenProvider;
 import com.zerobase.memberapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +77,7 @@ public class MemberController {
     @PostMapping("/charge")
     @BalanceLock
     public ResponseEntity<?> chargeBalance(@RequestHeader(name = "Authorization") String token,
-                                           @RequestBody @Valid ChargeForm form, Errors errors){
+                                           @RequestBody @Valid ChargeForm form, Errors errors) {
         List<ResponseError> responseErrors = validationErrorResponse.checkValidation(errors);
         if (!responseErrors.isEmpty()) {
             return new ResponseEntity<>(responseErrors, HttpStatus.BAD_REQUEST);
@@ -88,4 +85,17 @@ public class MemberController {
 
         return ResponseEntity.ok(memberService.chargeBalance(tokenProvider.getUserIdFromToken(token), form));
     }
+
+    @PostMapping("/follow")
+    public ResponseEntity<?> follow(@RequestHeader(name = "Authorization") String token, @RequestBody FollowForm form) {
+
+        return ResponseEntity.ok(memberService.follow(tokenProvider.getUserIdFromToken(token), form.getStoreId()));
+    }
+
+    @PostMapping("/unfollow")
+    public ResponseEntity<?> unfollow(@RequestHeader(name = "Authorization") String token, @RequestBody FollowForm form) {
+
+        return ResponseEntity.ok(memberService.unfollow(tokenProvider.getUserIdFromToken(token), form.getStoreId()));
+    }
+
 }
