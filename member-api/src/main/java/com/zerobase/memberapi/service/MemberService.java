@@ -1,6 +1,8 @@
 package com.zerobase.memberapi.service;
 
 
+import com.zerobase.memberapi.client.StoreClient;
+import com.zerobase.memberapi.client.from.FollowForm;
 import com.zerobase.memberapi.domain.dto.MemberDto;
 import com.zerobase.memberapi.domain.entity.Member;
 import com.zerobase.memberapi.domain.form.ChargeForm;
@@ -18,8 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
-
 import static com.zerobase.memberapi.exception.ErrorCode.CHECK_AMOUNT;
 
 @Service
@@ -29,7 +29,7 @@ import static com.zerobase.memberapi.exception.ErrorCode.CHECK_AMOUNT;
 public class MemberService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
-
+    private final StoreClient storeClient;
     /**
      * Spring Security를 이용
      * 유저의 정보를 불러오기 위해서 구현
@@ -115,6 +115,27 @@ public class MemberService implements UserDetailsService {
 
         member.changeBalance(form.getAmount());
 
+        return MemberDto.from(member);
+    }
+
+    @Transactional
+    public MemberDto follow(Long memberId, Long storeId) {
+        FollowForm request = FollowForm.builder().storeId(storeId).build();
+        storeClient.increaseFollow(request);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+
+        member.follow(storeId);
+        return MemberDto.from(member);
+    }
+
+    @Transactional
+    public MemberDto unfollow(Long memberId, Long storeId) {
+
+        FollowForm request = FollowForm.builder().storeId(storeId).build();
+        storeClient.decreaseFollow(request);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+
+        member.unfollow(storeId);
         return MemberDto.from(member);
     }
 }

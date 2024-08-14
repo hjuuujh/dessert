@@ -1,6 +1,7 @@
 package com.zerobase.storeapi.controller;
 
 import com.zerobase.storeapi.client.MemberClient;
+import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.service.StoreService;
@@ -51,6 +52,18 @@ public class StoreController {
                                          @RequestParam Long id) {
 
         return ResponseEntity.ok(storeService.deleteStore(memberClient.getMemberId(token), id));
+    }
+
+    @PostMapping("/follow")
+    public ResponseEntity<?> increaseFollow(@RequestBody FollowForm form){
+
+        return ResponseEntity.ok(storeService.followIncrease(form));
+    }
+
+    @PostMapping("/unfollow")
+    public ResponseEntity<?> decreaseFollow(@RequestBody FollowForm form){
+
+        return ResponseEntity.ok(storeService.followDecrease(form));
     }
 
     /**

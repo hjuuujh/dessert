@@ -4,6 +4,7 @@ import com.zerobase.memberapi.domain.entity.Member;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class MemberDto {
     private String name;
     private String phone;
     private List<String> roles;
+    private Set<Long> followList;
     private int balance;
 
 
@@ -28,6 +30,7 @@ public class MemberDto {
                 .phone(member.getPhone())
                 .roles(member.getRoles())
                 .balance(member.getBalance())
+                .followList(member.getFollowList())
                 .build();
     }
 

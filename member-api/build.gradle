@@ -49,10 +49,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-config-client'
 
-// redis client
+    // redis client
     implementation 'org.redisson:redisson:3.17.1'
     // embedded redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
