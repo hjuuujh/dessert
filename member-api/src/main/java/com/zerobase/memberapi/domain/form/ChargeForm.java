@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 public class ChargeForm implements BalanceLockIdInterface {
-    @NotNull(message = "충전 금액은 필수입니다.")
-    private int amount;
     @NotBlank(message = "이메일은 필수입니다.")
     private String email;
+    @NotNull(message = "충전 금액은 필수입니다.")
+    private int amount;
 }
