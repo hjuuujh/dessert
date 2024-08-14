@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.zerobase.memberapi.domain.form.ChargeForm;
 import com.zerobase.memberapi.exception.MemberException;
+import com.zerobase.memberapi.security.TokenProvider;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -25,6 +27,9 @@ class LockAopAspectTest {
     @Mock
     private ProceedingJoinPoint proceedingJoinPoint;
 
+    @Mock
+    private TokenProvider tokenProvider;
+
     @InjectMocks
     private LockAopAspect lockAopAspect;
 
@@ -33,10 +38,13 @@ class LockAopAspectTest {
         //given
         ArgumentCaptor<String> lockArg = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> unlockArg = ArgumentCaptor.forClass(String.class);
-        ChargeForm request = ChargeForm.builder().email("aaa@gmail.com").amount(100000).build();
+
+        String token = "Bearer token";
+        given(tokenProvider.getUsernameFromToken(anyString()))
+                .willReturn("aaa@gmail.com");
 
         //when
-        lockAopAspect.aroundMethod(proceedingJoinPoint, request);
+        lockAopAspect.aroundMethod(proceedingJoinPoint, token);
 
         //then
         verify(lockService, times(1)).lock(lockArg.capture());
