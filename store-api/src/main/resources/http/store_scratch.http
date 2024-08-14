@@ -1,0 +1,49 @@
+### register store
+POST http://localhost:8080/api/store
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A
+
+{
+  "name": "무무 케이크",
+  "description": "안녕하세요! 레터링 케이크 전문 무무네 입니다.",
+  "thumbnailUrl": "https://무무.png"
+}
+
+### register store
+POST http://localhost:8080/api/store
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A
+
+{
+  "name": "달달구리해닮",
+  "description": "해남으로 귀농해서 농부가 되었습니다",
+  "thumbnailUrl": "https://해닮.png"
+}
+
+### register store
+POST http://localhost:8080/api/store
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A
+
+{
+  "name": "바스켓베이커리",
+  "description": "#노밀가루, #노정제설탕, #노글루텐",
+  "thumbnailUrl": "https://바스켓.png"
+}
+
+### update store
+PUT http://localhost:8080/api/store
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A
+
+{
+  "id": 4,
+  "name": "바스켓베이커리 수정",
+  "description": "#노밀가루, #노정제설탕, #노글루텐",
+  "thumbnailUrl": "https://바스켓.png"
+}
+
+### delete store
+PATCH http://localhost:8080/api/store?id=4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A

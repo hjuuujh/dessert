@@ -47,7 +47,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                     }
                     System.out.println(userRole);
                     System.out.println(requiredRole);
-                    if (requiredRole.equalsIgnoreCase(userRole)) {
+                    if (requiredRole.contains(userRole)) {
                         log.info("권한 확인 완료");
                         return chain.filter(exchange); // 토큰과 권한이 모두 유효하므로 filter 계속
                     } else {

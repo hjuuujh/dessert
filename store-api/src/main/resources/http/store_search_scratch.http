@@ -1,0 +1,14 @@
+### search store by keyword
+GET http://localhost:8080/api/store/search?keyword=해닮&page=0&size=5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A
+
+### search store by keyword with follow order
+GET http://localhost:8080/api/store/search/follow?keyword=&page=0&size=5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzYxNzY5OSwiZXhwIjoxNzIzNzA0MDk5fQ.9IvtHw2S2KY-Jeesk3OZoxJswuLdB43vQwnLamVdjun2Yg2N5qVjpO5xsXAbvo5PvfG2uwqTW7zO4O4Pj4TYHA
+
+### search store by keyword with follow order
+GET http://localhost:8080/api/store/search/detail?id=2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzYxNzY5OSwiZXhwIjoxNzIzNzA0MDk5fQ.9IvtHw2S2KY-Jeesk3OZoxJswuLdB43vQwnLamVdjun2Yg2N5qVjpO5xsXAbvo5PvfG2uwqTW7zO4O4Pj4TYHA
