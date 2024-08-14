@@ -1,6 +1,7 @@
 package com.zerobase.memberapi.service;
 
 
+import com.zerobase.memberapi.aop.BalanceLock;
 import com.zerobase.memberapi.client.StoreClient;
 import com.zerobase.memberapi.client.from.FollowForm;
 import com.zerobase.memberapi.domain.dto.MemberDto;
