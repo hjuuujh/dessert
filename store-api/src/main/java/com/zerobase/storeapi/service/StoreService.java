@@ -97,7 +97,7 @@ public class StoreService {
     }
 
     public List<StoreDto> getStores(StoresForm form) {
-        List<Store> stores = storeRepository.findAllByIdIn(form.getFollowList());
+        List<Store> stores = storeRepository.findAllByIdInAndDeleted(form.getFollowList(), false);
         return stores.stream().map(StoreDto::from).collect(Collectors.toList());
     }
 }
