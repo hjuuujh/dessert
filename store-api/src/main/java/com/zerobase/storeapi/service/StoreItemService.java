@@ -1,5 +1,9 @@
 package com.zerobase.storeapi.service;
 
+import com.zerobase.storeapi.client.MemberClient;
+import com.zerobase.storeapi.client.from.FollowForm;
+import com.zerobase.storeapi.client.from.HeartForm;
+import com.zerobase.storeapi.client.from.ItemsForm;
 import com.zerobase.storeapi.domain.dto.ItemDto;
 import com.zerobase.storeapi.domain.entity.Item;
 import com.zerobase.storeapi.domain.entity.Option;
@@ -13,6 +17,8 @@ import com.zerobase.storeapi.repository.StoreOptionRepository;
 import com.zerobase.storeapi.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,7 +35,7 @@ public class StoreItemService {
     private final StoreRepository storeRepository;
     private final StoreItemRepository storeItemRepository;
     private final StoreOptionRepository storeOptionRepository;
-
+    private final MemberClient memberClient;
     public ItemDto createItem(Long sellerId, CreateItem form) {
         Store store = checkMatchStoreAndSeller(form.getStoreId(), sellerId);
 
@@ -121,5 +127,36 @@ public class StoreItemService {
         checkMatchStoreAndSeller(item.getStoreId(), sellerId);
 
         storeItemRepository.delete(item);
+
+        memberClient.deleteHeartItem(id);
+    }
+
+    @Transactional
+    public boolean increaseHeart(HeartForm form) {
+        try {
+            Item item = storeItemRepository.findById(form.getItemId())
+                    .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
+            item.increaseHeart();
+            return true;
+        }catch (StoreException e) {
+            return false;
+        }
+    }
+
+    @Transactional
+    public boolean decreaseHeart(HeartForm form) {
+        try {
+            Item item = storeItemRepository.findById(form.getItemId())
+                    .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
+            item.decreaseHeart();
+            return true;
+        }catch (StoreException e) {
+            return false;
+        }
+    }
+
+    public Page<ItemDto> getItems(ItemsForm form, Pageable pageable) {
+        return storeItemRepository.findAllByIdIn(form.getHeartList(), pageable)
+                .map(ItemDto::from);
     }
 }

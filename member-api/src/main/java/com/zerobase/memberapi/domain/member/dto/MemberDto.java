@@ -19,6 +19,7 @@ public class MemberDto {
     private String phone;
     private List<String> roles;
     private Set<Long> followList;
+    private Set<Long> heartList;
     private int balance;
 
 
@@ -31,6 +32,7 @@ public class MemberDto {
                 .roles(member.getRoles())
                 .balance(member.getBalance())
                 .followList(member.getFollowList())
+                .heartList(member.getHeartList())
                 .build();
     }
 

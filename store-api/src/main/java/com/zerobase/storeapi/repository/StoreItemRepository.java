@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StoreItemRepository extends JpaRepository<Item, Long> {
     boolean existsByStoreIdAndName(Long storeId, String name);
@@ -20,4 +22,6 @@ public interface StoreItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findByNameContainingIgnoreCaseOrderByPriceDesc(String name, Pageable pageable);
 
     Page<Item> findByStoreId(Long storeId, Pageable pageable);
+
+    Page<Item> findAllByIdIn(List<Long> ids, Pageable pageable);
 }

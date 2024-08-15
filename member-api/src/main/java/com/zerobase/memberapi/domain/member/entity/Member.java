@@ -39,6 +39,8 @@ public class Member extends BaseEntity implements UserDetails {
     private int balance;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Long> followList;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Long> heartList;
 
 
     @Override
@@ -99,5 +101,13 @@ public class Member extends BaseEntity implements UserDetails {
 
     public void unfollow(Long storeId) {
         followList.remove(storeId);
+    }
+
+    public void heart(Long itemId) {
+        heartList.add(itemId);
+    }
+
+    public void unheart(Long itemId) {
+        heartList.remove(itemId);
     }
 }

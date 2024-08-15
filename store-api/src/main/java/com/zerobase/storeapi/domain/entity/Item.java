@@ -50,6 +50,8 @@ public class Item extends BaseEntity {
 
     @ColumnDefault("0")
     private long orderCount;
+    @ColumnDefault("0")
+    private long heartCount;
 
     public static Item of(Long sellerId, CreateItem form){
         return Item.builder()
@@ -75,5 +77,13 @@ public class Item extends BaseEntity {
 
     public void updateOptions(List<Option> newOptions) {
         this.options = newOptions;
+    }
+
+    public void increaseHeart() {
+        heartCount++;
+    }
+
+    public void decreaseHeart() {
+        this.heartCount = Math.max(heartCount - 1, 0);
     }
 }

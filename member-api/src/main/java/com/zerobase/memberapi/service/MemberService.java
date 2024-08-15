@@ -2,20 +2,21 @@ package com.zerobase.memberapi.service;
 
 
 import com.zerobase.memberapi.client.StoreClient;
-import com.zerobase.memberapi.client.from.FollowForm;
-import com.zerobase.memberapi.client.from.StoresForm;
+import com.zerobase.memberapi.client.from.*;
 import com.zerobase.memberapi.domain.member.dto.MemberDto;
 import com.zerobase.memberapi.domain.member.entity.Member;
 import com.zerobase.memberapi.domain.member.form.ChargeForm;
 import com.zerobase.memberapi.domain.member.form.SignIn;
 import com.zerobase.memberapi.domain.member.form.SignUp;
+import com.zerobase.memberapi.domain.store.ItemDto;
 import com.zerobase.memberapi.domain.store.StoreDto;
 import com.zerobase.memberapi.exception.ErrorCode;
 import com.zerobase.memberapi.exception.MemberException;
 import com.zerobase.memberapi.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -152,9 +153,49 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    public List<StoreDto> getFollowStores(Long memberId) {
+    public Page<StoreDto> getFollowStores(Long memberId, Pageable pageable) {
         List<Long> followList = memberRepository.findFollowList(memberId);
         StoresForm request = StoresForm.builder().followList(followList).build();
-        return storeClient.getStores(request);
+        return storeClient.getStores(request, pageable);
+    }
+
+    @Transactional
+    public MemberDto heart(Long memberId, HeartForm form) {
+        boolean existItem = storeClient.increaseHeart(form);
+        if(existItem){
+            Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
+
+            member.heart(form.getItemId());
+            return MemberDto.from(member);
+        }else{
+            throw new MemberException(NOT_FOUND_ITEM);
+        }
+    }
+
+    @Transactional
+    public MemberDto unheart(Long memberId, HeartForm form) {
+        boolean existItem = storeClient.decreaseHeart(form);
+        if(existItem){
+            Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
+
+            member.unheart(form.getItemId());
+            return MemberDto.from(member);
+        }else{
+            throw new MemberException(NOT_FOUND_ITEM);
+        }
+    }
+
+    public Page<ItemDto> getHeartItems(Long memberId, Pageable pageable) {
+        List<Long> heartList = memberRepository.findHeartList(memberId);
+        ItemsForm request = ItemsForm.builder().heartList(heartList).build();
+        return storeClient.getItems(request, pageable);
+    }
+
+    public void deleteHeartItem(Long id) {
+        memberRepository.deleteHeart(id);
+    }
+
+    public void deleteFollowStore(Long id) {
+        memberRepository.deleteFollow(id);
     }
 }

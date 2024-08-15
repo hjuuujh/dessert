@@ -1,23 +1,20 @@
 package com.zerobase.storeapi.controller;
 
 import com.zerobase.storeapi.client.MemberClient;
-import com.zerobase.storeapi.client.from.FollowForm;
-import com.zerobase.storeapi.client.from.StoresForm;
+import com.zerobase.storeapi.client.from.HeartForm;
+import com.zerobase.storeapi.client.from.ItemsForm;
 import com.zerobase.storeapi.domain.form.item.CreateItem;
 import com.zerobase.storeapi.domain.form.item.UpdateItem;
-import com.zerobase.storeapi.domain.form.store.RegisterStore;
-import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.service.StoreItemService;
-import com.zerobase.storeapi.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +28,7 @@ public class StoreItemController {
 
     @PostMapping
     public ResponseEntity<?> createItem(@RequestHeader(name = "Authorization") String token,
-                                          @RequestBody CreateItem form, Errors errors) {
+                                        @RequestBody CreateItem form, Errors errors) {
         List<ErrorResponse> errorResponses = checkValidation(errors);
         if (!errorResponses.isEmpty()) {
             return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
@@ -62,7 +59,7 @@ public class StoreItemController {
      * @param errors
      * @return
      */
-    private List<ErrorResponse> checkValidation(Errors errors){
+    private List<ErrorResponse> checkValidation(Errors errors) {
         List<ErrorResponse> errorResponses = new ArrayList<>();
 
         if (errors.hasErrors()) {
@@ -72,5 +69,22 @@ public class StoreItemController {
         }
 
         return errorResponses;
+    }
+
+    @PostMapping("/heart")
+    public ResponseEntity<?> increaseHeart(@RequestBody HeartForm form) {
+
+        return ResponseEntity.ok(storeItemService.increaseHeart(form));
+    }
+
+    @PostMapping("/unheart")
+    public ResponseEntity<?> decreaseHeart(@RequestBody HeartForm form) {
+
+        return ResponseEntity.ok(storeItemService.decreaseHeart(form));
+    }
+
+    @PostMapping("/list")
+    public ResponseEntity<?> getItems(@RequestBody ItemsForm form, Pageable pageable) {
+        return ResponseEntity.ok(storeItemService.getItems(form, pageable));
     }
 }
