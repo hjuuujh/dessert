@@ -4,6 +4,7 @@ import com.zerobase.storeapi.client.MemberClient;
 import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.client.from.StoresForm;
 import com.zerobase.storeapi.domain.form.item.CreateItem;
+import com.zerobase.storeapi.domain.form.item.UpdateItem;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.service.StoreItemService;
@@ -23,56 +24,36 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/store")
-public class StoreController {
-    private final StoreService storeService;
+@RequestMapping("/api/store/item")
+public class StoreItemController {
     private final MemberClient memberClient;
+    private final StoreItemService storeItemService;
 
     @PostMapping
-    public ResponseEntity<?> registerStore(@RequestHeader(name = "Authorization") String token,
-                                           @RequestBody @Valid RegisterStore form, Errors errors) {
-
+    public ResponseEntity<?> createItem(@RequestHeader(name = "Authorization") String token,
+                                          @RequestBody CreateItem form, Errors errors) {
         List<ErrorResponse> errorResponses = checkValidation(errors);
         if (!errorResponses.isEmpty()) {
             return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(storeService.registerStore(memberClient.getMemberId(token), form));
+        return ResponseEntity.ok(storeItemService.createItem(memberClient.getMemberId(token), form));
     }
 
     @PutMapping
-    public ResponseEntity<?> updateStore(@RequestHeader(name = "Authorization") String token,
-                                         @RequestBody @Valid UpdateStore form, Errors errors) {
-
+    public ResponseEntity<?> updateItem(@RequestHeader(name = "Authorization") String token,
+                                        @RequestBody UpdateItem form, Errors errors) {
         List<ErrorResponse> errorResponses = checkValidation(errors);
         if (!errorResponses.isEmpty()) {
             return new ResponseEntity<>(errorResponses, HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(storeService.updateStore(memberClient.getMemberId(token), form));
+        return ResponseEntity.ok(storeItemService.updateItem(memberClient.getMemberId(token), form));
     }
 
-    @PatchMapping
-    public ResponseEntity<?> deleteStore(@RequestHeader(name = "Authorization") String token,
-                                         @RequestParam Long id) {
-
-        return ResponseEntity.ok(storeService.deleteStore(memberClient.getMemberId(token), id));
-    }
-
-
-    @PostMapping("/follow")
-    public ResponseEntity<?> increaseFollow(@RequestBody FollowForm form){
-
-        return ResponseEntity.ok(storeService.followIncrease(form));
-    }
-
-    @PostMapping("/unfollow")
-    public ResponseEntity<?> decreaseFollow(@RequestBody FollowForm form){
-
-        return ResponseEntity.ok(storeService.followDecrease(form));
-    }
-
-    @PostMapping("/list")
-    public ResponseEntity<?> getStores(@RequestBody StoresForm form){
-        return ResponseEntity.ok(storeService.getStores(form));
+    @DeleteMapping
+    public ResponseEntity<?> deleteItem(@RequestHeader(name = "Authorization") String token,
+                                        @RequestParam Long id) {
+        storeItemService.deleteItem(memberClient.getMemberId(token), id);
+        return ResponseEntity.ok().build();
     }
 
     /**
