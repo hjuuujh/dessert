@@ -1,6 +1,6 @@
-package com.zerobase.memberapi.domain.dto;
+package com.zerobase.memberapi.domain.member.dto;
 
-import com.zerobase.memberapi.domain.entity.Member;
+import com.zerobase.memberapi.domain.member.entity.Member;
 import lombok.*;
 
 import java.util.List;

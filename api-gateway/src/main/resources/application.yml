@@ -20,7 +20,7 @@ spring:
               args:
                 headerName: Authorization
                 granted: Bearer
-                role: ROLE_CUSTOMER
+                role: ROLE_CUSTOMER, ROLE_SELLER
         - id: store-search-api
           uri: http://localhost:8091
           predicates:

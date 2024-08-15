@@ -1,7 +1,7 @@
-package com.zerobase.memberapi.domain.entity;
+package com.zerobase.memberapi.domain.member.entity;
 
 import com.zerobase.memberapi.domain.BaseEntity;
-import com.zerobase.memberapi.domain.form.SignUp;
+import com.zerobase.memberapi.domain.member.form.SignUp;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package com.zerobase.memberapi.domain.form;
+package com.zerobase.memberapi.domain.member.form;
 
 import com.zerobase.memberapi.aop.BalanceLockIdInterface;
 import lombok.AllArgsConstructor;

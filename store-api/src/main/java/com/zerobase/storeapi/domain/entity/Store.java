@@ -58,6 +58,6 @@ public class Store extends BaseEntity {
     }
 
     public void decreaseFollow() {
-        followCount--;
+        this.followCount = Math.max(followCount - 1, 0);
     }
 }

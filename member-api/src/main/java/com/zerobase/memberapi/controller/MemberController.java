@@ -1,8 +1,8 @@
 package com.zerobase.memberapi.controller;
 
 import com.zerobase.memberapi.aop.BalanceLock;
-import com.zerobase.memberapi.domain.dto.MemberDto;
-import com.zerobase.memberapi.domain.form.*;
+import com.zerobase.memberapi.domain.member.dto.MemberDto;
+import com.zerobase.memberapi.domain.member.form.*;
 import com.zerobase.memberapi.security.TokenProvider;
 import com.zerobase.memberapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -96,6 +96,12 @@ public class MemberController {
     public ResponseEntity<?> unfollow(@RequestHeader(name = "Authorization") String token, @RequestBody FollowForm form) {
 
         return ResponseEntity.ok(memberService.unfollow(tokenProvider.getUserIdFromToken(token), form.getStoreId()));
+    }
+
+    @GetMapping("/stores")
+    public ResponseEntity<?> getFollowStores(@RequestHeader(name = "Authorization") String token) {
+        return ResponseEntity.ok(memberService.getFollowStores(tokenProvider.getUserIdFromToken(token)));
+
     }
 
 }

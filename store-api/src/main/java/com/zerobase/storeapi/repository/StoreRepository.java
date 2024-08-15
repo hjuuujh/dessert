@@ -16,4 +16,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
     Page<Store> findByNameContainingIgnoreCaseAndDeleted(String keyword, boolean deleted, Pageable pageable);
     Page<Store> findByNameContainingIgnoreCaseAndDeletedOrderByFollowCountDesc(String keyword, boolean deleted, Pageable pageable);
+
+    List<Store> findAllByIdIn(List<Long> ids);
 }

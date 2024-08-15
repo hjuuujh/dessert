@@ -2,8 +2,6 @@ package com.zerobase.memberapi.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.zerobase.memberapi.domain.form.ChargeForm;
-import com.zerobase.memberapi.exception.MemberException;
 import com.zerobase.memberapi.security.TokenProvider;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
