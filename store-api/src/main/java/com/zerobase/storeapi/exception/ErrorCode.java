@@ -24,11 +24,12 @@ public enum ErrorCode {
     // 아이템 등록
     DUPLICATE_ITEM_NAME(HttpStatus.BAD_REQUEST, "아이템명은 중복일 수 없습니다."),
     CHECK_ITEM_PRICE(HttpStatus.BAD_REQUEST, "가격을 확인해주세요."),
-    // 옵션 등록
 
+    // 옵션 등록
     DUPLICATE_OPTION_NAME(HttpStatus.BAD_REQUEST, "옵션명은 중복일 수 없습니다."),
     CHECK_OPTION_PRICE(HttpStatus.BAD_REQUEST, "가격을 확인해주세요."),
-    CHECK_OPTION_QUANTITY(HttpStatus.BAD_REQUEST, "수량을 확인해주세요.");
+    CHECK_OPTION_QUANTITY(HttpStatus.BAD_REQUEST, "수량을 확인해주세요."),
+    CHECK_OPTION_DISCOUNT(HttpStatus.BAD_REQUEST, "할인금액이 가격보다 큽니다.");
 
 
     private final HttpStatus httpStatus;

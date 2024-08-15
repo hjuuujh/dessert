@@ -2,8 +2,10 @@ package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.client.from.StoresForm;
+import com.zerobase.storeapi.domain.dto.ItemDto;
 import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Store;
+import com.zerobase.storeapi.domain.form.item.CreateItem;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.exception.StoreException;
@@ -24,7 +26,6 @@ import static com.zerobase.storeapi.exception.ErrorCode.*;
 @RequiredArgsConstructor
 public class StoreService {
     private final StoreRepository storeRepository;
-
 
     public StoreDto registerStore(Long sellerId, RegisterStore form) {
         checkDuplicateStoreName(form.getName());
@@ -100,4 +101,5 @@ public class StoreService {
         List<Store> stores = storeRepository.findAllByIdInAndDeleted(form.getFollowList(), false);
         return stores.stream().map(StoreDto::from).collect(Collectors.toList());
     }
+
 }

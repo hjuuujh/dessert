@@ -1,0 +1,287 @@
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 1,
+  "name": "혈관청소부 비트(ABC)건강/디톡스/다이어트주스 10병",
+  "thumbnailUrl": "https://비트.png",
+  "description": "https://비트.png",
+  "descriptionUrl": "https://비트.png",
+  "options": [
+    {
+      "name": "비트(ABC)주스 200ml 10병",
+      "quantity": 10,
+      "regularPrice": 32000,
+      "discount": 5000
+    },
+    {
+      "name": "비트(ABC)주스 200ml 20병",
+      "quantity": 10,
+      "regularPrice": 64000,
+      "discount":10000
+    },
+    {
+      "name": "비트(ABC)주스 200ml 30병",
+      "quantity": 10,
+      "regularPrice": 96000,
+      "discount": 15000
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 1,
+  "name": "건강음료 맷돌호박식혜 500ml 4병",
+  "thumbnailUrl": "https://맷돌호박식혜.png",
+  "description": "https://맷돌호박식혜.png",
+  "descriptionUrl": "https://맷돌호박식혜.png",
+  "options": [
+    {
+      "name": "호박식혜 500ml 4병 ",
+      "quantity": 10,
+      "regularPrice": 20000,
+      "discount": 4000
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 1,
+  "name": "자몽착즙청 자몽에이드 500ml",
+  "thumbnailUrl": "https://자몽착즙청.png",
+  "description": "https://자몽착즙청.png",
+  "descriptionUrl": "https://자몽착즙청.png",
+  "options": [
+    {
+      "name": "자몽착즙청 500ml",
+      "quantity": 10,
+      "regularPrice": 20000,
+      "discount": 0
+    },
+    {
+      "name": "레몬착즙청 500ml",
+      "quantity": 10,
+      "regularPrice": 20000,
+      "discount":0
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 2,
+  "name": "꿀고구마 티그레",
+  "thumbnailUrl": "https://티그레.png",
+  "description": "https://티그레.png",
+  "descriptionUrl": "https://티그레.png",
+  "options": [
+    {
+      "name": "6개세트",
+      "quantity": 10,
+      "regularPrice": 17000,
+      "discount": 0
+    },
+    {
+      "name": "9개세트",
+      "quantity": 10,
+      "regularPrice": 21000,
+      "discount":0
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 2,
+  "name": "카라멜버터샌드쿠키세트",
+  "thumbnailUrl": "https://카라멜버터샌드쿠키세트.png",
+  "description": "https://카라멜버터샌드쿠키세트.png",
+  "descriptionUrl": "https://카라멜버터샌드쿠키세트.png",
+  "options": [
+    {
+      "name": "쏠티드카라멜버터샌드10세트",
+      "quantity": 10,
+      "regularPrice": 27500,
+      "discount": 0
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 2,
+  "name": "샹티크림끌레오르",
+  "thumbnailUrl": "https://샹티크림끌레오르.png",
+  "description": "https://샹티크림끌레오르.png",
+  "descriptionUrl": "https://샹티크림끌레오르.png",
+  "options": [
+    {
+      "name": "보늬밤샹티크림 끌레오르",
+      "quantity": 10,
+      "regularPrice": 26000,
+      "discount": 0
+    },
+    {
+      "name": "얼그레이샹티크림 끌레오르",
+      "quantity": 10,
+      "regularPrice": 26000,
+      "discount":0
+    },
+    {
+      "name": "블루베리샹티크림 끌레오르",
+      "quantity": 10,
+      "regularPrice": 26000,
+      "discount": 0
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 3,
+  "name": "노밀가루,글루텐프리 바스켓베이커리 스콘",
+  "thumbnailUrl": "https://스콘.png",
+  "description": "https://스콘.png",
+  "descriptionUrl": "https://스콘.png",
+  "options": [
+    {
+      "name": "무화과와인",
+      "quantity": 10,
+      "regularPrice": 5200,
+      "discount": 700
+    },
+    {
+      "name": "황치즈",
+      "quantity": 10,
+      "regularPrice": 5200,
+      "discount":700
+    },
+    {
+      "name": "밀크",
+      "quantity": 10,
+      "regularPrice": 4500,
+      "discount": 0
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 3,
+  "name": "노밀가루 바스켓베이커리 파운드케이크",
+  "thumbnailUrl": "https://파운드케이크.png",
+  "description": "https://파운드케이크.png",
+  "descriptionUrl": "https://파운드케이크.png",
+  "options": [
+    {
+      "name": "블루베리코코넛",
+      "quantity": 10,
+      "regularPrice": 6200,
+      "discount": 700
+    },
+    {
+      "name": "플레인",
+      "quantity": 10,
+      "regularPrice": 5500,
+      "discount":700
+    },
+    {
+      "name": "얼그레이(트와이닝)",
+      "quantity": 10,
+      "regularPrice": 6200,
+      "discount": 500
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "storeId": 3,
+  "name": "노밀가루 바스켓베이커리 쌀피칸브라우니",
+  "thumbnailUrl": "https://쌀피칸브라우니.png",
+  "description": "https://쌀피칸브라우니.png",
+  "descriptionUrl": "https://쌀피칸브라우니.png",
+  "options": [
+    {
+      "name": "쌀피칸브라우니",
+      "quantity": 10,
+      "regularPrice": 5500,
+      "discount": 700
+    }
+  ]
+}
+
+### update item
+PUT http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+
+{
+  "id": 8,
+  "storeId": 3,
+  "name": "노밀가루 바스켓베이커리 파운드케이크",
+  "thumbnailUrl": "https://파운드케이크.png",
+  "description": "https://파운드케이크.png",
+  "descriptionUrl": "https://파운드케이크.png",
+  "options": [
+    {
+      "name": "블루베리코코넛",
+      "quantity": 10,
+      "regularPrice": 6200,
+      "discount": 777700
+    },
+    {
+      "name": "플레인",
+      "quantity": 10,
+      "regularPrice": 5500,
+      "discount":700
+    },
+    {
+      "name": "얼그레이(트와이닝)",
+      "quantity": 10,
+      "regularPrice": 6200,
+      "discount": 500
+    }
+  ]
+}
+
+### delete item
+DELETE http://localhost:8080/api/store/item?id=2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
