@@ -1,7 +1,6 @@
 package com.zerobase.storeapi.controller;
 
 import com.zerobase.storeapi.service.StoreItemSearchService;
-import com.zerobase.storeapi.service.StoreSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
