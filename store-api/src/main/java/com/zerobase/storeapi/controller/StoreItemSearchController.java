@@ -47,8 +47,13 @@ public class StoreItemSearchController {
         return ResponseEntity.ok(storeItemSearchService.searchItemByHighPrice(keyword, pageable));
     }
 
+    @GetMapping("/store")
+    public ResponseEntity<?> searchStoreItem(@RequestParam Long storeId, final Pageable pageable) {
+        return ResponseEntity.ok(storeItemSearchService.searchStoreItem(storeId, pageable));
+    }
+
     @GetMapping
-    public ResponseEntity<?> searchItem(@RequestParam Long storeId, final Pageable pageable) {
-        return ResponseEntity.ok(storeItemSearchService.searchItem(storeId, pageable));
+    public ResponseEntity<?> searchItem(@RequestParam Long itemId, final Pageable pageable) {
+        return ResponseEntity.ok(storeItemSearchService.searchItem(itemId));
     }
 }

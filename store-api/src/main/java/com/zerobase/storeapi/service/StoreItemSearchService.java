@@ -2,6 +2,7 @@ package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.domain.dto.ItemDto;
 import com.zerobase.storeapi.domain.dto.StoreDto;
+import com.zerobase.storeapi.domain.entity.Item;
 import com.zerobase.storeapi.domain.entity.Store;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreItemRepository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import static com.zerobase.storeapi.exception.ErrorCode.NOT_FOUND_ITEM;
 import static com.zerobase.storeapi.exception.ErrorCode.NOT_FOUND_STORE;
 
 @Service
@@ -56,8 +58,14 @@ public class StoreItemSearchService {
                 .map(ItemDto::from);
     }
 
-    public Page<ItemDto> searchItem(Long storeId, Pageable pageable) {
+    public Page<ItemDto> searchStoreItem(Long storeId, Pageable pageable) {
         return storeItemRepository.findByStoreId(storeId, pageable)
                 .map(ItemDto::from);
+    }
+
+    public ItemDto searchItem(Long itemId) {
+        Item item =  storeItemRepository.findById(itemId)
+                .orElseThrow(()->new StoreException(NOT_FOUND_ITEM));
+        return ItemDto.from(item);
     }
 }
