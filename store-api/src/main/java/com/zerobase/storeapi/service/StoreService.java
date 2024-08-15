@@ -1,6 +1,7 @@
 package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.client.from.FollowForm;
+import com.zerobase.storeapi.client.from.StoresForm;
 import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Store;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
@@ -12,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.zerobase.storeapi.exception.ErrorCode.*;
 
@@ -90,5 +94,10 @@ public class StoreService {
         }catch (StoreException e) {
             return false;
         }
+    }
+
+    public List<StoreDto> getStores(StoresForm form) {
+        List<Store> stores = storeRepository.findAllByIdIn(form.getFollowList());
+        return stores.stream().map(StoreDto::from).collect(Collectors.toList());
     }
 }

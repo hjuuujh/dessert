@@ -54,10 +54,19 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 ### follow store
 POST http://localhost:8080/api/member/follow
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzU1NjkwOSwiZXhwIjoxNzIzNjQzMzA5fQ.NRDq_KBfJR9FRgi6Rd1IIcKOaHZfJVUruohUAOphhdH4PQ_9PJstTZqof6bAPhhWYy-j87UnjhhY9GnrdzFI7Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2NDA1ODYsImV4cCI6MTcyMzcyNjk4Nn0.i3Ut3oOpFaQsyp0clWRgKGttg9wH2glqrTtxBetKDJ-KySh0_6uGfoG80-5znzWhOohkVCmKcBZAXvPWIIiRMw
 
 {
   "storeId": 1
+}
+
+### follow store
+POST http://localhost:8080/api/member/follow
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzY4NTQ5OSwiZXhwIjoxNzIzNzcxODk5fQ.LBk3aYFltF3_0y5OE84veMyM_hoiQjfHurHfGuY2c1lAlHdklTm2zumF-ZQEACrEv8GWZ6iVr6cRLFqcm1y3yg
+
+{
+  "storeId": 3
 }
 
 ### unfollow store
@@ -66,5 +75,10 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzU1NjkwOSwiZXhwIjoxNzIzNjQzMzA5fQ.NRDq_KBfJR9FRgi6Rd1IIcKOaHZfJVUruohUAOphhdH4PQ_9PJstTZqof6bAPhhWYy-j87UnjhhY9GnrdzFI7Q
 
 {
-  "storeId": 1
+  "storeId": 2
 }
+
+### get follow stores
+GET http://localhost:8080/api/member/stores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzY4NTQ5OSwiZXhwIjoxNzIzNzcxODk5fQ.LBk3aYFltF3_0y5OE84veMyM_hoiQjfHurHfGuY2c1lAlHdklTm2zumF-ZQEACrEv8GWZ6iVr6cRLFqcm1y3yg

@@ -1,11 +1,11 @@
 package com.zerobase.memberapi.service;
 
 import com.zerobase.memberapi.client.StoreClient;
-import com.zerobase.memberapi.domain.dto.MemberDto;
-import com.zerobase.memberapi.domain.entity.Member;
-import com.zerobase.memberapi.domain.form.ChargeForm;
-import com.zerobase.memberapi.domain.form.SignIn;
-import com.zerobase.memberapi.domain.form.SignUp;
+import com.zerobase.memberapi.domain.member.dto.MemberDto;
+import com.zerobase.memberapi.domain.member.entity.Member;
+import com.zerobase.memberapi.domain.member.form.ChargeForm;
+import com.zerobase.memberapi.domain.member.form.SignIn;
+import com.zerobase.memberapi.domain.member.form.SignUp;
 import com.zerobase.memberapi.exception.ErrorCode;
 import com.zerobase.memberapi.exception.MemberException;
 import com.zerobase.memberapi.repository.MemberRepository;

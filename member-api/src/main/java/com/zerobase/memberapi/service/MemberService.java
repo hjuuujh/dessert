@@ -1,19 +1,21 @@
 package com.zerobase.memberapi.service;
 
 
-import com.zerobase.memberapi.aop.BalanceLock;
 import com.zerobase.memberapi.client.StoreClient;
 import com.zerobase.memberapi.client.from.FollowForm;
-import com.zerobase.memberapi.domain.dto.MemberDto;
-import com.zerobase.memberapi.domain.entity.Member;
-import com.zerobase.memberapi.domain.form.ChargeForm;
-import com.zerobase.memberapi.domain.form.SignIn;
-import com.zerobase.memberapi.domain.form.SignUp;
+import com.zerobase.memberapi.client.from.StoresForm;
+import com.zerobase.memberapi.domain.member.dto.MemberDto;
+import com.zerobase.memberapi.domain.member.entity.Member;
+import com.zerobase.memberapi.domain.member.form.ChargeForm;
+import com.zerobase.memberapi.domain.member.form.SignIn;
+import com.zerobase.memberapi.domain.member.form.SignUp;
+import com.zerobase.memberapi.domain.store.StoreDto;
 import com.zerobase.memberapi.exception.ErrorCode;
 import com.zerobase.memberapi.exception.MemberException;
 import com.zerobase.memberapi.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +23,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.zerobase.memberapi.exception.ErrorCode.CHECK_AMOUNT;
+import java.util.List;
+
+import static com.zerobase.memberapi.exception.ErrorCode.*;
 
 @Service
 @Slf4j
@@ -85,7 +89,7 @@ public class MemberService implements UserDetailsService {
         // 이메일 이용해 유저정보 찾음
         // 이메일로 가입된 정보가 없는 경우 예외발생
         Member member = memberRepository.findByEmail(form.getEmail())
-                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new MemberException(NOT_FOUND_USER));
 
         // 로그인 시도한 비밀번호와 저장된 비밀번호가 같은지 확인
         if (!passwordEncoder.matches(form.getPassword(), member.getPassword())) {
@@ -102,7 +106,7 @@ public class MemberService implements UserDetailsService {
      */
     public MemberDto findMember(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new MemberException(NOT_FOUND_USER));
         return MemberDto.from(member);
     }
 
@@ -112,7 +116,7 @@ public class MemberService implements UserDetailsService {
             throw new MemberException(CHECK_AMOUNT);
         }
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+                .orElseThrow(() -> new MemberException(NOT_FOUND_USER));
 
         member.changeBalance(form.getAmount());
 
@@ -122,21 +126,35 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public MemberDto follow(Long memberId, Long storeId) {
         FollowForm request = FollowForm.builder().storeId(storeId).build();
-        storeClient.increaseFollow(request);
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+        boolean existStore = storeClient.increaseFollow(request);
+        if(existStore){
+            Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
 
-        member.follow(storeId);
-        return MemberDto.from(member);
+            member.follow(storeId);
+            return MemberDto.from(member);
+        }else{
+            throw new MemberException(NOT_FOUND_STORE);
+        }
     }
 
     @Transactional
     public MemberDto unfollow(Long memberId, Long storeId) {
 
         FollowForm request = FollowForm.builder().storeId(storeId).build();
-        storeClient.decreaseFollow(request);
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_USER));
+        boolean existStore = storeClient.decreaseFollow(request);
+        if(existStore){
+            Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
 
-        member.unfollow(storeId);
-        return MemberDto.from(member);
+            member.unfollow(storeId);
+            return MemberDto.from(member);
+        }else{
+            throw new MemberException(NOT_FOUND_STORE);
+        }
+    }
+
+    public List<StoreDto> getFollowStores(Long memberId) {
+        List<Long> followList = memberRepository.findFollowList(memberId);
+        StoresForm request = StoresForm.builder().followList(followList).build();
+        return storeClient.getStores(request);
     }
 }
