@@ -3,13 +3,12 @@ package com.zerobase.storeapi.controller;
 import com.zerobase.storeapi.client.MemberClient;
 import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.client.from.StoresForm;
-import com.zerobase.storeapi.domain.form.item.CreateItem;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
-import com.zerobase.storeapi.service.StoreItemService;
 import com.zerobase.storeapi.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -59,20 +58,21 @@ public class StoreController {
 
 
     @PostMapping("/follow")
-    public ResponseEntity<?> increaseFollow(@RequestBody FollowForm form){
+    public ResponseEntity<?> increaseFollow(@RequestBody FollowForm form) {
 
-        return ResponseEntity.ok(storeService.followIncrease(form));
+        return ResponseEntity.ok(storeService.increaseFollow(form));
     }
 
     @PostMapping("/unfollow")
-    public ResponseEntity<?> decreaseFollow(@RequestBody FollowForm form){
+    public ResponseEntity<?> decreaseFollow(@RequestBody FollowForm form) {
 
-        return ResponseEntity.ok(storeService.followDecrease(form));
+        return ResponseEntity.ok(storeService.decreaseFollow(form));
     }
 
     @PostMapping("/list")
-    public ResponseEntity<?> getStores(@RequestBody StoresForm form){
-        return ResponseEntity.ok(storeService.getStores(form));
+    public ResponseEntity<?> getStores(@RequestBody StoresForm form
+            , Pageable pageable) {
+        return ResponseEntity.ok(storeService.getStores(form, pageable));
     }
 
     /**
@@ -81,7 +81,7 @@ public class StoreController {
      * @param errors
      * @return
      */
-    private List<ErrorResponse> checkValidation(Errors errors){
+    private List<ErrorResponse> checkValidation(Errors errors) {
         List<ErrorResponse> errorResponses = new ArrayList<>();
 
         if (errors.hasErrors()) {

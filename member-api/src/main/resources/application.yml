@@ -21,7 +21,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-
 eureka: # eureka client 등록
 #  instance:
 #    preferIpAddress: true # 컨테이너 기반 배포면 임의의 호스트이름이 부여되므로 true이용해 ip주소로 등록해 찾도록
@@ -55,3 +54,8 @@ external-api:
 
 level:
   org.springframework.security: DEBUG
+
+feign:
+  autoconfiguration:
+    jackson:
+      enabled: true

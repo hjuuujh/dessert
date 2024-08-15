@@ -1,17 +1,18 @@
 package com.zerobase.storeapi.service;
 
+import com.zerobase.storeapi.client.MemberClient;
 import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.client.from.StoresForm;
-import com.zerobase.storeapi.domain.dto.ItemDto;
 import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Store;
-import com.zerobase.storeapi.domain.form.item.CreateItem;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,6 +27,7 @@ import static com.zerobase.storeapi.exception.ErrorCode.*;
 @RequiredArgsConstructor
 public class StoreService {
     private final StoreRepository storeRepository;
+    private final MemberClient memberClient;
 
     public StoreDto registerStore(Long sellerId, RegisterStore form) {
         checkDuplicateStoreName(form.getName());
@@ -69,11 +71,12 @@ public class StoreService {
 
         // 아이템 삭제 코드 추가 필요
 
+        memberClient.deleteFollowStore(id);
         return store.isDeleted();
     }
 
     @Transactional
-    public boolean followIncrease(FollowForm form) {
+    public boolean increaseFollow(FollowForm form) {
         try {
             Store store = storeRepository.findById(form.getStoreId())
                     .orElseThrow(() -> new StoreException(NOT_FOUND_STORE));
@@ -86,7 +89,7 @@ public class StoreService {
     }
 
     @Transactional
-    public boolean followDecrease(FollowForm form) {
+    public boolean decreaseFollow(FollowForm form) {
         try {
             Store store = storeRepository.findById(form.getStoreId())
                     .orElseThrow(() -> new StoreException(NOT_FOUND_STORE));
@@ -97,9 +100,9 @@ public class StoreService {
         }
     }
 
-    public List<StoreDto> getStores(StoresForm form) {
-        List<Store> stores = storeRepository.findAllByIdInAndDeleted(form.getFollowList(), false);
-        return stores.stream().map(StoreDto::from).collect(Collectors.toList());
+    public Page<StoreDto> getStores(StoresForm form, Pageable pageable) {
+        return storeRepository.findAllByIdInAndDeleted(form.getFollowList(), false, pageable)
+                .map(StoreDto::from);
     }
 
 }

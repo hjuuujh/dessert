@@ -1,12 +1,15 @@
 package com.zerobase.memberapi.controller;
 
 import com.zerobase.memberapi.aop.BalanceLock;
+import com.zerobase.memberapi.client.from.FollowForm;
+import com.zerobase.memberapi.client.from.HeartForm;
 import com.zerobase.memberapi.domain.member.dto.MemberDto;
 import com.zerobase.memberapi.domain.member.form.*;
 import com.zerobase.memberapi.security.TokenProvider;
 import com.zerobase.memberapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -99,8 +102,39 @@ public class MemberController {
     }
 
     @GetMapping("/stores")
-    public ResponseEntity<?> getFollowStores(@RequestHeader(name = "Authorization") String token) {
-        return ResponseEntity.ok(memberService.getFollowStores(tokenProvider.getUserIdFromToken(token)));
+    public ResponseEntity<?> getFollowStores(@RequestHeader(name = "Authorization") String token,
+                                             Pageable pageable) {
+        return ResponseEntity.ok(memberService.getFollowStores(tokenProvider.getUserIdFromToken(token),pageable));
+    }
+
+    @PostMapping("/heart")
+    public ResponseEntity<?> heart(@RequestHeader(name = "Authorization") String token, @RequestBody HeartForm form) {
+
+        return ResponseEntity.ok(memberService.heart(tokenProvider.getUserIdFromToken(token), form));
+    }
+
+    @PostMapping("/unheart")
+    public ResponseEntity<?> unheart(@RequestHeader(name = "Authorization") String token, @RequestBody HeartForm form) {
+
+        return ResponseEntity.ok(memberService.unheart(tokenProvider.getUserIdFromToken(token), form));
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<?> getHeartItems(@RequestHeader(name = "Authorization") String token,
+                                           Pageable pageable) {
+        return ResponseEntity.ok(memberService.getHeartItems(tokenProvider.getUserIdFromToken(token), pageable));
+    }
+
+    @PostMapping("/delete/heart")
+    public ResponseEntity<?> deleteHeartItem(@RequestParam("itemId") Long id){
+        memberService.deleteHeartItem(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/delete/follow")
+    public ResponseEntity<?> deleteFollowStore(@RequestParam("storeId") Long id){
+        memberService.deleteFollowStore(id);
+        return ResponseEntity.ok().build();
 
     }
 

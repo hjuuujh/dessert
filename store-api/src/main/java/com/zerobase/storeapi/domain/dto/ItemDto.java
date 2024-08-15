@@ -36,6 +36,7 @@ public class ItemDto {
     private long ratingCount;
 
     private long orderCount;
+    private long heartCount;
 
     public static ItemDto from(Item item) {
         List<OptionDto> options = item.getOptions()
@@ -50,6 +51,7 @@ public class ItemDto {
                 .options(options)
                 .rating(item.getRating())
                 .orderCount(item.getOrderCount())
+                .heartCount(item.getHeartCount())
                 .price(item.getPrice())
                 .build();
     }
