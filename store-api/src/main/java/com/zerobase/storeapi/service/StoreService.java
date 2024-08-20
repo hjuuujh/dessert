@@ -8,6 +8,7 @@ import com.zerobase.storeapi.domain.entity.Store;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.exception.StoreException;
+import com.zerobase.storeapi.repository.StoreItemRepository;
 import com.zerobase.storeapi.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ import static com.zerobase.storeapi.exception.ErrorCode.*;
 @RequiredArgsConstructor
 public class StoreService {
     private final StoreRepository storeRepository;
+    private final StoreItemRepository storeItemRepository;
     private final MemberClient memberClient;
 
     public StoreDto registerStore(Long sellerId, RegisterStore form) {
@@ -70,6 +72,7 @@ public class StoreService {
         store.delete();
 
         // 아이템 삭제 코드 추가 필요
+        storeItemRepository.deleteAllByStoreId(id);
 
         memberClient.deleteFollowStore(id);
         return store.isDeleted();

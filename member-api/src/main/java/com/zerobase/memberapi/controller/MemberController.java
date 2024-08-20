@@ -138,4 +138,9 @@ public class MemberController {
 
     }
 
+//    @GetMapping("/balance")
+//    @BalanceLock
+//    public ResponseEntity<?> getBalance(@RequestHeader(name = "Authorization") String token){
+//        return ResponseEntity.ok(memberService)
+//    }
 }

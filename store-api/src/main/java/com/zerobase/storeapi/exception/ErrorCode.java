@@ -29,9 +29,16 @@ public enum ErrorCode {
     DUPLICATE_OPTION_NAME(HttpStatus.BAD_REQUEST, "옵션명은 중복일 수 없습니다."),
     CHECK_OPTION_PRICE(HttpStatus.BAD_REQUEST, "가격을 확인해주세요."),
     CHECK_OPTION_QUANTITY(HttpStatus.BAD_REQUEST, "수량을 확인해주세요."),
-    CHECK_OPTION_DISCOUNT(HttpStatus.BAD_REQUEST, "할인금액이 가격보다 큽니다.");
+    CHECK_OPTION_DISCOUNT(HttpStatus.BAD_REQUEST, "할인금액이 가격보다 큽니다."),
 
 
+    // cart
+    CART_CHANGE_FAIL(HttpStatus.BAD_REQUEST, "장바구니에 추가할 수 없습니다."),
+    ORDER_FAIL_CHECK_CART(HttpStatus.BAD_REQUEST, "주문 불가, 장바구니를 확인해주세요."),
+    ORDER_FAIL_NO_MONEY(HttpStatus.BAD_REQUEST, "주문 불가, 잔액 부족입니다."),
+
+    // order
+    ITEM_QUANTITY_NOT_ENOUGH(HttpStatus.BAD_REQUEST, "상품의 수량이 부족합니다.");
     private final HttpStatus httpStatus;
     private final String description;
 }
