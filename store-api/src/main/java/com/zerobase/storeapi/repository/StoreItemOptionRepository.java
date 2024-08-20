@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StoreOptionRepository extends JpaRepository<Option, Long> {
+public interface StoreItemOptionRepository extends JpaRepository<Option, Long> {
     @Modifying
     @Query(value = "delete from `option` where item_id = (:itemId)", nativeQuery = true)
     void deleteAllByItemId(@Param("itemId") Long itemId);

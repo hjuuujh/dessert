@@ -24,4 +24,8 @@ public interface StoreItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findByStoreId(Long storeId, Pageable pageable);
 
     Page<Item> findAllByIdIn(List<Long> ids, Pageable pageable);
+
+    void deleteAllByStoreId(Long storeId);
+
+    List<Item> findAllByIdIn(List<Long> ids);
 }

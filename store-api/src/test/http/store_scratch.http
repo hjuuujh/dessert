@@ -1,10 +1,10 @@
 ### register store
 POST http://localhost:8080/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQxMzI0NzEsImV4cCI6MTcyNDIxODg3MX0.jAmWWi5Ah7FuAGNoGvezzHD6vo1OxrWzjvWs6Btbf1b7VAAzZ3TYPCvtelMOCjKUG309g9twBPDjiLHhX5lhrg
 
 {
-  "name": "수제청 청이 ",
+  "name": "수제청 청이",
   "description": "신선한 과일과 채소에 정성을 더한 핸드메이드 과일청&주스",
   "thumbnailUrl": "https://청이.png"
 }
@@ -12,7 +12,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### register store
 POST http://localhost:8080/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQxMzI0NzEsImV4cCI6MTcyNDIxODg3MX0.jAmWWi5Ah7FuAGNoGvezzHD6vo1OxrWzjvWs6Btbf1b7VAAzZ3TYPCvtelMOCjKUG309g9twBPDjiLHhX5lhrg
 
 {
   "name": "달달구리해닮",
@@ -23,7 +23,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### register store
 POST http://localhost:8080/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQxMzI0NzEsImV4cCI6MTcyNDIxODg3MX0.jAmWWi5Ah7FuAGNoGvezzHD6vo1OxrWzjvWs6Btbf1b7VAAzZ3TYPCvtelMOCjKUG309g9twBPDjiLHhX5lhrg
 
 {
   "name": "바스켓베이커리",
@@ -44,6 +44,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 }
 
 ### delete store
-PATCH http://localhost:8080/api/store?id=4
+PATCH http://localhost:8080/api/store?id=2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM2MTcxMDEsImV4cCI6MTcyMzcwMzUwMX0.dJOIOY8_tJQbit9qGj6ts6Gnt66J9mKanjDrxVn_eqoYbmHWeXZJZcuKyVDhxN_X5dCObUUgbPccNEJEVz10_A
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQxMzI0NzEsImV4cCI6MTcyNDIxODg3MX0.jAmWWi5Ah7FuAGNoGvezzHD6vo1OxrWzjvWs6Btbf1b7VAAzZ3TYPCvtelMOCjKUG309g9twBPDjiLHhX5lhrg

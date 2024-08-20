@@ -13,8 +13,6 @@ public class OptionDto {
 
     private String name;
     private int quantity;
-    private int regularPrice;
-    private int discount;
     private int price;
 
     public static OptionDto from(Option option) {
@@ -22,8 +20,6 @@ public class OptionDto {
                 .id(option.getId())
                 .name(option.getName())
                 .quantity(option.getQuantity())
-                .regularPrice(option.getRegularPrice())
-                .discount(option.getDiscount())
                 .price(option.getPrice())
                 .build();
 

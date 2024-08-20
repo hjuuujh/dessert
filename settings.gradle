@@ -6,4 +6,5 @@ include 'member-api'
 include 'member-api'
 include 'store-api'
 include 'store-api'
+include 'order-api'
 

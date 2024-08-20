@@ -24,9 +24,7 @@ public class Option extends BaseEntity {
 
     private String name;
     private int quantity;
-    private int regularPrice;
     private int price;
-    private int discount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
@@ -37,11 +35,12 @@ public class Option extends BaseEntity {
         return Option.builder()
                 .name(form.getName())
                 .quantity(form.getQuantity())
-                .regularPrice(form.getRegularPrice())
-                .discount(form.getDiscount())
-                .price(form.getRegularPrice()-form.getDiscount())
+                .price(form.getPrice())
                 .build();
     }
 
 
+    public void decreaseQuantity(Integer quantity) {
+        this.quantity -= quantity;
+    }
 }

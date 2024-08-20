@@ -61,7 +61,7 @@ public class Item extends BaseEntity {
                 .thumbnailUrl(form.getThumbnailUrl())
                 .description(form.getDescription())
                 .descriptionUrl(form.getDescriptionUrl())
-                .price(form.getOptions().get(0).getRegularPrice()-form.getOptions().get(0).getDiscount()) // 첫번째 옵션의 가격을 아이템의 가격으로 이용
+                .price(form.getOptions().get(0).getPrice()) // 첫번째 옵션의 가격을 아이템의 가격으로 이용
                 .options(form.getOptions().stream()
                         .map(Option::of)
                         .collect(Collectors.toList()))

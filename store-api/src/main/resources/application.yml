@@ -43,4 +43,7 @@ external-api:
 #    url: http://localhost:8091/api/store
 #  store:
 #    url: http://store-api:8091/api/store
-
+  order:
+    url: http://localhost:8092/api/order
+#  order:
+#    url: http://order-api:8092/api/order

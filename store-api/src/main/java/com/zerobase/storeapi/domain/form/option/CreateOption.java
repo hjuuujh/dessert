@@ -16,6 +16,5 @@ public class CreateOption {
     @NotNull(message = "수량은 필수입니다.")
     private int quantity;
     @NotNull(message = "가격은 필수입니다.")
-    private int regularPrice;
-    private int discount;
+    private int price;
 }

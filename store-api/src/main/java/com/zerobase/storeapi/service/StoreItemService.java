@@ -1,7 +1,6 @@
 package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.client.MemberClient;
-import com.zerobase.storeapi.client.from.FollowForm;
 import com.zerobase.storeapi.client.from.HeartForm;
 import com.zerobase.storeapi.client.from.ItemsForm;
 import com.zerobase.storeapi.domain.dto.ItemDto;
@@ -13,7 +12,7 @@ import com.zerobase.storeapi.domain.form.item.UpdateItem;
 import com.zerobase.storeapi.domain.form.option.CreateOption;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreItemRepository;
-import com.zerobase.storeapi.repository.StoreOptionRepository;
+import com.zerobase.storeapi.repository.StoreItemOptionRepository;
 import com.zerobase.storeapi.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +33,9 @@ import static com.zerobase.storeapi.exception.ErrorCode.*;
 public class StoreItemService {
     private final StoreRepository storeRepository;
     private final StoreItemRepository storeItemRepository;
-    private final StoreOptionRepository storeOptionRepository;
+    private final StoreItemOptionRepository storeItemOptionRepository;
     private final MemberClient memberClient;
+
     public ItemDto createItem(Long sellerId, CreateItem form) {
         Store store = checkMatchStoreAndSeller(form.getStoreId(), sellerId);
 
@@ -44,10 +44,20 @@ public class StoreItemService {
         checkOptionName(form.getOptions());
 
         checkOptionPrice(form.getOptions());
+        checkOptionQuantity(form.getOptions());
 
         Item item = Item.of(sellerId, form);
         storeItemRepository.save(item);
         return ItemDto.from(item);
+    }
+
+    private void checkOptionQuantity(List<CreateOption> options) {
+        options.forEach(option -> {
+            if (option.getQuantity() <= 0) {
+                String errorDescription = String.format("[%s] 수량 : %s", option.getName(), option.getQuantity());
+                throw new StoreException(CHECK_OPTION_QUANTITY, errorDescription);
+            }
+        });
     }
 
     private Store checkMatchStoreAndSeller(Long storeId, Long sellerId) {
@@ -56,20 +66,12 @@ public class StoreItemService {
     }
 
     private void checkOptionPrice(List<CreateOption> options) {
-        List<Integer> optionPrices = options.stream().map(CreateOption::getRegularPrice).collect(Collectors.toList());
-        List<Integer> optionDiscount = options.stream().map(CreateOption::getDiscount).collect(Collectors.toList());
-
-        for (int i = 0; i < optionPrices.size(); i++) {
-            if (optionPrices.get(i) <= 0) {
-                String errorDescription = String.format("옵션 가격: %s", optionPrices.get(i));
+        options.forEach(option -> {
+            if (option.getPrice() <= 0) {
+                String errorDescription = String.format("[%s] 가격 : %s", option.getName(), option.getPrice());
                 throw new StoreException(CHECK_OPTION_PRICE, errorDescription);
             }
-
-            if (optionDiscount.get(i) > optionPrices.get(i)) {
-                String errorDescription = String.format("옵션 가격: %s, 할인 가격: %s", optionPrices.get(i), optionDiscount.get(i));
-                throw new StoreException(CHECK_OPTION_DISCOUNT, errorDescription);
-            }
-        }
+        });
     }
 
     private void checkOptionName(List<CreateOption> options) {
@@ -106,7 +108,7 @@ public class StoreItemService {
         checkOptionPrice(form.getOptions());
 
         // 기존 아이템의 옵션들 삭제
-        storeOptionRepository.deleteAllByItemId(form.getId());
+        storeItemOptionRepository.deleteAllByItemId(form.getId());
 
         // 새로운 옵션 만들어 아이템에 추가
         List<Option> newOptions = form.getOptions().stream()
@@ -115,7 +117,7 @@ public class StoreItemService {
         item.updateOptions(newOptions);
 
         // 옵션 테이블에 추가
-        storeOptionRepository.saveAll(newOptions);
+        storeItemOptionRepository.saveAll(newOptions);
 
         return ItemDto.from(item);
     }
@@ -138,7 +140,7 @@ public class StoreItemService {
                     .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
             item.increaseHeart();
             return true;
-        }catch (StoreException e) {
+        } catch (StoreException e) {
             return false;
         }
     }
@@ -150,7 +152,7 @@ public class StoreItemService {
                     .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
             item.decreaseHeart();
             return true;
-        }catch (StoreException e) {
+        } catch (StoreException e) {
             return false;
         }
     }
