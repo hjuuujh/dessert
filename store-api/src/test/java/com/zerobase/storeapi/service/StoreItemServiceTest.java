@@ -8,7 +8,7 @@ import com.zerobase.storeapi.domain.form.item.UpdateItem;
 import com.zerobase.storeapi.domain.form.option.CreateOption;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreItemRepository;
-import com.zerobase.storeapi.repository.StoreOptionRepository;
+import com.zerobase.storeapi.repository.StoreItemOptionRepository;
 import com.zerobase.storeapi.repository.StoreRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ class StoreItemServiceTest {
     @Mock
     private StoreItemRepository storeItemRepository;
     @Mock
-    private StoreOptionRepository storeOptionRepository;
+    private StoreItemOptionRepository storeItemOptionRepository;
     @InjectMocks
     private StoreItemService storeItemService;
 
@@ -222,7 +222,7 @@ class StoreItemServiceTest {
         ItemDto newItem = storeItemService.updateItem(1L, form);
 
         //then
-        verify(storeOptionRepository, times(1)).deleteAllByItemId(captor.capture());
+        verify(storeItemOptionRepository, times(1)).deleteAllByItemId(captor.capture());
         assertEquals("아이템 수정", newItem.getName());
         assertEquals("설명 수정", newItem.getDescription());
         assertEquals("옵션 수정", newItem.getOptions().get(0).getName());
