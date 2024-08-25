@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,7 +68,7 @@ public class StoreService {
     }
 
     @Transactional
-    public boolean deleteStore(Long sellerId, Long id) {
+    public LocalDate deleteStore(Long sellerId, Long id) {
         Store store = checkMatchSellerAndStore(sellerId, id);
         store.delete();
 
@@ -75,7 +76,7 @@ public class StoreService {
         storeItemRepository.deleteAllByStoreId(id);
 
         memberClient.deleteFollowStore(id);
-        return store.isDeleted();
+        return store.getDeletedAt();
     }
 
     @Transactional
@@ -104,7 +105,7 @@ public class StoreService {
     }
 
     public Page<StoreDto> getStores(StoresForm form, Pageable pageable) {
-        return storeRepository.findAllByIdInAndDeleted(form.getFollowList(), false, pageable)
+        return storeRepository.findAllByIdInAndDeletedAt(form.getFollowList(), null, pageable)
                 .map(StoreDto::from);
     }
 

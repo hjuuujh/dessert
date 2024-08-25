@@ -4,6 +4,8 @@ import com.zerobase.storeapi.domain.entity.Store;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class StoreDto {
 
     private int followCount;
 
-    private boolean deleted;
+    private LocalDate deletedAt;
 
     public static StoreDto from(Store store) {
         return StoreDto.builder()
@@ -28,7 +30,7 @@ public class StoreDto {
                 .description(store.getDescription())
                 .thumbnailUrl(store.getThumbnailUrl())
                 .followCount(store.getFollowCount())
-                .deleted(store.isDeleted())
+                .deletedAt(store.getDeletedAt())
                 .build();
     }
 

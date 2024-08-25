@@ -21,12 +21,12 @@ public class StoreSearchService {
 
 
     public Page<StoreDto> searchStoreByKeyword(String keyword, Pageable pageable) {
-        return storeRepository.findByNameContainingIgnoreCaseAndDeleted(keyword, false, pageable)
+        return storeRepository.findByNameContainingIgnoreCaseAndDeletedAt(keyword, null, pageable)
                 .map(StoreDto::from);
     }
 
     public Page<StoreDto> searchStoreByFollowOrder(String keyword, Pageable pageable) {
-        return storeRepository.findByNameContainingIgnoreCaseAndDeletedOrderByFollowCountDesc(keyword, false, pageable)
+        return storeRepository.findByNameContainingIgnoreCaseAndDeletedAtOrderByFollowCountDesc(keyword, null, pageable)
                 .map(StoreDto::from);
     }
 

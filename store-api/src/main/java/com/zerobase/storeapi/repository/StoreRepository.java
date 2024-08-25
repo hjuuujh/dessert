@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +15,8 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     boolean existsByName(String name);
     Optional<Store> findByIdAndSellerId(Long id, Long sellerId);
 
-    Page<Store> findByNameContainingIgnoreCaseAndDeleted(String keyword, boolean deleted, Pageable pageable);
-    Page<Store> findByNameContainingIgnoreCaseAndDeletedOrderByFollowCountDesc(String keyword, boolean deleted, Pageable pageable);
+    Page<Store> findByNameContainingIgnoreCaseAndDeletedAt(String keyword, LocalDate deletedAt, Pageable pageable);
+    Page<Store> findByNameContainingIgnoreCaseAndDeletedAtOrderByFollowCountDesc(String keyword, LocalDate deletedAt, Pageable pageable);
 
-    Page<Store> findAllByIdInAndDeleted(List<Long> ids, boolean deleted, Pageable pageable);
+    Page<Store> findAllByIdInAndDeletedAt(List<Long> ids, LocalDate deletedAt, Pageable pageable);
 }

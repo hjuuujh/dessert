@@ -11,6 +11,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.envers.AuditOverride;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
@@ -31,8 +32,7 @@ public class Store extends BaseEntity {
     @ColumnDefault("0")
     private int followCount;
 
-    @ColumnDefault("false")
-    private boolean deleted; // 매장 삭제 정보
+    private LocalDate deletedAt; // 매장 삭제 정보
 
     public static Store of(Long sellerId, RegisterStore form) {
         return Store.builder()
@@ -50,7 +50,7 @@ public class Store extends BaseEntity {
     }
 
     public void delete() {
-        this.deleted = true;
+        this.deletedAt = LocalDate.now();
     }
 
     public void increaseFollow() {
