@@ -8,7 +8,7 @@
 - 셀러의 매장 등록, 확인, 수정, 삭제
 - 제품검색(키워드 검색 - 최신순, 별점순, 구매후기 많은 순, 판매수 많은 순) 상세정보 확인
 - 셀러검색 팔로워순
-- 장바구니 추가, 확인, 수정, 삭제 
+- 장바구니 추가, 확인, 수정, 삭제
 - 장바구니 통한 구매 서비스
 - 리뷰 작성, 확인, 수정, 삭제
 
@@ -21,7 +21,7 @@
 ## MSA
 - Spring Cloud Eureka Server로 마이크로서비스 애플리케이션(MSA) 구현
 - Docker 이용
-![msa.png](./img/msa.png)
+  ![msa.png](./img/msa.png)
 ## API
 ### Member API
 1. 회원가입  POST /api/member/singup
@@ -30,7 +30,7 @@
 - 비밀번호 암호화 해서 db에 저장
 - 파라미터 : 이메일, 이름, 비밀번호, 핸드폰번호, role
 - 성공 : 이메일, 이름, 핸드폰번호, role
-- 실패 
+- 실패
 
 |Case|HttpStatus|Error Code|Description|
 |------|-------|----------|---------|
@@ -39,7 +39,7 @@
 - Jwt token 리턴
 - 파라미터 : 이메일, 비밀번호
 - 성공 : token
-- 실패 
+- 실패
 
 |Case|HttpStatus|Error Code|Description|
 |------|-------|----------|---------|
@@ -62,7 +62,7 @@
 5. 잔액 변경 : POST - /api/member/order?refund=
 - 주문/환불시 잔액 변경
 - aop를 이용한 계좌 lock
-- transcation table에 성공/실패 결과 저장 
+- transcation table에 성공/실패 결과 저장
 - 파라미터 : 토큰, 사용 쿠폰, 금액, 오더 id
 - 실패
 
@@ -94,7 +94,7 @@
 |가격이 음수인 경우| BAD_REQUEST |  CHECK_ITEM_PRICE |"가격을 확인해주세요."|
 3. 제품 옵션 변경 : POST - /api/store/item/option
 - 헤더 : token
-- 파라미터 : 제품id, 옵션명, 가격, 수량 
+- 파라미터 : 제품id, 옵션명, 가격, 수량
 - 결과
 - 성공 : 옵션 정보
 - 실패
@@ -116,7 +116,7 @@
 |매장명 중복인 경우| BAD_REQUEST |  DUPLICATE_STORE_NAME |"매장명은 중복일 수 없습니다."|
 |셀러와 매장 정보가 일치하지 않는 경우| BAD_REQUEST | UNMATCHED_STORE_SELLER |"매장 정보와 판매자 정보가 일치하지 않습니다."|
 5. 매장 정보 삭제 : PATCH - /api/store?id=
-- 헤더 : 토큰 
+- 헤더 : 토큰
 - 결과
 - 성공 : 매장 정보
 - 실패
@@ -125,7 +125,7 @@
 |------------|-------|----------|---------|
 |셀러와 매장 정보가 일치하지 않는 경우| BAD_REQUEST | UNMATCHED_STORE_SELLER |"매장 정보와 판매자 정보가 일치하지 않습니다."|
 6. 아이템 삭제 : DELETE - /api/store/item?id=
-- 헤더 : 토큰 
+- 헤더 : 토큰
 - 결과
 - 성공 : 매장 정보
 - 실패
@@ -134,7 +134,7 @@
 |------------|-------|----------|---------|
 |셀러와 매장 정보가 일치하지 않는 경우| BAD_REQUEST | UNMATCHED_STORE_SELLER |"매장 정보와 판매자 정보가 일치하지 않습니다."|
 7. 옵션 삭제 : DELETE - /api/store/option?id=
-- 헤더 : 토큰 
+- 헤더 : 토큰
 - 결과
 - 성공 : 매장 정보
 - 실패
@@ -170,25 +170,25 @@
 - 성공 : 아이템 리스트
 10. 제품 찾기 - 키워드 검색 + 별점순 : GET - /api/store/item/search?keyword=&type=rating
 - 헤더 : token
-- 대문자, 소문자 상광없이 키워드를 포함하는 아이템 별점순 내림차순 정렬 
+- 대문자, 소문자 상광없이 키워드를 포함하는 아이템 별점순 내림차순 정렬
 - 파라미터 : 키워드, Pageable
 - 결과
 - 성공 : 아이템 리스트
 11. 제품 찾기 - 키워드 검색 + 구매후기 많은 순 : GET - /api/store/item/search?keyword=&type=reviewCount
 - 헤더 : token
-- 대문자, 소문자 상광없이 키워드를 포함하는 아이템 리뷰 순 내림차순 정렬 
+- 대문자, 소문자 상광없이 키워드를 포함하는 아이템 리뷰 순 내림차순 정렬
 - 파라미터 : 키워드, Pageable
 - 결과
 - 성공 : 아이템 리스트
 10. 제품 찾기 - 키워드 검색 + 판매 많은 순 : GET - /api/store/item/search?keyword=&type=orderCount
 - 헤더 : token
-- 대문자, 소문자 상광없이 키워드를 포함하는 아이템 주문 순 내림차순 정렬 
+- 대문자, 소문자 상광없이 키워드를 포함하는 아이템 주문 순 내림차순 정렬
 - 파라미터 : 키워드, Pageable
 - 결과
 - 성공 : 아이템 리스트
 11. 제품 찾기 - 특정 매장의 제품 : GET - /api/store?id=
 - 헤더 : token
-- 특정 매장의 모든 제품 
+- 특정 매장의 모든 제품
 - 파라미터 : 키워드, Pageable
 - 결과
 - 성공 : 아이템 리스트
@@ -200,7 +200,7 @@
 ### order API
 1. 카트 추가 : POST - /api/order/customer/cart
 - 헤더 : 토큰
-- 파라미터 : memberId, 아이템 리스트, 메세지 리스트 
+- 파라미터 : memberId, 아이템 리스트, 메세지 리스트
 - 결과
 - 성공 : 카트 정보
 - 실패
@@ -215,7 +215,7 @@
 - 성공 : 카트 정보
 3. 카트 수정 : PUT - /api/order/customer/cart
 - 헤더 : 토큰
-- 파라미터 : memberId, 아이템 리스트, 메세지 리스트 
+- 파라미터 : memberId, 아이템 리스트, 메세지 리스트
 - 결과
 - 성공 : 카트 정보
 - 실패
@@ -227,7 +227,7 @@
 4. 카트 주문 : POST - /api/order/customer/order
 - 오더 테이블에 storeId 별 아이템 저장
 - 헤더 : 토큰
-- 파라미터 : memberId, 아이템 리스트, 메세지 리스트 
+- 파라미터 : memberId, 아이템 리스트, 메세지 리스트
 - 결과
 - 성공 : 카트 정보
 - 실패
@@ -289,7 +289,6 @@
 - 파라미터 : 아이템id
 - 결과
 - 성공 : 리뷰 리스트
-
 
 
 
