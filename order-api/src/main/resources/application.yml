@@ -3,9 +3,6 @@ spring:
     name: order-api
   profiles:
     active: dev
-  redis:
-    host: 127.0.0.1
-    port: 6379
   cloud:
     config:
       label: master
@@ -42,8 +39,8 @@ external-api:
     url: http://localhost:8090/api/member
 #  member:
 #    url: http://member-api:8090/api/member
-#  store:
-#    url: http://localhost:8091/api/store
+  store:
+    url: http://localhost:8091/api/store
 #  store:
 #    url: http://store-api:8091/api/store
 

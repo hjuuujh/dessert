@@ -1,16 +1,16 @@
 package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.client.MemberClient;
+import com.zerobase.storeapi.client.OrderClient;
 import com.zerobase.storeapi.client.RedisClient;
-import com.zerobase.storeapi.controller.CartController;
 import com.zerobase.storeapi.domain.entity.Option;
 import com.zerobase.storeapi.domain.redis.Cart;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreItemOptionRepository;
-import com.zerobase.storeapi.repository.StoreItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,13 +20,17 @@ import static com.zerobase.storeapi.exception.ErrorCode.*;
 @Service
 @RequiredArgsConstructor
 public class CartOrderService {
-    private final StoreItemRepository storeItemRepository;
     private final RedisClient redisClient;
     private final CartService cartService;
-    private final MemberClient memberClient;
     private final StoreItemOptionRepository storeItemOptionRepository;
+    private final OrderClient orderClient;
+    private final MemberClient memberClient;
 
-    public Cart orderCart(Long customerId, Cart cart) {
+    @Transactional
+    public boolean orderCart(String token, Long customerId, Cart cart) {
+        // 기존 카트
+        Cart oldCart = cartService.getCart(customerId);
+        // 주문 카트
         Cart orderCart = cartService.refreshCart(cart);
         if (!orderCart.getMessages().isEmpty()) {
             System.out.println(orderCart.getMessages());
@@ -34,12 +38,27 @@ public class CartOrderService {
             throw new StoreException(ORDER_FAIL_CHECK_CART);
         }
 
-        // 고객의 포인트 충분한지 확인
-        checkEnoughBalance(customerId, cart);
-
         // 수량 충분한지 확인
-        checkEnoughQuantity(cart);
+        checkEnoughQuantity(orderCart);
 
+        // 고객의 포인트 충분한지 확인
+        checkEnoughBalance(token, orderCart);
+
+        // 수량 감소
+        decreaseOptionQuantity(orderCart);
+
+        // cart 업데이트
+        updateCart(customerId, oldCart, orderCart);
+
+        // 주문
+        orderClient.order(token, orderCart);
+
+        // 주문성공시 아이템별 주문횟수 +1
+
+        return true;
+    }
+
+    private void updateCart(Long customerId, Cart orderCart, Cart oldCart) {
         // 선택주문 : 주문하지 않은 아이템 장바구니에 남아야함
 
         // item id 별 -> option id별 정렬해서
@@ -47,7 +66,6 @@ public class CartOrderService {
         // 안겹치는 경우 == 주문안함 -> 새카트에 추가
 
         // item id로 정렬
-        Cart oldCart = cartService.getCart(customerId);
         Collections.sort(oldCart.getItems());
         // option id로 정렬
         for (Cart.Item item : oldCart.getItems()) {
@@ -147,11 +165,10 @@ public class CartOrderService {
         newCart.setTotalPrice(cartService.getTotalPrice(newCart));
 
         redisClient.put(customerId, newCart);
-        return newCart;
     }
 
-    private void checkEnoughQuantity(Cart cart) {
-        cart.getItems().forEach(item -> {
+    private void checkEnoughQuantity(Cart orderCart) {
+        orderCart.getItems().forEach(item -> {
             item.getOptions().forEach(option -> {
                 Option remainQuantity = storeItemOptionRepository.findById(option.getId())
                         .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
@@ -162,12 +179,25 @@ public class CartOrderService {
         });
     }
 
-    private void checkEnoughBalance(Long customerId, Cart cart) {
+    @Transactional
+    public void decreaseOptionQuantity(Cart orderCart) {
+        orderCart.getItems().forEach(item -> {
+            item.getOptions().forEach(option -> {
+                Option itemOption = storeItemOptionRepository.findById(option.getId())
+                        .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
+                itemOption.decreaseQuantity(option.getQuantity());
+            });
+        });
+
+    }
+
+    private void checkEnoughBalance(String token, Cart cart) {
         int totalPrice = cart.getTotalPrice();
-//        Long balance = memberClient.getBalance(customerId);
-        long balance = 10000000L;
+        int balance = memberClient.getBalance(token);
         if (balance < totalPrice) {
-            throw new StoreException(ORDER_FAIL_NO_MONEY);
+            String errorDescription = String.format("[현재 잔액] : %s  [총액] : %s 주문 불가, 잔액 부족입니다.",balance, totalPrice);
+
+            throw new StoreException(ORDER_FAIL_NO_MONEY, errorDescription);
         }
     }
 

@@ -36,15 +36,17 @@ public class Cart {
     public static class Item implements Comparable<Item> {
         private Long id;
         private Long storeId;
+        private Long sellerId;
         private String storeName;
         private String name;
         private List<Option> options;
 
 
-        public static Item from(AddItemCartForm form) {
+        public static Item from(AddItemCartForm form, Long sellerId) {
             return Item.builder()
                     .id(form.getId())
                     .storeId(form.getStoreId())
+                    .sellerId(sellerId)
                     .storeName(form.getStoreName())
                     .name(form.getName())
                     .options(form.getOptions().stream().map(Option::from).collect(Collectors.toList()))

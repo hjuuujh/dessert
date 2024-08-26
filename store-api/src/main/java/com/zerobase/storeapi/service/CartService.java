@@ -78,7 +78,7 @@ public class CartService {
             }
         } else {
             // cart에 같은 상품 없으면 변환해서 add
-            Cart.Item newItem = Cart.Item.from(form);
+            Cart.Item newItem = Cart.Item.from(form, item.getSellerId());
             cart.getItems().add(newItem);
         }
 

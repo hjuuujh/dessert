@@ -1,7 +1,7 @@
 ### cart 등록
 POST localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDEzMjQ3NywiZXhwIjoxNzI0MjE4ODc3fQ.fc701OIOJ7oX3s_Sf4ZeYh49y462dVeMJonq8DwTX9CvpEomW0ohDIlaBrvA1XDuC0jxIKjc--BFOz8Sbd6S7Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY0OTM1NCwiZXhwIjoxNzI0NzM1NzU0fQ.Q08XzNP_WUY-b_HIfkEjcwyjVQgiushz9MyLZD3hG0Mg3mQDCJeykhk_dPoCE16PdQs502ztgRDfrkiOiDIp6A
 
 {
   "id": 1,
@@ -21,7 +21,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 ### cart 등록
 POST localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDEzMjQ3NywiZXhwIjoxNzI0MjE4ODc3fQ.fc701OIOJ7oX3s_Sf4ZeYh49y462dVeMJonq8DwTX9CvpEomW0ohDIlaBrvA1XDuC0jxIKjc--BFOz8Sbd6S7Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY0OTM1NCwiZXhwIjoxNzI0NzM1NzU0fQ.Q08XzNP_WUY-b_HIfkEjcwyjVQgiushz9MyLZD3hG0Mg3mQDCJeykhk_dPoCE16PdQs502ztgRDfrkiOiDIp6A
 
 {
   "id": 6,
@@ -48,7 +48,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 ### cart 조회
 GET localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDEzMjQ3NywiZXhwIjoxNzI0MjE4ODc3fQ.fc701OIOJ7oX3s_Sf4ZeYh49y462dVeMJonq8DwTX9CvpEomW0ohDIlaBrvA1XDuC0jxIKjc--BFOz8Sbd6S7Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY0OTM1NCwiZXhwIjoxNzI0NzM1NzU0fQ.Q08XzNP_WUY-b_HIfkEjcwyjVQgiushz9MyLZD3hG0Mg3mQDCJeykhk_dPoCE16PdQs502ztgRDfrkiOiDIp6A
 
 ### cart 옵션 삭제
 PATCH localhost:8080/api/store/cart
@@ -71,30 +71,17 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 }
 
 ### cart 주문
-GET localhost:8080/api/store/cart/order
+POST localhost:8080/api/store/cart/order
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDEzMjQ3NywiZXhwIjoxNzI0MjE4ODc3fQ.fc701OIOJ7oX3s_Sf4ZeYh49y462dVeMJonq8DwTX9CvpEomW0ohDIlaBrvA1XDuC0jxIKjc--BFOz8Sbd6S7Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY0OTM1NCwiZXhwIjoxNzI0NzM1NzU0fQ.Q08XzNP_WUY-b_HIfkEjcwyjVQgiushz9MyLZD3hG0Mg3mQDCJeykhk_dPoCE16PdQs502ztgRDfrkiOiDIp6A
 
 {
   "customerId": 2,
   "items": [
     {
-      "id": 1,
-      "storeId": 1,
-      "storeName": "수제청 청이",
-      "name": "혈관청소부 비트(ABC)건강/디톡스/다이어트주스 10병",
-      "options": [
-        {
-          "id": 1,
-          "name": "비트(ABC)주스 200ml 10병",
-          "quantity": 2,
-          "price": 32000
-        }
-      ]
-    },
-    {
       "id": 6,
       "storeId": 2,
+      "sellerId": 1,
       "storeName": "달달구리해닮",
       "name": "샹티크림끌레오르",
       "options": [
@@ -102,11 +89,26 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
           "id": 11,
           "name": "얼그레이샹티크림 끌레오르",
           "quantity": 2,
-          "price": 2600
+          "price": 26000
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "storeId": 1,
+      "sellerId": 1,
+      "storeName": "수제청 청이",
+      "name": "혈관청소부 비트(ABC)건강/디톡스/다이어트주스 10병",
+      "options": [
+        {
+          "id": 1,
+          "name": "비트(ABC)주스 200ml 10병",
+          "quantity": 5,
+          "price": 32000
         }
       ]
     }
   ],
   "messages": [],
-  "totalPrice": 269200
+  "totalPrice": 212000
 }

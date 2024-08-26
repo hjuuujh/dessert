@@ -32,4 +32,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "delete from member_heart_list l where l.heart_list = (:itemId)", nativeQuery = true)
     void deleteHeart(@Param("itemId") Long itemId);
 
+    @Query(value = "select balance from member where member.id = (:memberId)", nativeQuery = true)
+    int getBalance(@Param("memberId") Long memberId);
 }

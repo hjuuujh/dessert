@@ -2,6 +2,7 @@ package com.zerobase.storeapi.controller;
 
 import com.zerobase.storeapi.client.MemberClient;
 import com.zerobase.storeapi.client.from.FollowForm;
+import com.zerobase.storeapi.client.from.MatchForm;
 import com.zerobase.storeapi.client.from.StoresForm;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
@@ -74,6 +75,13 @@ public class StoreController {
             , Pageable pageable) {
         return ResponseEntity.ok(storeService.getStores(form, pageable));
     }
+
+    @GetMapping("/match")
+    public boolean isMatchedStoreAndSeller(@RequestBody MatchForm form){
+        return storeService.isMatchedStoreAndSeller(form);
+
+    }
+
 
     /**
      * validation 에러 메세지 리스트를 리턴하는 클래스

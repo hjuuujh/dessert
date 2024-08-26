@@ -42,9 +42,9 @@ public class CartController {
         return ResponseEntity.ok(cartService.updateCartOption(memberClient.getMemberId(token), form));
     }
 
-    @GetMapping("/order")
+    @PostMapping("/order")
     public ResponseEntity<?> orderCart(@RequestHeader(name = "Authorization") String token,
                                        @RequestBody Cart cart) {
-        return ResponseEntity.ok(cartOrderService.orderCart(memberClient.getMemberId(token), cart));
+        return ResponseEntity.ok(cartOrderService.orderCart(token, memberClient.getMemberId(token), cart));
     }
 }
