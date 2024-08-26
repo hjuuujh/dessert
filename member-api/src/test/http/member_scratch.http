@@ -1,5 +1,5 @@
 ### signup member
-POST http://localhost:8080/api/member/signup
+POST http://localhost:8080/api/member/signup/seller
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 
 ### signin member
-POST http://localhost:8080/api/member/signin
+POST http://localhost:8080/api/member/signin/seller
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### signup member
-POST http://localhost:8080/api/member/signup
+POST http://localhost:8080/api/member/signup/customer
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### signin member
-POST http://localhost:8080/api/member/signin
+POST http://localhost:8080/api/member/signin/custoemer
 Content-Type: application/json
 
 {
@@ -42,9 +42,9 @@ Content-Type: application/json
 }
 
 ### charge balance
-POST http://localhost:8080/api/member/charge
+POST http://localhost:8080/api/member/customer/charge
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcxNzE1OCwiZXhwIjoxNzIzODAzNTU4fQ.yuHKjzxX4Y3Zm99IKF_fkL2uJaXtxEg_iEatfis7-Qh5AXa7E5QrMo67OHUZnc947kMywLXcdtvz2YHpDFKRiA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "email": "user2@gmail.com",
@@ -52,66 +52,66 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 }
 
 ### follow store
-POST http://localhost:8080/api/member/follow
+POST http://localhost:8080/api/member/customer/follow
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcyMzUzMywiZXhwIjoxNzIzODA5OTMzfQ.Yk2Dt0KLHMQ2zJ8c4zK_1Iyp1XcUOzxPdFHlpGCE471onDkWPnKqWQwEq2zAqS3k9Ic4wDWwtPb8Llpp32iS6Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "storeId": 1
 }
 
 ### follow store
-POST http://localhost:8080/api/member/follow
+POST http://localhost:8080/api/member/customer/follow
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcyMzUzMywiZXhwIjoxNzIzODA5OTMzfQ.Yk2Dt0KLHMQ2zJ8c4zK_1Iyp1XcUOzxPdFHlpGCE471onDkWPnKqWQwEq2zAqS3k9Ic4wDWwtPb8Llpp32iS6Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "storeId": 3
 }
 
 ### unfollow store
-POST http://localhost:8080/api/member/unfollow
+POST http://localhost:8080/api/member/customer/unfollow
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzU1NjkwOSwiZXhwIjoxNzIzNjQzMzA5fQ.NRDq_KBfJR9FRgi6Rd1IIcKOaHZfJVUruohUAOphhdH4PQ_9PJstTZqof6bAPhhWYy-j87UnjhhY9GnrdzFI7Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "storeId": 2
 }
 
 ### get follow stores
-GET http://localhost:8080/api/member/stores?page=0&size=5
+GET http://localhost:8080/api/member/customer/stores?page=0&size=5
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcyMzUzMywiZXhwIjoxNzIzODA5OTMzfQ.Yk2Dt0KLHMQ2zJ8c4zK_1Iyp1XcUOzxPdFHlpGCE471onDkWPnKqWQwEq2zAqS3k9Ic4wDWwtPb8Llpp32iS6Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 
 ### heart item
-POST http://localhost:8080/api/member/heart
+POST http://localhost:8080/api/member/customer/heart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcyMzUzMywiZXhwIjoxNzIzODA5OTMzfQ.Yk2Dt0KLHMQ2zJ8c4zK_1Iyp1XcUOzxPdFHlpGCE471onDkWPnKqWQwEq2zAqS3k9Ic4wDWwtPb8Llpp32iS6Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "itemId": 4
 }
 
 ### heart item
-POST http://localhost:8080/api/member/heart
+POST http://localhost:8080/api/member/customer/heart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjM3MDM2MjQsImV4cCI6MTcyMzc5MDAyNH0.EIA7kKDtF8SH8fq7aZTBxzSys-KqZXi5bUW--bZW28UcgF5The7UqdFFtIg10e5Eare9sMjXu4NFR-KhTCz4vQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "itemId": 5
 }
 
 ### unheart item
-POST http://localhost:8080/api/member/unheart
+POST http://localhost:8080/api/member/customer/unheart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcyMzUzMywiZXhwIjoxNzIzODA5OTMzfQ.Yk2Dt0KLHMQ2zJ8c4zK_1Iyp1XcUOzxPdFHlpGCE471onDkWPnKqWQwEq2zAqS3k9Ic4wDWwtPb8Llpp32iS6Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 {
   "itemId": 4
 }
 
 ### get heart items
-GET http://localhost:8080/api/member/items?page=0&size=5
+GET http://localhost:8080/api/member/customer/items?page=0&size=5
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcyMzUzMywiZXhwIjoxNzIzODA5OTMzfQ.Yk2Dt0KLHMQ2zJ8c4zK_1Iyp1XcUOzxPdFHlpGCE471onDkWPnKqWQwEq2zAqS3k9Ic4wDWwtPb8Llpp32iS6Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg

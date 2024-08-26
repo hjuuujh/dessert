@@ -1,8 +1,10 @@
 package com.zerobase.orderapi.service;
 
+import com.zerobase.orderapi.client.from.RefundForm;
 import com.zerobase.orderapi.client.MemberClient;
 import com.zerobase.orderapi.client.StoreClient;
 import com.zerobase.orderapi.client.from.Cart;
+import com.zerobase.orderapi.client.from.IncomeForm;
 import com.zerobase.orderapi.client.from.MatchForm;
 import com.zerobase.orderapi.client.from.OrderForm;
 import com.zerobase.orderapi.domain.OrderDto;
@@ -50,16 +52,22 @@ public class OrderService {
                         .quantity(option.getQuantity())
                         .status(Status.ORDERED)
                         .build();
+                IncomeForm incomeRequest = IncomeForm.builder()
+                        .sellerId(item.getSellerId())
+                        .price(price).build();
+                memberClient.income(token, incomeRequest);
+
                 orderRepository.save(order);
             }
         }
 
-        // 수입 업데이트
     }
 
-    public Page<OrderDto> getOrders(Long memberId, LocalDate start, LocalDate end, Pageable pageable) {
+    public Page<OrderDto> getOrders(Long customerId, LocalDate start, LocalDate end, Pageable pageable) {
 
-        return orderRepository.findAllByCustomerIdAndModifiedAtBetween(memberId, start.atStartOfDay(), end.atStartOfDay(), pageable)
+        System.out.println("##################");
+        System.out.println(customerId);
+        return orderRepository.findAllByCustomerIdAndModifiedAtBetween(customerId, start.atStartOfDay(), end.atStartOfDay(), pageable)
                 .map(OrderDto::from);
     }
 
@@ -96,14 +104,19 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDto approveRequestRefund(Long memberId, Long id) {
+    public OrderDto approveRequestRefund(String token, Long memberId, Long id) {
         Orders orders = getOrders(memberId, id);
 
         orders.updateStatus(Status.REFUND_APPROVED);
 
+        RefundForm request = RefundForm.builder()
+                .amount(orders.getPrice()).build();
+
         // 고객 잔액 증가
+        memberClient.increaseBalance(token, request);
 
         // 셀러 인컴 감소
+        memberClient.refund(token, request);
         return OrderDto.from(orders);
     }
 

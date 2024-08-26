@@ -1,14 +1,14 @@
 package com.zerobase.memberapi.service;
 
 import com.zerobase.memberapi.client.StoreClient;
-import com.zerobase.memberapi.domain.member.dto.MemberDto;
+import com.zerobase.memberapi.domain.member.dto.CustomerDto;
 import com.zerobase.memberapi.domain.member.entity.Member;
 import com.zerobase.memberapi.domain.member.form.ChargeForm;
 import com.zerobase.memberapi.domain.member.form.SignIn;
 import com.zerobase.memberapi.domain.member.form.SignUp;
 import com.zerobase.memberapi.exception.ErrorCode;
 import com.zerobase.memberapi.exception.MemberException;
-import com.zerobase.memberapi.repository.MemberRepository;
+import com.zerobase.memberapi.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -27,18 +27,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class MemberServiceTest {
+class CustomerServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock
-    private MemberRepository memberRepository;
+    private CustomerRepository customerRepository;
     @Mock
     private StoreClient storeClient;
     @InjectMocks
-    private MemberService memberService;
+    private CustomerService customerService;
 
     @Test
-    void successRegisterMember() {
+    void successRegisterCustomer() {
         //given
         SignUp form = SignUp.builder()
                 .email("user@gmail.com")
@@ -47,7 +47,7 @@ class MemberServiceTest {
                 .phone("0100000000")
                 .build();
 
-        given(memberRepository.existsByEmail(anyString()))
+        given(customerRepository.existsByEmail(anyString()))
                 .willReturn(false);
 
         given(passwordEncoder.encode(anyString()))
@@ -60,23 +60,23 @@ class MemberServiceTest {
                 .phone("0100000000")
                 .roles(Arrays.asList("ROLE_SELLER"))
                 .build();
-        given(memberRepository.save(any()))
+        given(customerRepository.save(any()))
                 .willReturn(member);
 
         ArgumentCaptor<Member> captor = ArgumentCaptor.forClass(Member.class);
 
         //when
-        MemberDto result = memberService.registerMember(form);
+        CustomerDto result = customerService.registerCustomer(form);
 
         //then
-        verify(memberRepository, times(1)).save(captor.capture());
+        verify(customerRepository, times(1)).save(captor.capture());
         assertEquals("user@gmail.com", captor.getValue().getEmail());
         assertEquals("user1", captor.getValue().getName());
         assertEquals("0100000000", captor.getValue().getPhone());
     }
 
     @Test
-    void failRegisterMember_ALREADY_REGISTERED_USER() {
+    void failRegisterCustomer_ALREADY_REGISTERED_USER() {
         //given
         SignUp form = SignUp.builder()
                 .email("user@gmail.com")
@@ -85,11 +85,11 @@ class MemberServiceTest {
                 .phone("0100000000")
                 .build();
 
-        given(memberRepository.existsByEmail(anyString()))
+        given(customerRepository.existsByEmail(anyString()))
                 .willReturn(true);
 
         //when
-        MemberException exception = assertThrows(MemberException.class, () -> memberService.registerMember(form));
+        MemberException exception = assertThrows(MemberException.class, () -> customerService.registerCustomer(form));
 
         //then
         assertEquals(ErrorCode.ALREADY_REGISTERED_USER, exception.getErrorCode());
@@ -112,18 +112,18 @@ class MemberServiceTest {
                 .roles(Arrays.asList("ROLE_CUSTOMER", "ROLE_PARTNER"))
                 .build();
 
-        given(memberRepository.findByEmail(anyString()))
+        given(customerRepository.findByEmail(anyString()))
                 .willReturn(Optional.ofNullable(member));
         given(passwordEncoder.matches(anyString(), anyString()))
                 .willReturn(true);
 
         //when
-        MemberDto memberDto = memberService.signInMember(form);
+        CustomerDto customerDto = customerService.signInMember(form);
 
         //then
-        assertEquals("user@gmail.com", memberDto.getEmail());
-        assertEquals("user1", memberDto.getName());
-        assertEquals("0100000000", memberDto.getPhone());
+        assertEquals("user@gmail.com", customerDto.getEmail());
+        assertEquals("user1", customerDto.getName());
+        assertEquals("0100000000", customerDto.getPhone());
     }
 
     @Test
@@ -133,11 +133,11 @@ class MemberServiceTest {
                 .email("user@gmail.com")
                 .password("qwerty")
                 .build();
-        given(memberRepository.findByEmail(anyString()))
+        given(customerRepository.findByEmail(anyString()))
                 .willReturn(Optional.empty());
 
         //when
-        MemberException exception = assertThrows(MemberException.class, () -> memberService.signInMember(form));
+        MemberException exception = assertThrows(MemberException.class, () -> customerService.signInMember(form));
 
         //then
         assertEquals(ErrorCode.NOT_FOUND_USER, exception.getErrorCode());
@@ -159,13 +159,13 @@ class MemberServiceTest {
                 .roles(Arrays.asList("ROLE_CUSTOMER", "ROLE_PARTNER"))
                 .build();
 
-        given(memberRepository.findByEmail(anyString()))
+        given(customerRepository.findByEmail(anyString()))
                 .willReturn(Optional.ofNullable(member));
         given(passwordEncoder.matches(anyString(), anyString()))
                 .willReturn(false);
 
         //when
-        MemberException exception = assertThrows(MemberException.class, () -> memberService.signInMember(form));
+        MemberException exception = assertThrows(MemberException.class, () -> customerService.signInMember(form));
 
         //then
         assertEquals(ErrorCode.LOGIN_CHECK_FAIL, exception.getErrorCode());
@@ -189,14 +189,14 @@ class MemberServiceTest {
         ChargeForm form = ChargeForm.builder()
                 .amount(amount)
                 .build();
-        given(memberRepository.findById(anyLong()))
+        given(customerRepository.findById(anyLong()))
                 .willReturn(Optional.of(member));
 
         //when
-        MemberDto memberDto = memberService.chargeBalance(1L, form);
+        CustomerDto customerDto = customerService.chargeBalance(1L, form);
 
         //then
-        assertEquals(balance + amount, memberDto.getBalance());
+        assertEquals(balance + amount, customerDto.getBalance());
     }
 
     @Test
@@ -209,7 +209,7 @@ class MemberServiceTest {
                 .build();
 
         //when
-        MemberException exception = assertThrows(MemberException.class, () -> memberService.chargeBalance(1L, form));
+        MemberException exception = assertThrows(MemberException.class, () -> customerService.chargeBalance(1L, form));
 
 
         //then
@@ -228,14 +228,14 @@ class MemberServiceTest {
                 .followList(new HashSet<>())
                 .build();
 
-        given(memberRepository.findById(anyLong()))
+        given(customerRepository.findById(anyLong()))
                 .willReturn(Optional.of(member));
 
         //when
-        MemberDto memberDto = memberService.follow(1L, 1L);
+        CustomerDto customerDto = customerService.follow(1L, 1L);
 
         //then
-        assertEquals(1, memberDto.getFollowList().size());
+        assertEquals(1, customerDto.getFollowList().size());
     }
 
     @Test
@@ -251,13 +251,13 @@ class MemberServiceTest {
                 .followList(followList)
                 .build();
 
-        given(memberRepository.findById(anyLong()))
+        given(customerRepository.findById(anyLong()))
                 .willReturn(Optional.of(member));
 
         //when
-        MemberDto memberDto = memberService.unfollow(1L, 1L);
+        CustomerDto customerDto = customerService.unfollow(1L, 1L);
 
         //then
-        assertEquals(0, memberDto.getFollowList().size());
+        assertEquals(0, customerDto.getFollowList().size());
     }
 }

@@ -201,7 +201,6 @@ public class CartService {
 
     public Cart deleteCartOption(Long customerId, DeleteOptionCartForm form) {
         Cart cart = redisClient.get(customerId, Cart.class);
-
         // 원하는 option 삭제
         cart.getItems().forEach(item -> {
             item.getOptions().removeIf(option -> form.getOptionIds().contains(option.getId()));
@@ -237,16 +236,6 @@ public class CartService {
 
         redisClient.put(customerId, cart);
         return cart;
-    }
-
-    public Cart orderCart(Long customerId, Cart cart) {
-        Cart orderCart = refreshCart(cart);
-        if (!orderCart.getMessages().isEmpty()) {
-            System.out.println(orderCart.getMessages());
-            // 문제가 있음
-            throw new StoreException(ORDER_FAIL_CHECK_CART);
-        }
-        return null;
     }
 
     public int getTotalPrice(Cart cart) {

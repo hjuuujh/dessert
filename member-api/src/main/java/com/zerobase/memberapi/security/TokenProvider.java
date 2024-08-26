@@ -1,6 +1,7 @@
 package com.zerobase.memberapi.security;
 
-import com.zerobase.memberapi.service.MemberService;
+import com.zerobase.memberapi.service.CustomerService;
+import com.zerobase.memberapi.service.SellerService;
 import com.zerobase.memberapi.util.Aes256Util;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -15,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +29,8 @@ public class TokenProvider {
 
     private static final long TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24; // token 만료시간 : 하루
     private static final String KEY_ROLES = "roles";
-    private final MemberService memberService;
+    private final CustomerService customerService;
+    private final SellerService sellerService;
     public static final String TOKEN_PREFIX = "Bearer ";
 
     @Value("${spring.jwt.secret}")
@@ -57,7 +58,15 @@ public class TokenProvider {
 
     // 토큰 이용해 인증 정보 반환
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = memberService.loadUserByUsername(this.getUsernameFromToken(token));
+        System.out.println("$$$$$$$$$$$$$$$$$$$");
+        System.out.println(this.getUserRole(token));
+        UserDetails userDetails;
+
+        if("[ROLE_CUSTOMER]".equals(this.getUserRole(token))) {
+            userDetails = customerService.loadUserByUsername(this.getUsernameFromToken(token));
+        }else{
+            userDetails = sellerService.loadUserByUsername(this.getUsernameFromToken(token));
+        }
         log.info("{} {}", userDetails.getAuthorities(), userDetails.getUsername());
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
@@ -71,6 +80,11 @@ public class TokenProvider {
     public Long getUserIdFromToken(String token) {
         String bearer = token.substring(TOKEN_PREFIX.length());
         return Long.valueOf(Objects.requireNonNull(Aes256Util.decrypt(this.parseClaims(bearer).getId())));
+    }
+
+    // 토큰이용해 유저 권한 복호화해 리턴
+    public String getUserRole(String token) {
+        return this.parseClaims(token).get(KEY_ROLES).toString();
     }
 
     // jwt 파싱해 claims 얻어옴

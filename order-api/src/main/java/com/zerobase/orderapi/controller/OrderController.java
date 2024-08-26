@@ -56,7 +56,7 @@ public class OrderController {
     @PatchMapping("/seller/refund/approve/{id}")
     public ResponseEntity<?> approveRequestRefund(@RequestHeader(name = "Authorization") String token,
                                            @PathVariable Long id){
-        return ResponseEntity.ok(orderService.approveRequestRefund(memberClient.getMemberId(token), id));
+        return ResponseEntity.ok(orderService.approveRequestRefund(token, memberClient.getMemberId(token), id));
     }
 
     // 환불 거절

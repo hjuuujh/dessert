@@ -10,12 +10,12 @@ public interface MemberClient {
     @GetMapping("/id")
     Long getMemberId(@RequestHeader(name = "Authorization") String token);
 
-    @PostMapping("/delete/heart")
+    @PostMapping("/customer/delete/heart")
     void deleteHeartItem(@RequestParam("itemId") Long id);
 
-    @PostMapping("/delete/follow")
+    @PostMapping("/customer/delete/follow")
     void deleteFollowStore(@RequestParam("storeId") Long id);
 
-    @GetMapping("/balance")
+    @GetMapping("/customer/balance")
     int getBalance(@RequestHeader(name = "Authorization") String token);
 }

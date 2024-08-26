@@ -10,17 +10,27 @@ spring:
         - id: open-api
           uri: http://localhost:8090
           predicates:
-            - Path=/api/member/signup, /api/member/signin # 회원가입과 로그인은 필터 적용 안함
-        - id: member-api
+            - Path=/api/member/signup/**, /api/member/signin/** # 회원가입과 로그인은 필터 적용 안함
+        - id: customer-api
           uri: http://localhost:8090
           predicates:
-            - Path=/api/member/*
+            - Path=/api/member/customer/*
           filters:
             - name: AuthorizationHeaderFilter
               args:
                 headerName: Authorization
                 granted: Bearer
-                role: ROLE_CUSTOMER, ROLE_SELLER
+                role: ROLE_CUSTOMER
+        - id: seller-api
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/member/seller/*
+          filters:
+            - name: AuthorizationHeaderFilter
+              args:
+                headerName: Authorization
+                granted: Bearer
+                role: ROLE_SELLER
         - id: store-search-api
           uri: http://localhost:8091
           predicates:
