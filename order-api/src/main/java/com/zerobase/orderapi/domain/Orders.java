@@ -32,10 +32,6 @@ public class Orders extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public void requestRefund() {
-        this.status = Status.REFUND_REQUEST;
-    }
-
     public void updateStatus(Status status) {
         this.status = status;
     }

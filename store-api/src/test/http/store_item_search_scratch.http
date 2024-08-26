@@ -1,7 +1,7 @@
 ### search item by keyword + order count
 GET http://localhost:8080/api/store/item/search/order?keyword=노밀가루&page=0&size=5
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJTdWJIZUtVUlJyZVFZK1dTT25Ca3RnPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyMzcxODQ2NCwiZXhwIjoxNzIzODA0ODY0fQ.puNrxNNFOwXqHU0rfy8jRBpldNrqcda3Hxj8MrdvaxZzxgQhBbK5N6GRd2PMms4mK5cAi0gwjtWXLPiqGKD1UA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
 
 ### search item by keyword + newest
 GET http://localhost:8080/api/store/item/search/new?keyword=노밀가루&page=0&size=5

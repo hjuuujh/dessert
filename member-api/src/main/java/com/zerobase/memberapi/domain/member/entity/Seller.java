@@ -10,7 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -18,10 +21,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "member")
+@Entity(name = "seller")
 @AuditOverride(forClass = BaseEntity.class)
-public class Member extends BaseEntity implements UserDetails {
-    // 고객 & 파트너 entity
+public class Seller extends BaseEntity implements UserDetails {
+    // 파트너 entity
     // Spring Security 를 이용 : UserDetail 를 구현
 
     @Id
@@ -36,12 +39,7 @@ public class Member extends BaseEntity implements UserDetails {
     private List<String> roles;
 
     @DefaultValue("0")
-    private int balance;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Long> followList;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Long> heartList;
-
+    private int income;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -80,38 +78,21 @@ public class Member extends BaseEntity implements UserDetails {
         return true;
     }
 
-    public static Member of(SignUp form, String password) {
-        return Member.builder()
+    public static Seller of(SignUp form, String password) {
+        return Seller.builder()
                 .email(form.getEmail())
                 .password(password)
                 .name(form.getName())
                 .phone(form.getPhone())
                 .roles(form.getRoles())
-                .followList(new HashSet<>())
                 .build();
     }
 
-    public void changeBalance(int balance) {
-        this.balance = balance;
+    public void updateIncome(Integer price) {
+        this.income += price;
     }
 
-    public void follow(Long storeId) {
-        followList.add(storeId);
-    }
-
-    public void unfollow(Long storeId) {
-        followList.remove(storeId);
-    }
-
-    public void heart(Long itemId) {
-        heartList.add(itemId);
-    }
-
-    public void unheart(Long itemId) {
-        heartList.remove(itemId);
-    }
-
-    public void decreaseBalance(Integer totalPrice) {
-        this.balance -= totalPrice;
+    public void refund(Integer amount) {
+        this.income -= amount;
     }
 }
