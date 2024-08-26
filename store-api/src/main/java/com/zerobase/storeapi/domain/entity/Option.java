@@ -43,4 +43,5 @@ public class Option extends BaseEntity {
     public void decreaseQuantity(Integer quantity) {
         this.quantity -= quantity;
     }
+
 }

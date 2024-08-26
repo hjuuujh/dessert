@@ -198,4 +198,14 @@ public class MemberService implements UserDetailsService {
     public void deleteFollowStore(Long id) {
         memberRepository.deleteFollow(id);
     }
+
+    public int getBalance(Long memberId) {
+        return memberRepository.getBalance(memberId);
+    }
+
+    @Transactional
+    public void decreaseBalance(Long memberId, OrderForm form) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
+        member.decreaseBalance(form.getTotalPrice());
+    }
 }

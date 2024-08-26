@@ -17,5 +17,5 @@ public interface MemberClient {
     void deleteFollowStore(@RequestParam("storeId") Long id);
 
     @GetMapping("/balance")
-    Long getBalance(@RequestHeader(name = "Authorization") String token);
+    int getBalance(@RequestHeader(name = "Authorization") String token);
 }

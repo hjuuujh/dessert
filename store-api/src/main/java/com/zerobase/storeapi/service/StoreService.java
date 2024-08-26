@@ -2,6 +2,7 @@ package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.client.MemberClient;
 import com.zerobase.storeapi.client.from.FollowForm;
+import com.zerobase.storeapi.client.from.MatchForm;
 import com.zerobase.storeapi.client.from.StoresForm;
 import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Store;
@@ -109,4 +110,8 @@ public class StoreService {
                 .map(StoreDto::from);
     }
 
+    public boolean isMatchedStoreAndSeller(MatchForm form) {
+        return storeRepository.existsByIdAndSellerId(form.getStoreId(), form.getSellerId());
+
+    }
 }

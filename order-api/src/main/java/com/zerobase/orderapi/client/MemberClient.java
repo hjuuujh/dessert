@@ -1,10 +1,8 @@
 package com.zerobase.orderapi.client;
 
+import com.zerobase.orderapi.client.from.OrderForm;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(value = "member", url = "${external-api.member.url}")
 public interface MemberClient {
@@ -13,4 +11,7 @@ public interface MemberClient {
     @GetMapping("/id")
     Long getMemberId(@RequestHeader(name = "Authorization") String token);
 
+    @PostMapping("/order")
+    void decreaseBalance(@RequestHeader(name = "Authorization") String token,
+                         @RequestBody OrderForm form);
 }
