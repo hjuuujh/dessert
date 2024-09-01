@@ -4,6 +4,7 @@ import com.zerobase.storeapi.client.RedisClient;
 import com.zerobase.storeapi.domain.entity.Item;
 import com.zerobase.storeapi.domain.entity.Option;
 import com.zerobase.storeapi.domain.redis.Cart;
+import com.zerobase.storeapi.domain.redis.form.AddCartResult;
 import com.zerobase.storeapi.domain.redis.form.AddItemCartForm;
 import com.zerobase.storeapi.domain.redis.form.DeleteOptionCartForm;
 import com.zerobase.storeapi.domain.redis.form.UpdateOptionCartForm;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static com.zerobase.storeapi.exception.ErrorCode.NOT_FOUND_ITEM;
 import static com.zerobase.storeapi.exception.ErrorCode.ORDER_FAIL_CHECK_CART;
@@ -28,7 +30,7 @@ public class CartService {
     private final StoreItemRepository storeItemRepository;
     private final RedisClient redisClient;
 
-    public Cart addCart(Long customerId, AddItemCartForm form) {
+    public AddCartResult addCart(Long customerId, AddItemCartForm form) {
         Item item = storeItemRepository.findById(form.getId())
                 .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
 
@@ -85,12 +87,14 @@ public class CartService {
         cart.setTotalPrice(getTotalPrice(cart));
 
         redisClient.put(customerId, cart);
-        return cart;
+
+        return AddCartResult.builder()
+                .storeName(cart.getItems().get(0).getStoreName())
+                .name(cart.getItems().get(0).getName())
+                .price(cart.getItems().get(0).getOptions().get(0).getPrice())
+                .build();
     }
 
-//    public void putCart(Long customerId, Cart cart) {
-//        redisClient.put(customerId, cart);
-//    }
 
     // 상품의 가격이나 수량이 변동 될 수 있음 -> 알림 필요
     // 메세지를 보고난 다음에는 확인 했으므로 제거
@@ -160,12 +164,7 @@ public class CartService {
                     // 현재 가격으로 카트 내용 변경
                     cartOption.setPrice(op.getPrice());
                 }
-                // 카트에 옵션을 담을 당시의 가격과 현재의 가격이 다른경우
-//                if (cartOption.getQuantity() > op.getQuantity()) {
-//                    // flag -> true
-//                    isQuantityNotEnough = true;
-//                    cartOption.setQuantity(op.getQuantity());
-//                }
+
                 if (isPriceChanged) {
                     tmpMessages.add(cartOption.getName() + " 가격이 변동되었습니다.");
 

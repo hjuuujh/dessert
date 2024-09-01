@@ -1,18 +1,18 @@
 ### register store
 POST http://localhost:8080/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
-  "name": "수제청 청이",
-  "description": "신선한 과일과 채소에 정성을 더한 핸드메이드 과일청&주스",
-  "thumbnailUrl": "https://청이.png"
+  "name": "디디얌",
+  "description": "디디얌 베이커리&디저트",
+  "thumbnailUrl": "https://디디얌.png"
 }
 
 ### register store
 POST http://localhost:8080/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "name": "달달구리해닮",
@@ -23,7 +23,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### register store
 POST http://localhost:8080/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "name": "바스켓베이커리",

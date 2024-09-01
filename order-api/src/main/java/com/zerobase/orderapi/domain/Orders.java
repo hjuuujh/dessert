@@ -25,7 +25,10 @@ public class Orders extends BaseEntity{
     private Long storeId;
 
     private Long itemId;
+    private String  itemName;
     private Long optionId;
+    private String  optionName;
+    private Integer totalPrice;
     private Integer price;
     private Integer quantity;
 

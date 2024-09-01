@@ -3,10 +3,13 @@ package com.zerobase.storeapi.service;
 import com.zerobase.storeapi.client.MemberClient;
 import com.zerobase.storeapi.client.OrderClient;
 import com.zerobase.storeapi.client.RedisClient;
+import com.zerobase.storeapi.client.from.OrderResult;
+import com.zerobase.storeapi.domain.entity.Item;
 import com.zerobase.storeapi.domain.entity.Option;
 import com.zerobase.storeapi.domain.redis.Cart;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreItemOptionRepository;
+import com.zerobase.storeapi.repository.StoreItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +28,10 @@ public class CartOrderService {
     private final StoreItemOptionRepository storeItemOptionRepository;
     private final OrderClient orderClient;
     private final MemberClient memberClient;
+    private final StoreItemRepository storeItemRepository;
 
     @Transactional
-    public boolean orderCart(String token, Long customerId, Cart cart) {
+    public List<OrderResult> orderCart(String token, Long customerId, Cart cart) {
         // 기존 카트
         Cart oldCart = cartService.getCart(customerId);
         // 주문 카트
@@ -47,15 +51,26 @@ public class CartOrderService {
         // 수량 감소
         decreaseOptionQuantity(orderCart);
 
+        // 주문
+        List<OrderResult> orderResults = orderClient.order(token, orderCart);
+
         // cart 업데이트
         updateCart(customerId, oldCart, orderCart);
 
-        // 주문
-        orderClient.order(token, orderCart);
+        // item order count 증가
+        updateItemOrderCount(orderCart);
 
-        // 주문성공시 아이템별 주문횟수 +1
+        return orderResults;
+    }
 
-        return true;
+    @Transactional
+    public void updateItemOrderCount(Cart orderCart) {
+        for(Cart.Item item : orderCart.getItems()) {
+            Item dbItem = storeItemRepository.findById(item.getId())
+                    .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
+
+            dbItem.increaseOrderCount();
+        }
     }
 
     private void updateCart(Long customerId, Cart orderCart, Cart oldCart) {

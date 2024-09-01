@@ -72,7 +72,7 @@ public class MemberController {
      * @param errors : form의 validation 체크후 잘못된 형식의 메세지 리턴
      * @return 토큰
      */
-    @PostMapping("/signin/custoemer")
+    @PostMapping("/signin/customer")
     public ResponseEntity<?> signInCustomer(@RequestBody @Valid SignIn form, Errors errors) {
         List<ResponseError> responseErrors = validationErrorResponse.checkValidation(errors);
         if (!responseErrors.isEmpty()) {

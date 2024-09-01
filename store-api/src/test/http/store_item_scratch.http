@@ -1,29 +1,30 @@
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 1,
-  "name": "혈관청소부 비트(ABC)건강/디톡스/다이어트주스 10병",
-  "thumbnailUrl": "https://비트.png",
-  "description": "사과1:당근1:비트1/3 황금비율의 주스",
-  "descriptionUrl": "https://비트.png",
+  "name": "디디얌 마카롱 수제 뚱카롱 32종",
+  "thumbnailUrl": "https://마카롱.png",
+  "description": "마카롱에 최고급프랑스산 발효버터를 사용합니다:)",
+  "descriptionUrl": "https://마카롱.png",
+  "category": "macaron",
   "options": [
     {
-      "name": "비트(ABC)주스 200ml 10병",
-      "quantity": 10,
-      "price": 32000
+      "name": "조리퐁",
+      "quantity": 100,
+      "price": 2500
     },
     {
-      "name": "비트(ABC)주스 200ml 20병",
+      "name": "딸기바나나",
       "quantity": 10,
-      "price": 64000
+      "price": 2500
     },
     {
-      "name": "비트(ABC)주스 200ml 30병",
+      "name": "레드벨벳",
       "quantity": 10,
-      "price": 96000
+      "price": 2500
     }
   ]
 }
@@ -31,44 +32,25 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 1,
-  "name": "건강음료 맷돌호박식혜 500ml 4병",
-  "thumbnailUrl": "https://맷돌호박식혜.png",
-  "description": "믿을 수 있는 재료와 전통방식 그대로 정성을 더하여 만든 호박 식혜",
-  "descriptionUrl": "https://맷돌호박식혜.png",
+  "name": "촉촉한 에그타르트",
+  "thumbnailUrl": "https://에그타르트.png",
+  "description": "냉장보관시 전자렌지30초 냉동보관시 전자렌지 1분 10초",
+  "descriptionUrl": "https://에그타르트.png",
+  "category": "tart",
   "options": [
     {
-      "name": "호박식혜 500ml 4병",
+      "name": "에그타르트1개",
       "quantity": 10,
-      "price": 20000
-    }
-  ]
-}
-
-### create item
-POST http://localhost:8080/api/store/item
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
-
-{
-  "storeId": 1,
-  "name": "자몽착즙청 자몽에이드 500ml",
-  "thumbnailUrl": "https://자몽착즙청.png",
-  "description": "자몽의 알맹이만 착즙하여 만든 리얼자몽착즙청!",
-  "descriptionUrl": "https://자몽착즙청.png",
-  "options": [
-    {
-      "name": "자몽착즙청 500ml",
-      "quantity": 10,
-      "price": 20000
+      "price": 3000
     },
     {
-      "name": "레몬착즙청 500ml",
+      "name": "에그타르트6개입(상자포함)",
       "quantity": 10,
-      "price": 20000
+      "price": 15500
     }
   ]
 }
@@ -76,7 +58,28 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
+
+{
+  "storeId": 1,
+  "name": "새콤달콤😖 레몬케이크",
+  "thumbnailUrl": "https://레몬케이크.png",
+  "description": "레몬맛이 은은하게 나는 레몬케이크에 레몬아이싱을 듬뿍",
+  "descriptionUrl": "https://레몬케이크.png",
+  "category": "cake",
+  "options": [
+    {
+      "name": "레몬케이크1개",
+      "quantity": 10,
+      "price": 2800
+    }
+  ]
+}
+
+### create item
+POST http://localhost:8080/api/store/item
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 2,
@@ -84,6 +87,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
   "thumbnailUrl": "https://티그레.png",
   "description": "꿀고구마티그레 대체당으로 만든4종 얼그레이,흑임자,오리지널,피스타치오",
   "descriptionUrl": "https://티그레.png",
+  "category": "cookie",
   "options": [
     {
       "name": "6개세트",
@@ -101,7 +105,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 2,
@@ -109,6 +113,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
   "thumbnailUrl": "https://카라멜버터샌드쿠키세트.png",
   "description": "부드럽고 고급스러운 파트슈크레 쿠키 사이로 겹겹히 올라간. 부드러운 버터와 수제로만든 피넛프랄리네카라멜, 쏠티드카라멜",
   "descriptionUrl": "https://카라멜버터샌드쿠키세트.png",
+  "category": "cookie",
   "options": [
     {
       "name": "쏠티드카라멜버터샌드10세트",
@@ -121,7 +126,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 2,
@@ -129,6 +134,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
   "thumbnailUrl": "https://샹티크림끌레오르.png",
   "description": "식이섬유가 풍부한 베니고구마와 아몬드푸들가득 넣어만든 끌레오르와 부드럽고 고급스러운 샹티크림이 만나 귀여운 쿠키케이크",
   "descriptionUrl": "https://샹티크림끌레오르.png",
+  "category": "cookie",
   "options": [
     {
       "name": "보늬밤샹티크림 끌레오르",
@@ -151,7 +157,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 3,
@@ -159,6 +165,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
   "thumbnailUrl": "https://스콘.png",
   "description": "글루텐프리 베이킹파우더 사용",
   "descriptionUrl": "https://스콘.png",
+  "category": "scone",
   "options": [
     {
       "name": "무화과와인",
@@ -181,7 +188,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 3,
@@ -189,6 +196,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
   "thumbnailUrl": "https://파운드케이크.png",
   "description": "글루텐프리 베이킹파우더 사용",
   "descriptionUrl": "https://파운드케이크.png",
+  "category": "cake",
   "options": [
     {
       "name": "블루베리코코넛",
@@ -198,8 +206,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
     {
       "name": "플레인",
       "quantity": 10,
-      "price": 5500,
-      "discount":700
+      "price": 5500
     },
     {
       "name": "얼그레이(트와이닝)",
@@ -212,7 +219,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
 ### create item
 POST http://localhost:8080/api/store/item
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ2NTExMzcsImV4cCI6MTcyNDczNzUzN30.pPnQEH-xrv0x35S2EtrM54yQa7O0UCvtJynVUNpYrtzIea4emvb3545k7uZEZPfut8LAq32CVbINOuQQE2jehQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3cjdRPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX1NFTExFUiJdLCJpYXQiOjE3MjQ4MjUwNzUsImV4cCI6MTcyNDkxMTQ3NX0.LBT7UNq9e4nA0ut52u_DD_D5Ev7CNB2cZOgCvlSyVTbUf3pQs7SsmVQQcRYQ25miAlW-0M3BPh882aZ0HVAlyg
 
 {
   "storeId": 3,
@@ -220,6 +227,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJLei9BSlZhVDlLcHZpQ1ZicGY3c
   "thumbnailUrl": "https://쌀피칸브라우니.png",
   "description": "글루텐프리 베이킹파우더 사용",
   "descriptionUrl": "https://쌀피칸브라우니.png",
+  "category": "bread",
   "options": [
     {
       "name": "쌀피칸브라우니",

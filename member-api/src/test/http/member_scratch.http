@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### signin member
-POST http://localhost:8080/api/member/signin/custoemer
+POST http://localhost:8080/api/member/signin/customer
 Content-Type: application/json
 
 {

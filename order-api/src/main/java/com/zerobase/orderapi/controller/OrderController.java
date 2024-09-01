@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
@@ -22,12 +21,20 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> order(@RequestHeader(name = "Authorization") String token,
                                    @RequestBody Cart cart){
-        orderService.order(token, cart);
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(orderService.order(token, cart));
     }
 
+    // 주문 디테일
+    @GetMapping("/customer/order")
+    public ResponseEntity<?> getOrder(@RequestHeader(name = "Authorization") String token,
+                                       @RequestParam Long id){
+        return ResponseEntity.ok(orderService.getOrderById(memberClient.getMemberId(token), id));
+    }
+
+
     // 고객이 주문현황 기간별 확인
-    @GetMapping("/customer")
+    @GetMapping("/customer/orders")
     public ResponseEntity<?> getOrders(@RequestHeader(name = "Authorization") String token,
                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end,
@@ -35,10 +42,17 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrders(memberClient.getMemberId(token), start, end, pageable));
     }
 
+    // 고객이 주문 취소
+    @DeleteMapping("/customer/order/cancel")
+    public ResponseEntity<?> cancelOrder(@RequestHeader(name = "Authorization") String token,
+                                       @RequestParam Long id){
+        return ResponseEntity.ok(orderService.cancelOrder(memberClient.getMemberId(token), id));
+    }
+
     // 판매자가 주문현황 날짜별 확인
-    @GetMapping("/seller/{storeId}")
+    @GetMapping("/seller/orders")
     public ResponseEntity<?> getOrdersByStore(@RequestHeader(name = "Authorization") String token,
-                                       @PathVariable Long storeId,
+                                       @RequestParam Long storeId,
                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end,
                                        Pageable pageable){
@@ -50,6 +64,13 @@ public class OrderController {
     public ResponseEntity<?> requestRefund(@RequestHeader(name = "Authorization") String token,
                                        @PathVariable Long id){
         return ResponseEntity.ok(orderService.requestRefund(memberClient.getMemberId(token), id));
+    }
+
+    // 환불 신청 취소
+    @PatchMapping("/customer/refund/cancel/{id}")
+    public ResponseEntity<?> cancelRequestRefund(@RequestHeader(name = "Authorization") String token,
+                                           @PathVariable Long id){
+        return ResponseEntity.ok(orderService.cancelRequestRefund(memberClient.getMemberId(token), id));
     }
 
     // 환불 수락
