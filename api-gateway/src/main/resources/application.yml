@@ -35,22 +35,10 @@ spring:
           uri: http://localhost:8091
           predicates:
             - Path=/api/store/search/**
-          filters:
-            - name: AuthorizationHeaderFilter
-              args:
-                headerName: Authorization
-                granted: Bearer
-                role: ROLE_CUSTOMER, ROLE_SELLER
         - id: item-search-api
           uri: http://localhost:8091
           predicates:
             - Path=/api/store/item/search/**
-          filters:
-            - name: AuthorizationHeaderFilter
-              args:
-                headerName: Authorization
-                granted: Bearer
-                role: ROLE_CUSTOMER, ROLE_SELLER
         - id: cart-api
           uri: http://localhost:8091
           predicates:

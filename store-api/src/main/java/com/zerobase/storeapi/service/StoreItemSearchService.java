@@ -1,12 +1,12 @@
 package com.zerobase.storeapi.service;
 
 import com.zerobase.storeapi.domain.dto.ItemDto;
-import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Item;
-import com.zerobase.storeapi.domain.entity.Store;
+import com.zerobase.storeapi.domain.form.item.SearchItem;
+import com.zerobase.storeapi.domain.type.Category;
 import com.zerobase.storeapi.exception.StoreException;
 import com.zerobase.storeapi.repository.StoreItemRepository;
-import com.zerobase.storeapi.repository.StoreRepository;
+import io.micrometer.core.instrument.search.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import static com.zerobase.storeapi.exception.ErrorCode.NOT_FOUND_ITEM;
-import static com.zerobase.storeapi.exception.ErrorCode.NOT_FOUND_STORE;
 
 @Service
 @Slf4j
@@ -23,44 +22,37 @@ public class StoreItemSearchService {
     private final StoreItemRepository storeItemRepository;
 
     // 기본 : 키워드 + 판매순
-    public Page<ItemDto> searchItemByKeyword(String keyword, Pageable pageable) {
+    public Page<SearchItem> searchItemByKeyword(String keyword, Pageable pageable) {
         return storeItemRepository.findByNameContainingIgnoreCaseOrderByOrderCountDesc(keyword, pageable)
-                .map(ItemDto::from);
+                .map(SearchItem::from);
     }
 
     // 키워드 + 최신순
-    public Page<ItemDto> searchItemByNewest(String keyword, Pageable pageable) {
+    public Page<SearchItem> searchItemByNewest(String keyword, Pageable pageable) {
         return storeItemRepository.findByNameContainingIgnoreCaseOrderByModifiedAtDesc(keyword, pageable)
-                .map(ItemDto::from);
-    }
-
-    // 키워드 + 별점순
-    public Page<ItemDto> searchItemByRating(String keyword, Pageable pageable) {
-        return storeItemRepository.findByNameContainingIgnoreCaseOrderByRatingDesc(keyword, pageable)
-                .map(ItemDto::from);
-    }
-
-    // 키워드 + 후기개수순
-    public Page<ItemDto> searchItemByReview(String keyword, Pageable pageable) {
-        return storeItemRepository.findByNameContainingIgnoreCaseOrderByRatingCountDesc(keyword, pageable)
-                .map(ItemDto::from);
+                .map(SearchItem::from);
     }
 
     // 키워드 + 낮은 가격순
-    public Page<ItemDto> searchItemByLowerPrice(String keyword, Pageable pageable) {
+    public Page<SearchItem> searchItemByLowerPrice(String keyword, Pageable pageable) {
         return storeItemRepository.findByNameContainingIgnoreCaseOrderByPrice(keyword, pageable)
-                .map(ItemDto::from);
+                .map(SearchItem::from);
     }
 
     // 키워드 + 높은 가격순
-    public Page<ItemDto> searchItemByHighPrice(String keyword, Pageable pageable) {
+    public Page<SearchItem> searchItemByHighPrice(String keyword, Pageable pageable) {
         return storeItemRepository.findByNameContainingIgnoreCaseOrderByPriceDesc(keyword, pageable)
-                .map(ItemDto::from);
+                .map(SearchItem::from);
     }
 
-    public Page<ItemDto> searchStoreItem(Long storeId, Pageable pageable) {
+    public Page<SearchItem> searchItemByCategory(String keyword, String category, Pageable pageable) {
+        return storeItemRepository.findByNameContainingIgnoreCaseAndCategory(keyword, Category.valueOf(category.toUpperCase()), pageable)
+                .map(SearchItem::from);
+    }
+
+    public Page<SearchItem> searchStoreItem(Long storeId, Pageable pageable) {
         return storeItemRepository.findByStoreId(storeId, pageable)
-                .map(ItemDto::from);
+                .map(SearchItem::from);
     }
 
     public ItemDto searchItem(Long itemId) {

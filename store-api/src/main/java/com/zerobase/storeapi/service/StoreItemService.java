@@ -8,6 +8,7 @@ import com.zerobase.storeapi.domain.entity.Item;
 import com.zerobase.storeapi.domain.entity.Option;
 import com.zerobase.storeapi.domain.entity.Store;
 import com.zerobase.storeapi.domain.form.item.CreateItem;
+import com.zerobase.storeapi.domain.form.item.DeleteItem;
 import com.zerobase.storeapi.domain.form.item.UpdateItem;
 import com.zerobase.storeapi.domain.form.option.CreateOption;
 import com.zerobase.storeapi.exception.StoreException;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -46,7 +48,7 @@ public class StoreItemService {
         checkOptionPrice(form.getOptions());
         checkOptionQuantity(form.getOptions());
 
-        Item item = Item.of(sellerId, form);
+        Item item = Item.of(sellerId, form, store.getName());
         storeItemRepository.save(item);
         return ItemDto.from(item);
     }
@@ -122,7 +124,7 @@ public class StoreItemService {
         return ItemDto.from(item);
     }
 
-    public void deleteItem(Long sellerId, Long id) {
+    public DeleteItem deleteItem(Long sellerId, Long id) {
         Item item = storeItemRepository.findById(id)
                 .orElseThrow(() -> new StoreException(NOT_FOUND_ITEM));
 
@@ -131,6 +133,11 @@ public class StoreItemService {
         storeItemRepository.delete(item);
 
         memberClient.deleteHeartItem(id);
+
+        return DeleteItem.builder()
+                .itemName(item.getName())
+                .deletedAt(LocalDateTime.now())
+                .build();
     }
 
     @Transactional
@@ -158,6 +165,7 @@ public class StoreItemService {
     }
 
     public Page<ItemDto> getItems(ItemsForm form, Pageable pageable) {
+        // itemDto에서 옵션없이 넘기도록 수정
         return storeItemRepository.findAllByIdIn(form.getHeartList(), pageable)
                 .map(ItemDto::from);
     }

@@ -49,8 +49,8 @@ public class StoreItemController {
     @DeleteMapping
     public ResponseEntity<?> deleteItem(@RequestHeader(name = "Authorization") String token,
                                         @RequestParam Long id) {
-        storeItemService.deleteItem(memberClient.getMemberId(token), id);
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(storeItemService.deleteItem(memberClient.getMemberId(token), id));
     }
 
     /**

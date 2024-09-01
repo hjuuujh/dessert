@@ -3,6 +3,7 @@ package com.zerobase.storeapi.domain.entity;
 import com.zerobase.storeapi.domain.BaseEntity;
 import com.zerobase.storeapi.domain.form.item.CreateItem;
 import com.zerobase.storeapi.domain.form.item.UpdateItem;
+import com.zerobase.storeapi.domain.type.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,12 +27,15 @@ public class Item extends BaseEntity {
     private Long id;
     private Long sellerId;
     private Long storeId;
+    private String storeName;
 
     private String name;
     private String thumbnailUrl;
     private String description;
     private String descriptionUrl;
 
+    @Enumerated(EnumType.STRING)
+    private Category category;
     private int price;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -39,25 +43,17 @@ public class Item extends BaseEntity {
     private List<Option> options;
 
     @ColumnDefault("0")
-    private float rating; // 매장 별점
-
-    // 별점 업데이트 할때마다 리뷰테이블 전체읽어서 정보 얻어오는 것보다
-    // 리뷰 총 개수와 별점 총합 저장해두는게 효율적이라 생각함
-    @ColumnDefault("0")
-    private float ratingSum; // 아이템에 등록된 후기들의 별점 총합
-    @ColumnDefault("0")
-    private long ratingCount; // 아이템에 등록된 후기들의 개수 총합
-
-    @ColumnDefault("0")
     private long orderCount;
     @ColumnDefault("0")
     private long heartCount;
 
-    public static Item of(Long sellerId, CreateItem form){
+    public static Item of(Long sellerId, CreateItem form, String storeName){
         return Item.builder()
                 .sellerId(sellerId)
                 .storeId(form.getStoreId())
+                .storeName(storeName)
                 .name(form.getName())
+                .category(form.getCategory())
                 .thumbnailUrl(form.getThumbnailUrl())
                 .description(form.getDescription())
                 .descriptionUrl(form.getDescriptionUrl())
@@ -85,5 +81,9 @@ public class Item extends BaseEntity {
 
     public void decreaseHeart() {
         this.heartCount = Math.max(heartCount - 1, 0);
+    }
+
+    public void increaseOrderCount() {
+        this.orderCount++;
     }
 }

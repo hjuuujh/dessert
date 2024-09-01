@@ -1,7 +1,7 @@
 ### cart 주문
 POST localhost:8080/api/store/cart/order
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY3MjI2MCwiZXhwIjoxNzI0NzU4NjYwfQ.2CBBCnYis4PJ_w0G14vDkuEvSW2djEp6aN_OocKcRmLEe10VGbaJ_fI4zJzHW9HdCwEPl1fS0oZMaRXQW2qnQA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDg0MjEwNywiZXhwIjoxNzI0OTI4NTA3fQ.UnTFBB4YTNTF-k-CUW5XzkkK2LRpuK0YfRiyJfcguZ3GNIcre6FybGm8Xw_iWs4j9Dp1cxWjeFb-dwYyDtAV0g
 
 {
   "customerId": 1,
@@ -18,21 +18,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
           "name": "얼그레이샹티크림 끌레오르",
           "quantity": 2,
           "price": 26000
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "storeId": 1,
-      "sellerId": 1,
-      "storeName": "수제청 청이",
-      "name": "혈관청소부 비트(ABC)건강/디톡스/다이어트주스 10병",
-      "options": [
+        },
         {
-          "id": 1,
-          "name": "비트(ABC)주스 200ml 10병",
-          "quantity": 5,
-          "price": 32000
+          "id": 12,
+          "name": "블루베리샹티크림 끌레오르",
+          "quantity": 2,
+          "price": 26000
         }
       ]
     }

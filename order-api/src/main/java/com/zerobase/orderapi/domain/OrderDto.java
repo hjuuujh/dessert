@@ -22,11 +22,12 @@ public class OrderDto {
     private Long storeId;
 
     private Long itemId;
+    private String  itemName;
     private Long optionId;
+    private String  optionName;
     private Integer price;
     private Integer quantity;
 
-    @Enumerated(EnumType.STRING)
     private Status status;
 
     private LocalDateTime createdAt;
@@ -39,9 +40,11 @@ public class OrderDto {
                 .customerId(order.getCustomerId())
                 .storeId(order.getStoreId())
                 .itemId(order.getItemId())
+                .itemName(order.getItemName())
                 .optionId(order.getOptionId())
+                .optionName(order.getOptionName())
                 .price(order.getPrice())
-                .quantity(order.getPrice())
+                .quantity(order.getQuantity())
                 .status(order.getStatus())
                 .createdAt(order.getCreatedAt())
                 .modifiedAt(order.getModifiedAt())

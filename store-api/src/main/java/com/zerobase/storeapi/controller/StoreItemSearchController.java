@@ -22,19 +22,15 @@ public class StoreItemSearchController {
         return ResponseEntity.ok(storeItemSearchService.searchItemByKeyword(keyword, pageable));
     }
 
+    @GetMapping("/category")
+    public ResponseEntity<?> searchItemByCategory(@RequestParam String keyword,
+                                                  @RequestParam String category, final Pageable pageable) {
+        return ResponseEntity.ok(storeItemSearchService.searchItemByCategory(keyword, category, pageable));
+    }
+
     @GetMapping("/new")
     public ResponseEntity<?> searchItemByNewest(@RequestParam String keyword, final Pageable pageable) {
         return ResponseEntity.ok(storeItemSearchService.searchItemByNewest(keyword, pageable));
-    }
-
-    @GetMapping("/rating")
-    public ResponseEntity<?> searchItemByRating(@RequestParam String keyword, final Pageable pageable) {
-        return ResponseEntity.ok(storeItemSearchService.searchItemByRating(keyword, pageable));
-    }
-
-    @GetMapping("/review")
-    public ResponseEntity<?> searchItemByReview(@RequestParam String keyword, final Pageable pageable) {
-        return ResponseEntity.ok(storeItemSearchService.searchItemByReview(keyword, pageable));
     }
 
     @GetMapping("/price/low")
@@ -52,8 +48,8 @@ public class StoreItemSearchController {
         return ResponseEntity.ok(storeItemSearchService.searchStoreItem(storeId, pageable));
     }
 
-    @GetMapping
-    public ResponseEntity<?> searchItem(@RequestParam Long itemId, final Pageable pageable) {
+    @GetMapping("/detail")
+    public ResponseEntity<?> searchItem(@RequestParam Long itemId) {
         return ResponseEntity.ok(storeItemSearchService.searchItem(itemId));
     }
 }

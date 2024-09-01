@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 @SpringBootApplication
-@EnableJpaRepositories
 @EnableJpaAuditing
 @EnableFeignClients
 @EnableDiscoveryClient

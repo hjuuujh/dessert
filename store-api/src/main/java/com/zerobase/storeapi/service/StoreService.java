@@ -6,6 +6,7 @@ import com.zerobase.storeapi.client.from.MatchForm;
 import com.zerobase.storeapi.client.from.StoresForm;
 import com.zerobase.storeapi.domain.dto.StoreDto;
 import com.zerobase.storeapi.domain.entity.Store;
+import com.zerobase.storeapi.domain.form.store.DeleteStore;
 import com.zerobase.storeapi.domain.form.store.RegisterStore;
 import com.zerobase.storeapi.domain.form.store.UpdateStore;
 import com.zerobase.storeapi.exception.StoreException;
@@ -20,8 +21,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.zerobase.storeapi.exception.ErrorCode.*;
 
@@ -59,9 +58,17 @@ public class StoreService {
     public StoreDto updateStore(Long sellerId, UpdateStore form) {
         checkDuplicateStoreName(form.getName());
         Store store = checkMatchSellerAndStore(sellerId, form.getId());
+        checkStoreAlreadyDeleted(store.getDeletedAt());
         store.update(form);
         return StoreDto.from(store);
     }
+
+    private void checkStoreAlreadyDeleted(LocalDate deletedAt) {
+        if(deletedAt != null) {
+            throw new StoreException(ALREADY_DELETED_STORE);
+        }
+    }
+
 
     private Store checkMatchSellerAndStore(Long sellerId, Long id) {
         return storeRepository.findByIdAndSellerId(id, sellerId)
@@ -69,7 +76,7 @@ public class StoreService {
     }
 
     @Transactional
-    public LocalDate deleteStore(Long sellerId, Long id) {
+    public DeleteStore deleteStore(Long sellerId, Long id) {
         Store store = checkMatchSellerAndStore(sellerId, id);
         store.delete();
 
@@ -77,7 +84,7 @@ public class StoreService {
         storeItemRepository.deleteAllByStoreId(id);
 
         memberClient.deleteFollowStore(id);
-        return store.getDeletedAt();
+        return DeleteStore.builder().deletedAt(store.getDeletedAt()).build();
     }
 
     @Transactional

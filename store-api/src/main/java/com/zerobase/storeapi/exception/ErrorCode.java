@@ -17,6 +17,7 @@ public enum ErrorCode {
     // 매장 수정
     NOT_FOUND_STORE(HttpStatus.BAD_REQUEST, "매장 정보가 존재하지 않습니다."),
     NOT_FOUND_ITEM(HttpStatus.BAD_REQUEST, "아이템정보가 존재하지 않습니다."),
+    ALREADY_DELETED_STORE(HttpStatus.BAD_REQUEST, "이미 삭제된 매장입니다."),
 
     UNMATCHED_SELLER_STORE(HttpStatus.BAD_REQUEST, "매장 정보와 파트너 정보가 일치하지 않습니다."),
     // 매장 삭제
