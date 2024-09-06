@@ -1,8 +1,7 @@
 package com.zerobase.orderapi.domain.type;
 
-public enum Status {
+public enum OrderStatus {
     ORDERED,
-    ORDERED_COMPLETED,
     REFUND_REQUEST,
     REFUND_APPROVED,
     REFUND_REJECTED;

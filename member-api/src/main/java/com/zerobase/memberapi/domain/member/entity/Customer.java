@@ -10,7 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -37,6 +40,7 @@ public class Customer extends BaseEntity implements UserDetails {
 
     @DefaultValue("0")
     private int balance;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Long> followList;
     @ElementCollection(fetch = FetchType.EAGER)

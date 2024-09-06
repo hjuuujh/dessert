@@ -1,6 +1,6 @@
-package com.zerobase.orderapi.repository;
+package com.zerobase.orderapi.repository.order;
 
-import com.zerobase.orderapi.domain.Orders;
+import com.zerobase.orderapi.domain.order.Orders;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +16,4 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
 
     Optional<Orders> findByIdAndSellerId(Long id, Long sellerId);
     Optional<Orders> findByIdAndCustomerId(Long id, Long customerId);
-
 }

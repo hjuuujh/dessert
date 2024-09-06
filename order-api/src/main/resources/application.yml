@@ -8,6 +8,38 @@ spring:
       label: master
       profile: dev
       uri: http://localhost:8888
+  datasource:
+    hikari:
+#      connection-timeout: 15000 # 3초 -> 15초로 증가
+#      maximum-pool-size: 5
+#      max-lifetime: 30000
+      batch-datasource:
+        jdbc-url: jdbc:mysql://localhost:3306/batch?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+        # url: jdbc:mysql://dessert-db:3306/member?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 1234
+      order-datasource:
+        jdbc-url: jdbc:mysql://localhost:3306/orders?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+        # url: jdbc:mysql://dessert-db:3306/member?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 1234
+      member-datasource:
+        jdbc-url: jdbc:mysql://localhost:3306/member?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+        # url: jdbc:mysql://dessert-db:3306/member?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 1234
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  batch:
+    jdbc:
+      initialize-schema: always
 
   config:
     import: optional:configserver:http://localhost:8888
@@ -37,8 +69,8 @@ management:
 external-api:
   member:
     url: http://localhost:8090/api/member
-#  member:
-#    url: http://member-api:8090/api/member
+  #  member:
+  #    url: http://member-api:8090/api/member
   store:
     url: http://localhost:8091/api/store
 #  store:

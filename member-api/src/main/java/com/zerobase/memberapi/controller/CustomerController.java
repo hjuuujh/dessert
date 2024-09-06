@@ -3,14 +3,9 @@ package com.zerobase.memberapi.controller;
 import com.zerobase.memberapi.aop.BalanceLock;
 import com.zerobase.memberapi.client.from.FollowForm;
 import com.zerobase.memberapi.client.from.HeartForm;
-import com.zerobase.memberapi.client.from.OrderForm;
-import com.zerobase.memberapi.client.from.RefundForm;
-import com.zerobase.memberapi.domain.member.dto.CustomerDto;
-import com.zerobase.memberapi.domain.member.dto.SellerDto;
+import com.zerobase.memberapi.client.from.DecreaseBalanceForm;
+import com.zerobase.memberapi.client.from.IncreaseBalanceForm;
 import com.zerobase.memberapi.domain.member.form.ChargeForm;
-import com.zerobase.memberapi.domain.member.form.SignIn;
-import com.zerobase.memberapi.domain.member.form.SignUp;
-import com.zerobase.memberapi.domain.member.form.TokenResponse;
 import com.zerobase.memberapi.security.TokenProvider;
 import com.zerobase.memberapi.service.CustomerService;
 import com.zerobase.memberapi.service.SellerService;
@@ -62,7 +57,7 @@ public class CustomerController {
     @GetMapping("/stores")
     public ResponseEntity<?> getFollowStores(@RequestHeader(name = "Authorization") String token,
                                              Pageable pageable) {
-        return ResponseEntity.ok(customerService.getFollowStores(tokenProvider.getUserIdFromToken(token),pageable));
+        return ResponseEntity.ok(customerService.getFollowStores(tokenProvider.getUserIdFromToken(token), pageable));
     }
 
     @PostMapping("/heart")
@@ -83,29 +78,29 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getHeartItems(tokenProvider.getUserIdFromToken(token), pageable));
     }
 
-    @PostMapping("/delete/heart")
-    public ResponseEntity<?> deleteHeartItem(@RequestParam("itemId") Long id){
+    @GetMapping("/delete/heart")
+    public ResponseEntity<?> deleteHeartItem(@RequestParam("itemId") Long id) {
         customerService.deleteHeartItem(id);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete/follow")
-    public ResponseEntity<?> deleteFollowStore(@RequestParam("storeId") Long id){
-        customerService.deleteFollowStore(id);
+    @GetMapping("/delete/follow")
+    public ResponseEntity<?> deleteFollowStore(@RequestParam("storeId") Long storeId) {
+        customerService.deleteFollowStore(storeId);
         return ResponseEntity.ok().build();
 
     }
 
     @GetMapping("/balance")
     @BalanceLock
-    public ResponseEntity<?> getBalance(@RequestHeader(name = "Authorization") String token){
+    public ResponseEntity<?> getBalance(@RequestHeader(name = "Authorization") String token) {
         return ResponseEntity.ok(customerService.getBalance(tokenProvider.getUserIdFromToken(token)));
     }
 
     @PostMapping("/order")
     @BalanceLock
     public ResponseEntity<?> decreaseBalance(@RequestHeader(name = "Authorization") String token,
-                                           @RequestBody OrderForm form) {
+                                             @RequestBody DecreaseBalanceForm form) {
         customerService.decreaseBalance(tokenProvider.getUserIdFromToken(token), form);
         return ResponseEntity.ok().build();
     }
@@ -113,7 +108,8 @@ public class CustomerController {
     @PostMapping("/refund")
     @BalanceLock
     public void increaseBalance(@RequestHeader(name = "Authorization") String token,
-                         @RequestBody RefundForm form){
+                                @RequestBody IncreaseBalanceForm form) {
+        System.out.println("###################");
         customerService.increaseBalance(tokenProvider.getUserIdFromToken(token), form);
     }
 }

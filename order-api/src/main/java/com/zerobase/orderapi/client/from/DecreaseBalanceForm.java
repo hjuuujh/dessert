@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RefundForm {
-    private Long id;
-    private LocalDate date;
+public class DecreaseBalanceForm {
+    private Integer totalPrice;
 }

@@ -31,7 +31,7 @@ public class CustomerDto {
                 .phone(customer.getPhone())
                 .roles(customer.getRoles())
                 .balance(customer.getBalance())
-                .followList(customer.getFollowList())
+//                .followList(customer.getFollowList())
                 .heartList(customer.getHeartList())
                 .build();
     }

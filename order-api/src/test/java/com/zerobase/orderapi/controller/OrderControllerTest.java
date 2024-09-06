@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.orderapi.client.MemberClient;
 import com.zerobase.orderapi.client.to.OrderResult;
 import com.zerobase.orderapi.domain.CancelOrder;
-import com.zerobase.orderapi.domain.OrderDto;
-import com.zerobase.orderapi.domain.type.Status;
+import com.zerobase.orderapi.domain.order.OrderDto;
+import com.zerobase.orderapi.domain.type.OrderStatus;
 import com.zerobase.orderapi.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -173,7 +173,7 @@ class OrderControllerTest {
                 .optionName("얼그레이샹티크림 끌레오르")
                 .price(52000)
                 .quantity(2)
-                .status(Status.ORDERED)
+                .orderStatus(OrderStatus.ORDERED)
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
@@ -922,7 +922,7 @@ class OrderControllerTest {
                 .optionName("얼그레이샹티크림 끌레오르")
                 .optionPrice(26000)
                 .optionQuantity(2)
-                .status(Status.ORDERED)
+                .orderStatus(OrderStatus.ORDERED)
                 .createdAt(LocalDateTime.now())
                 .build()
         );
@@ -933,7 +933,7 @@ class OrderControllerTest {
                 .optionName("블루베리샹티크림 끌레오르")
                 .optionPrice(26000)
                 .optionQuantity(1)
-                .status(Status.ORDERED)
+                .orderStatus(OrderStatus.ORDERED)
                 .createdAt(LocalDateTime.now())
                 .build()
         );

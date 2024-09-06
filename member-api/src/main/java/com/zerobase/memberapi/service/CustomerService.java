@@ -124,6 +124,7 @@ public class CustomerService implements UserDetailsService {
             Customer customer = customerRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
 
             customer.follow(storeId);
+
             return CustomerDto.from(customer);
         } else {
             throw new MemberException(NOT_FOUND_STORE);
@@ -139,6 +140,7 @@ public class CustomerService implements UserDetailsService {
             Customer customer = customerRepository.findById(memberId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
 
             customer.unfollow(storeId);
+
             return CustomerDto.from(customer);
         } else {
             throw new MemberException(NOT_FOUND_STORE);
@@ -187,27 +189,28 @@ public class CustomerService implements UserDetailsService {
         customerRepository.deleteHeart(id);
     }
 
-    public void deleteFollowStore(Long id) {
-        customerRepository.deleteFollow(id);
+    public void deleteFollowStore(Long storeId) {
+        customerRepository.deleteFollow(storeId);
+
     }
 
     public int getBalance(Long customerId) {
-        System.out.println("######################");
-        System.out.println(customerId);
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new MemberException(NOT_FOUND_USER));
         return customer.getBalance();
     }
 
     @Transactional
-    public void decreaseBalance(Long customerId, OrderForm form) {
+    public void decreaseBalance(Long customerId, DecreaseBalanceForm form) {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
         customer.decreaseBalance(form.getTotalPrice());
     }
 
     @Transactional
-    public void increaseBalance(Long customerId, RefundForm form) {
+    public void increaseBalance(Long customerId, IncreaseBalanceForm form) {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
-        customer.increaseBalance(form.getAmount());
+        customer.increaseBalance(form.getTotalPrice());
     }
+
+
 }

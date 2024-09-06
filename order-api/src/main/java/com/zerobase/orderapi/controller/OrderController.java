@@ -2,6 +2,11 @@ package com.zerobase.orderapi.controller;
 
 import com.zerobase.orderapi.client.MemberClient;
 import com.zerobase.orderapi.client.from.Cart;
+import com.zerobase.orderapi.client.from.RefundForm;
+import com.zerobase.orderapi.domain.member.Customer;
+import com.zerobase.orderapi.domain.member.Seller;
+import com.zerobase.orderapi.domain.order.Orders;
+import com.zerobase.orderapi.repository.order.OrderRepository;
 import com.zerobase.orderapi.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/order")
@@ -18,6 +24,15 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberClient memberClient;
 
+//    @GetMapping
+//    public ResponseEntity<?> timeCheck(){
+//        Optional<Orders> byId = orderRepository.findById(1L);
+//        Optional<Seller> byId1 = sellerRepository.findById(1L);
+
+//        return ResponseEntity.ok(byId.get().getPrice() + byId1.get().getEmail());
+//        return ResponseEntity.ok(orderService.settleOrder());
+//    }
+//
     @PostMapping
     public ResponseEntity<?> order(@RequestHeader(name = "Authorization") String token,
                                    @RequestBody Cart cart){
@@ -74,10 +89,10 @@ public class OrderController {
     }
 
     // 환불 수락
-    @PatchMapping("/seller/refund/approve/{id}")
+    @PatchMapping("/seller/refund/approve")
     public ResponseEntity<?> approveRequestRefund(@RequestHeader(name = "Authorization") String token,
-                                           @PathVariable Long id){
-        return ResponseEntity.ok(orderService.approveRequestRefund(token, memberClient.getMemberId(token), id));
+                                                  @RequestBody RefundForm form){
+        return ResponseEntity.ok(orderService.approveRequestRefund(token, memberClient.getMemberId(token), form));
     }
 
     // 환불 거절
@@ -87,11 +102,11 @@ public class OrderController {
         return ResponseEntity.ok(orderService.rejectRequestRefund(memberClient.getMemberId(token), id));
     }
 
-    // 스프링 배치 물어보고 해
-
-    // 도커
-
-    // restdocs
-
-    // 금요일에 사진찍고 이력서 작성
+    // 정산 요청
+    @PostMapping("/seller/settlement")
+    public ResponseEntity<?> requestSettlement(@RequestHeader(name = "Authorization") String token,
+                                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start,
+                                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+        return ResponseEntity.ok(orderService.requestSettlement(token, memberClient.getMemberId(token), start, end));
+    }
 }
