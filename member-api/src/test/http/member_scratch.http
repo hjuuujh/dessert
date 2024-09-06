@@ -37,17 +37,16 @@ POST http://localhost:8080/api/member/signin/customer
 Content-Type: application/json
 
 {
-  "email": "user3@gmail.com",
+  "email": "user2@gmail.com",
   "password": "qwerty"
 }
 
 ### charge balance
 POST http://localhost:8080/api/member/customer/charge
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJxaWpTQWpEdVVGUVZ5WmwxZDErbGdRPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTYxNjMzMywiZXhwIjoxNzI1NzAyNzMzfQ.vszW9_1nqJDlp8B9tSTOro3cpjcb0alIndEEgsyFBWC-9PE8vHwlOrbfwY961fzhuSUXxntkbGUC9RyXHGBPJg
 
 {
-  "email": "user2@gmail.com",
   "amount": 1000
 }
 

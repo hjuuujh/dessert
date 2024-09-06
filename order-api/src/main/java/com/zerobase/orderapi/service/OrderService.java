@@ -5,7 +5,6 @@ import com.zerobase.orderapi.client.StoreClient;
 import com.zerobase.orderapi.client.from.*;
 import com.zerobase.orderapi.client.to.OrderResult;
 import com.zerobase.orderapi.domain.CancelOrder;
-import com.zerobase.orderapi.domain.member.Seller;
 import com.zerobase.orderapi.domain.order.OrderDto;
 import com.zerobase.orderapi.domain.order.Orders;
 import com.zerobase.orderapi.domain.order.Settlement;
@@ -26,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.PropertyPermission;
 
 import static com.zerobase.orderapi.exception.ErrorCode.*;
 
@@ -43,12 +41,10 @@ public class OrderService {
     public List<OrderResult> order(String token, Cart cart) {
         // member point 감소
         DecreaseBalanceForm request = DecreaseBalanceForm.builder()
+                .customerId(cart.getCustomerId())
                 .totalPrice(cart.getTotalPrice())
                 .build();
-//        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new OrderException(NOT_FOUND_CUSTOMER));
-//        customer.decreaseBalance(cart.getTotalPrice());
         memberClient.decreaseBalance(token, request);
-
         List<OrderResult> results = new ArrayList<>();
         // 옵션별 주문 내용 저장
         for (Cart.Item item : cart.getItems()) {
@@ -209,6 +205,7 @@ public class OrderService {
         List<Settlement> settlements = settlementRepository.findBySellerIdAndStatusAndDateBetween(sellerId, SettlementStatus.YET, start, end);
         int settlementAmount = 0;
         for (Settlement settlement : settlements) {
+            System.out.println(settlement.getDate());
             settlementAmount += settlement.getSettlementAmount();
             settlement.updateStatus();
         }

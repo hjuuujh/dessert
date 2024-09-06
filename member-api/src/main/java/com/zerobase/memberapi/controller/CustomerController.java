@@ -42,6 +42,11 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.chargeBalance(tokenProvider.getUserIdFromToken(token), form));
     }
 
+    @GetMapping
+    public ResponseEntity<?> getCustomer(@RequestHeader(name = "Authorization") String token){
+        return ResponseEntity.ok(customerService.getCustomer(tokenProvider.getUserIdFromToken(token)));
+    }
+
     @PostMapping("/follow")
     public ResponseEntity<?> follow(@RequestHeader(name = "Authorization") String token, @RequestBody FollowForm form) {
 
@@ -92,7 +97,6 @@ public class CustomerController {
     }
 
     @GetMapping("/balance")
-    @BalanceLock
     public ResponseEntity<?> getBalance(@RequestHeader(name = "Authorization") String token) {
         return ResponseEntity.ok(customerService.getBalance(tokenProvider.getUserIdFromToken(token)));
     }
@@ -109,7 +113,6 @@ public class CustomerController {
     @BalanceLock
     public void increaseBalance(@RequestHeader(name = "Authorization") String token,
                                 @RequestBody IncreaseBalanceForm form) {
-        System.out.println("###################");
         customerService.increaseBalance(tokenProvider.getUserIdFromToken(token), form);
     }
 }
