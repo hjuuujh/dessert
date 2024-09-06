@@ -1,17 +1,29 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
 plugins {
     id 'java'
     id "io.spring.dependency-management"
     id "org.asciidoctor.jvm.convert" version "3.3.2"
     id 'com.epages.restdocs-api-spec' version '0.16.0'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.zerobase'
 version = '0.0.1-SNAPSHOT'
 
+//configurations {
+//    asciidoctorExt
+//}
 configurations {
     asciidoctorExt
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
 }
-
 ext {
     springCloudSleuthOtelVersion = "1.0.0-M1"
     releaseTrainVersion = "2021.0.1"
@@ -49,7 +61,13 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-config-client'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    testImplementation 'org.springframework.batch:spring-batch-test'
 
+    //querydsl 추가
+    implementation "com.querydsl:querydsl-jpa:5.0.0" // querydsl 라이브러리
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0" //  Querydsl 관련 코드 생성 기능 제공
     // restdocs
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
@@ -98,4 +116,23 @@ openapi3 {
         from file("build/api-spec")
         into file("src/main/resources/static/docs/openapi")
     }
+}
+
+
+
+//querydsl 추가 시작 (위에 plugin 추가 부분과 맞물림)
+def querydslDir = "generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets { // IDE의 소스 폴더에 자동으로 넣어준다.
+    main.java.srcDir querydslDir
+}
+
+
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl // Q파일을 생성해준다.
 }

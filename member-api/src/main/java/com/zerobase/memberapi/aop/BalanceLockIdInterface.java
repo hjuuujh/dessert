@@ -1,5 +1,5 @@
 package com.zerobase.memberapi.aop;
 
 public interface BalanceLockIdInterface {
-    String getEmail();
+    String getAccountId();
 }

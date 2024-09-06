@@ -1,16 +1,20 @@
 package com.zerobase.orderapi.service;
 
-import com.zerobase.orderapi.client.from.*;
 import com.zerobase.orderapi.client.MemberClient;
 import com.zerobase.orderapi.client.StoreClient;
+import com.zerobase.orderapi.client.from.*;
 import com.zerobase.orderapi.client.to.OrderResult;
 import com.zerobase.orderapi.domain.CancelOrder;
-import com.zerobase.orderapi.domain.CancelRefundOrder;
-import com.zerobase.orderapi.domain.OrderDto;
-import com.zerobase.orderapi.domain.Orders;
-import com.zerobase.orderapi.domain.type.Status;
+import com.zerobase.orderapi.domain.member.Seller;
+import com.zerobase.orderapi.domain.order.OrderDto;
+import com.zerobase.orderapi.domain.order.Orders;
+import com.zerobase.orderapi.domain.order.Settlement;
+import com.zerobase.orderapi.domain.order.SettlementResult;
+import com.zerobase.orderapi.domain.type.OrderStatus;
+import com.zerobase.orderapi.domain.type.SettlementStatus;
 import com.zerobase.orderapi.exception.OrderException;
-import com.zerobase.orderapi.repository.OrderRepository;
+import com.zerobase.orderapi.repository.order.OrderRepository;
+import com.zerobase.orderapi.repository.order.SettlementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +25,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.PropertyPermission;
 
 import static com.zerobase.orderapi.exception.ErrorCode.*;
 
@@ -29,15 +35,18 @@ import static com.zerobase.orderapi.exception.ErrorCode.*;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MemberClient memberClient;
     private final StoreClient storeClient;
+    private final SettlementRepository settlementRepository;
+    private final MemberClient memberClient;
 
+    @Transactional
     public List<OrderResult> order(String token, Cart cart) {
         // member point 감소
-        OrderForm request = OrderForm.builder()
+        DecreaseBalanceForm request = DecreaseBalanceForm.builder()
                 .totalPrice(cart.getTotalPrice())
-                .date(LocalDate.now())
                 .build();
+//        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new OrderException(NOT_FOUND_CUSTOMER));
+//        customer.decreaseBalance(cart.getTotalPrice());
         memberClient.decreaseBalance(token, request);
 
         List<OrderResult> results = new ArrayList<>();
@@ -56,13 +65,8 @@ public class OrderService {
                         .price(option.getPrice())
                         .totalPrice(totalPrice)
                         .quantity(option.getQuantity())
-                        .status(Status.ORDERED)
+                        .orderStatus(OrderStatus.ORDERED)
                         .build();
-
-                IncomeForm incomeRequest = IncomeForm.builder()
-                        .sellerId(item.getSellerId())
-                        .price(totalPrice).build();
-                memberClient.income(token, incomeRequest);
 
                 orderRepository.save(order);
                 results.add(OrderResult.from(order));
@@ -96,34 +100,45 @@ public class OrderService {
         Orders orders = orderRepository.findByIdAndCustomerId(id, memberId)
                 .orElseThrow(() -> new OrderException(UNMATCHED_MEMBER_ORDER));
 
-        if (Status.REFUND_REQUEST.equals(orders.getStatus())) {
+        if (OrderStatus.REFUND_REQUEST.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_REQUEST);
-        } else if (Status.REFUND_APPROVED.equals(orders.getStatus())) {
+        } else if (OrderStatus.REFUND_APPROVED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_APPROVED);
-        } else if (Status.REFUND_REJECTED.equals(orders.getStatus())) {
+        } else if (OrderStatus.REFUND_REJECTED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_REJECTED);
         }
 
-        orders.updateStatus(Status.REFUND_REQUEST);
+        orders.updateStatus(OrderStatus.REFUND_REQUEST);
 
         return OrderDto.from(orders);
     }
 
     @Transactional
-    public OrderDto approveRequestRefund(String token, Long memberId, Long id) {
-        Orders orders = getOrders(memberId, id);
+    public OrderDto approveRequestRefund(String token, Long sellerId, RefundForm form) {
+        Orders orders = getOrders(sellerId, form.getId());
 
-        orders.updateStatus(Status.REFUND_APPROVED);
-
-        RefundForm request = RefundForm.builder()
-                .amount(orders.getPrice()).build();
+        orders.updateStatus(OrderStatus.REFUND_APPROVED);
 
         // 고객 잔액 증가
+        IncreaseBalanceForm request = IncreaseBalanceForm.builder()
+                .totalPrice(orders.getTotalPrice())
+                .build();
         memberClient.increaseBalance(token, request);
 
         // 셀러 인컴 감소
         // 정산 시스템 구현후 수정
-        memberClient.refund(token, request);
+        Optional<Settlement> optionalSettlement = settlementRepository.findBySellerIdAndDate(sellerId, form.getDate());
+        if (optionalSettlement.isPresent()) {
+            Settlement settlement = optionalSettlement.get();
+            if (SettlementStatus.YET.equals(settlement.getStatus())) {
+                settlement.decreaseSettlementAmount(orders.getTotalPrice());
+            } else {
+                DecreaseBalanceForm requestSeller = DecreaseBalanceForm.builder()
+                        .totalPrice(orders.getTotalPrice())
+                        .build();
+                memberClient.refund(token, requestSeller);
+            }
+        }
         return OrderDto.from(orders);
     }
 
@@ -132,18 +147,18 @@ public class OrderService {
     public OrderDto rejectRequestRefund(Long memberId, Long id) {
         Orders orders = getOrders(memberId, id);
 
-        orders.updateStatus(Status.REFUND_REJECTED);
+        orders.updateStatus(OrderStatus.REFUND_REJECTED);
         return OrderDto.from(orders);
     }
 
     private Orders getOrders(Long memberId, Long id) {
         Orders orders = orderRepository.findByIdAndSellerId(id, memberId)
                 .orElseThrow(() -> new OrderException(UNMATCHED_MEMBER_ORDER));
-        if (Status.ORDERED.equals(orders.getStatus())) {
+        if (OrderStatus.ORDERED.equals(orders.getOrderStatus())) {
             throw new OrderException(NO_REFUND_REQUEST);
-        } else if (Status.REFUND_APPROVED.equals(orders.getStatus())) {
+        } else if (OrderStatus.REFUND_APPROVED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_APPROVED);
-        } else if (Status.REFUND_REJECTED.equals(orders.getStatus())) {
+        } else if (OrderStatus.REFUND_REJECTED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_REJECTED);
         }
         return orders;
@@ -158,12 +173,10 @@ public class OrderService {
     public CancelOrder cancelOrder(Long memberId, Long id) {
         Orders orders = orderRepository.findByIdAndCustomerId(id, memberId)
                 .orElseThrow(() -> new OrderException(UNMATCHED_MEMBER_ORDER));
-        if (Status.REFUND_APPROVED.equals(orders.getStatus())) {
+        if (OrderStatus.REFUND_APPROVED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_APPROVED);
-        } else if (Status.REFUND_REJECTED.equals(orders.getStatus())) {
+        } else if (OrderStatus.REFUND_REJECTED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_REJECTED);
-        }else if (Status.REFUND_REQUEST.equals(orders.getStatus())) {
-            throw new OrderException(ALREADY_REFUND_REQUEST);
         }
         orderRepository.delete(orders);
 
@@ -178,15 +191,35 @@ public class OrderService {
     public OrderDto cancelRequestRefund(Long memberId, Long id) {
         Orders orders = orderRepository.findByIdAndCustomerId(id, memberId)
                 .orElseThrow(() -> new OrderException(UNMATCHED_MEMBER_ORDER));
-        if (Status.REFUND_APPROVED.equals(orders.getStatus())) {
+        if (OrderStatus.REFUND_APPROVED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_APPROVED);
-        } else if (Status.REFUND_REJECTED.equals(orders.getStatus())) {
+        } else if (OrderStatus.REFUND_REJECTED.equals(orders.getOrderStatus())) {
             throw new OrderException(ALREADY_REFUND_REJECTED);
-        }else if (Status.ORDERED.equals(orders.getStatus())) {
+        } else if (OrderStatus.ORDERED.equals(orders.getOrderStatus())) {
             throw new OrderException(NO_REFUND_REQUEST);
         }
 
-        orders.updateStatus(Status.ORDERED);
+        orders.updateStatus(OrderStatus.ORDERED);
         return OrderDto.from(orders);
+    }
+
+
+    @Transactional
+    public SettlementResult requestSettlement(String token, Long sellerId, LocalDate start, LocalDate end) {
+        List<Settlement> settlements = settlementRepository.findBySellerIdAndStatusAndDateBetween(sellerId, SettlementStatus.YET, start, end);
+        int settlementAmount = 0;
+        for (Settlement settlement : settlements) {
+            settlementAmount += settlement.getSettlementAmount();
+            settlement.updateStatus();
+        }
+
+        IncreaseBalanceForm request = IncreaseBalanceForm.builder()
+                .totalPrice(settlementAmount)
+                .build();
+        memberClient.income(token, request);
+        return SettlementResult.builder()
+                .sellerId(sellerId)
+                .settlementAmount(settlementAmount)
+                .build();
     }
 }

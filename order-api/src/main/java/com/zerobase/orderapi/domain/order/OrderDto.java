@@ -1,13 +1,11 @@
-package com.zerobase.orderapi.domain;
+package com.zerobase.orderapi.domain.order;
 
-import com.zerobase.orderapi.domain.type.Status;
+import com.zerobase.orderapi.domain.type.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,7 +26,7 @@ public class OrderDto {
     private Integer price;
     private Integer quantity;
 
-    private Status status;
+    private OrderStatus orderStatus;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -36,7 +34,7 @@ public class OrderDto {
     public static OrderDto from(Orders order) {
         return OrderDto.builder()
                 .id(order.getId())
-                .sellerId(order.getSellerId())
+//                .sellerId(order.getSellerId())
                 .customerId(order.getCustomerId())
                 .storeId(order.getStoreId())
                 .itemId(order.getItemId())
@@ -45,7 +43,7 @@ public class OrderDto {
                 .optionName(order.getOptionName())
                 .price(order.getPrice())
                 .quantity(order.getQuantity())
-                .status(order.getStatus())
+                .orderStatus(order.getOrderStatus())
                 .createdAt(order.getCreatedAt())
                 .modifiedAt(order.getModifiedAt())
                 .build();

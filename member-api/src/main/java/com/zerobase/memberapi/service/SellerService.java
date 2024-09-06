@@ -3,31 +3,22 @@ package com.zerobase.memberapi.service;
 
 import com.zerobase.memberapi.client.StoreClient;
 import com.zerobase.memberapi.client.from.*;
-import com.zerobase.memberapi.domain.member.dto.CustomerDto;
 import com.zerobase.memberapi.domain.member.dto.SellerDto;
-import com.zerobase.memberapi.domain.member.entity.Customer;
 import com.zerobase.memberapi.domain.member.entity.Seller;
-import com.zerobase.memberapi.domain.member.form.ChargeForm;
 import com.zerobase.memberapi.domain.member.form.SignIn;
 import com.zerobase.memberapi.domain.member.form.SignUp;
-import com.zerobase.memberapi.domain.store.ItemDto;
-import com.zerobase.memberapi.domain.store.StoreDto;
 import com.zerobase.memberapi.exception.ErrorCode;
 import com.zerobase.memberapi.exception.MemberException;
 import com.zerobase.memberapi.repository.CustomerRepository;
 import com.zerobase.memberapi.repository.SellerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static com.zerobase.memberapi.exception.ErrorCode.*;
 
@@ -104,14 +95,14 @@ public class SellerService implements UserDetailsService {
     }
 
     @Transactional
-    public void income(Long sellerId, IncomeForm form) {
+    public void income(Long sellerId, IncreaseBalanceForm form) {
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
-        seller.updateIncome(form.getPrice());
+        seller.updateIncome(form.getTotalPrice());
     }
 
     @Transactional
-    public void refund(Long sellerId, RefundForm form) {
+    public void refund(Long sellerId, DecreaseBalanceForm form) {
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
-        seller.refund(form.getAmount());
+        seller.refund(form.getTotalPrice());
     }
 }

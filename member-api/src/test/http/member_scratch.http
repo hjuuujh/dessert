@@ -37,7 +37,7 @@ POST http://localhost:8080/api/member/signin/customer
 Content-Type: application/json
 
 {
-  "email": "user2@gmail.com",
+  "email": "user3@gmail.com",
   "password": "qwerty"
 }
 
@@ -115,3 +115,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 GET http://localhost:8080/api/member/customer/items?page=0&size=5
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY2ODkxNywiZXhwIjoxNzI0NzU1MzE3fQ.GTbd6_5dw70i2A4JpMU1iOhMtofpeA8UQATIy6TE6D7Rq-SRBlFPs6t0Jv9ta21x2prRRv22nWFQ7W9Zw9s7zg
+
+### test delete follow store
+GET http://localhost:8090/api/member/customer/delete/follow?storeId=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJBMEVSZS9MM2lnc3JwQkhBSEtjWm9RPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTMxMzM3NCwiZXhwIjoxNzI1Mzk5Nzc0fQ.CgMF9WA13B0EYsEr8CWGxJnZXtt8ZGUbgwekw7upluo34LIlJzKriD9CT-KxHndbFn37ZE87_LJ3uoKrxGeoSg

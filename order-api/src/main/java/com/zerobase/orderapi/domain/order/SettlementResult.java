@@ -1,4 +1,4 @@
-package com.zerobase.memberapi.client.from;
+package com.zerobase.orderapi.domain.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RefundForm {
-    private Integer amount;
+public class SettlementResult {
+    private Long sellerId;
+    private Integer settlementAmount;
 }

@@ -1,7 +1,7 @@
 package com.zerobase.orderapi.client.to;
 
-import com.zerobase.orderapi.domain.Orders;
-import com.zerobase.orderapi.domain.type.Status;
+import com.zerobase.orderapi.domain.order.Orders;
+import com.zerobase.orderapi.domain.type.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class OrderResult {
     private String optionName;
     private Integer optionPrice;
     private Integer optionQuantity;
-    private Status status;
+    private OrderStatus orderStatus;
     private LocalDateTime createdAt;
 
     public static OrderResult from(Orders order) {
@@ -29,7 +29,7 @@ public class OrderResult {
                 .optionName(order.getOptionName())
                 .optionPrice(order.getPrice())
                 .optionQuantity(order.getQuantity())
-                .status(order.getStatus())
+                .orderStatus(order.getOrderStatus())
                 .createdAt(order.getCreatedAt())
                 .build();
     }
