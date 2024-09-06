@@ -12,5 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class DecreaseBalanceForm {
+    private Long customerId;
     private Integer totalPrice;
 }

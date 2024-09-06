@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -45,6 +42,8 @@ public class Customer extends BaseEntity implements UserDetails {
     private Set<Long> followList;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Long> heartList;
+
+    private UUID accountId;
 
 
     @Override
@@ -92,6 +91,7 @@ public class Customer extends BaseEntity implements UserDetails {
                 .phone(form.getPhone())
                 .roles(form.getRoles())
                 .followList(new HashSet<>())
+                .accountId(UUID.randomUUID())
                 .build();
     }
 

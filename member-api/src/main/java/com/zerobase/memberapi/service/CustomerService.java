@@ -213,4 +213,8 @@ public class CustomerService implements UserDetailsService {
     }
 
 
+    public CustomerDto getCustomer(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
+        return CustomerDto.from(customer);
+    }
 }

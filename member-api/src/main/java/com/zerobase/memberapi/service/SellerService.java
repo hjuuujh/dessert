@@ -96,6 +96,7 @@ public class SellerService implements UserDetailsService {
 
     @Transactional
     public void income(Long sellerId, IncreaseBalanceForm form) {
+        System.out.println("###################" + sellerId);
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
         seller.updateIncome(form.getTotalPrice());
     }
@@ -104,5 +105,10 @@ public class SellerService implements UserDetailsService {
     public void refund(Long sellerId, DecreaseBalanceForm form) {
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
         seller.refund(form.getTotalPrice());
+    }
+
+    public SellerDto getSeller(Long sellerId) {
+        Seller seller = sellerRepository.findById(sellerId).orElseThrow(() -> new MemberException(NOT_FOUND_USER));
+        return SellerDto.from(seller);
     }
 }

@@ -1,10 +1,10 @@
 ### cart 주문
 POST localhost:8080/api/store/cart/order
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiNjhUMEZBSzRlU2EySjBkdkpKbVlBPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTYxMTI2OCwiZXhwIjoxNzI1Njk3NjY4fQ.cMC-t5CIVlWMQzblY_PIV6R5vfB8q5UuJTH6L3zu6zsGNdM46a64DBYqlPH7zuxt2WqUH3VZVk33g4Va-w18FA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJxaWpTQWpEdVVGUVZ5WmwxZDErbGdRPT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTYxODI3NCwiZXhwIjoxNzI1NzA0Njc0fQ.NUHxM4mGQeBXNA-vyhRV7KcjgE881EoLCeUzcVH_MkpTIg2_AHJzG2IuBghjTm25PVS7YRcLWEB07Wz9hG7UgA
 
 {
-  "customerId": 1,
+  "customerId": 23,
   "items": [
     {
       "id": 6,

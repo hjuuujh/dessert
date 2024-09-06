@@ -6,11 +6,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class DecreaseBalanceForm implements BalanceLockIdInterface {
-    private String accountId;
+    private Long customerId;
     private Integer totalPrice;
 }

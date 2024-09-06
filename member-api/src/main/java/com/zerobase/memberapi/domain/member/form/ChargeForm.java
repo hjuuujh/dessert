@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class ChargeForm implements BalanceLockIdInterface {
-    @NotBlank(message = "이메일은 필수입니다.")
-    private String email;
+    private Long customerId;
     @NotNull(message = "충전 금액은 필수입니다.")
     private int amount;
 }

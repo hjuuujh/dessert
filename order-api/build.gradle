@@ -1,28 +1,16 @@
-buildscript {
-    ext {
-        queryDslVersion = "5.0.0"
-    }
-}
+
 plugins {
     id 'java'
     id "io.spring.dependency-management"
     id "org.asciidoctor.jvm.convert" version "3.3.2"
     id 'com.epages.restdocs-api-spec' version '0.16.0'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.zerobase'
 version = '0.0.1-SNAPSHOT'
 
-//configurations {
-//    asciidoctorExt
-//}
 configurations {
     asciidoctorExt
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-    querydsl.extendsFrom compileClasspath
 }
 ext {
     springCloudSleuthOtelVersion = "1.0.0-M1"
@@ -118,21 +106,3 @@ openapi3 {
     }
 }
 
-
-
-//querydsl 추가 시작 (위에 plugin 추가 부분과 맞물림)
-def querydslDir = "generated/querydsl"
-querydsl {
-    jpa = true
-    querydslSourcesDir = querydslDir
-}
-
-sourceSets { // IDE의 소스 폴더에 자동으로 넣어준다.
-    main.java.srcDir querydslDir
-}
-
-
-
-compileQuerydsl {
-    options.annotationProcessorPath = configurations.querydsl // Q파일을 생성해준다.
-}

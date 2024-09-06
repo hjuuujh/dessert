@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -40,6 +37,7 @@ public class Seller extends BaseEntity implements UserDetails {
 
     @DefaultValue("0")
     private int income;
+    private UUID accountId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -85,6 +83,7 @@ public class Seller extends BaseEntity implements UserDetails {
                 .name(form.getName())
                 .phone(form.getPhone())
                 .roles(form.getRoles())
+                .accountId(UUID.randomUUID())
                 .build();
     }
 
