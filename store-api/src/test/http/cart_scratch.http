@@ -1,7 +1,7 @@
 ### cart 등록
 POST localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY3MDYwMCwiZXhwIjoxNzI0NzU3MDAwfQ.7zoX3WMccPe7COrHp6NYwKldfet-jDtutz8Gb01PYRx9MwPgO0UN2_6eSgcjsdYI3cII6akXMoQ4zzMx4kAvTQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTg4NDQyNSwiZXhwIjoxNzI1OTcwODI1fQ.F4Su4436smvVDA4gPw8vRPH3CqwjXyK_3Ca3uGZWzNOuTiYuiUHuF1aVCkd02NO3ARvHhi7-1-m0YZKNGa9zFQ
 
 {
   "id": 1,
@@ -21,22 +21,22 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 ### cart 등록
 POST localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJBMEVSZS9MM2lnc3JwQkhBSEtjWm9RPT0iLCJyb2xlcyI6W10sImlhdCI6MTcyNTYwOTMzNSwiZXhwIjoxNzI1Njk1NzM1fQ.nI_Kut3mHHDYu6-CMZFRBk-l0LOSjwSvtkPyro8ezC8Qr1UKvqM5BGFuAx7JKymzINXfBOmy8xdgacaRS8fUAQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTg4NDQyNSwiZXhwIjoxNzI1OTcwODI1fQ.F4Su4436smvVDA4gPw8vRPH3CqwjXyK_3Ca3uGZWzNOuTiYuiUHuF1aVCkd02NO3ARvHhi7-1-m0YZKNGa9zFQ
 
 {
-  "id": 6,
+  "id": 15,
   "storeId": 2,
   "storeName": "달달구리해닮",
   "name": "샹티크림끌레오르",
   "options": [
     {
-      "id": 12,
+      "id": 31,
       "name": "블루베리샹티크림 끌레오르",
       "quantity": 2,
       "price": 26000
     },
     {
-      "id": 11,
+      "id": 30,
       "name": "얼그레이샹티크림 끌레오르",
       "quantity": 2,
       "price": 26000
@@ -48,12 +48,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 ### cart 조회
 GET localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDg0MjEwNywiZXhwIjoxNzI0OTI4NTA3fQ.UnTFBB4YTNTF-k-CUW5XzkkK2LRpuK0YfRiyJfcguZ3GNIcre6FybGm8Xw_iWs4j9Dp1cxWjeFb-dwYyDtAV0g
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTg4NDQyNSwiZXhwIjoxNzI1OTcwODI1fQ.F4Su4436smvVDA4gPw8vRPH3CqwjXyK_3Ca3uGZWzNOuTiYuiUHuF1aVCkd02NO3ARvHhi7-1-m0YZKNGa9zFQ
 
 ### cart 옵션 삭제
 PATCH localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY3MDYwMCwiZXhwIjoxNzI0NzU3MDAwfQ.7zoX3WMccPe7COrHp6NYwKldfet-jDtutz8Gb01PYRx9MwPgO0UN2_6eSgcjsdYI3cII6akXMoQ4zzMx4kAvTQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTg4NDQyNSwiZXhwIjoxNzI1OTcwODI1fQ.F4Su4436smvVDA4gPw8vRPH3CqwjXyK_3Ca3uGZWzNOuTiYuiUHuF1aVCkd02NO3ARvHhi7-1-m0YZKNGa9zFQ
 
 {
   "optionIds": [12]
@@ -62,33 +62,33 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
 ### cart 옵션 수량 변경
 PUT localhost:8080/api/store/cart
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY3MDYwMCwiZXhwIjoxNzI0NzU3MDAwfQ.7zoX3WMccPe7COrHp6NYwKldfet-jDtutz8Gb01PYRx9MwPgO0UN2_6eSgcjsdYI3cII6akXMoQ4zzMx4kAvTQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTg4NDQyNSwiZXhwIjoxNzI1OTcwODI1fQ.F4Su4436smvVDA4gPw8vRPH3CqwjXyK_3Ca3uGZWzNOuTiYuiUHuF1aVCkd02NO3ARvHhi7-1-m0YZKNGa9zFQ
 
 {
-  "itemId": 6,
-  "optionId": 11,
+  "itemId": 15,
+  "optionId": 31,
   "quantity": 3
 }
 
 ### cart 주문
 POST localhost:8080/api/store/cart/order
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNDY3MDYwMCwiZXhwIjoxNzI0NzU3MDAwfQ.7zoX3WMccPe7COrHp6NYwKldfet-jDtutz8Gb01PYRx9MwPgO0UN2_6eSgcjsdYI3cII6akXMoQ4zzMx4kAvTQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvRk1nPT0iLCJqdGkiOiJDbVlEdjVNSzVZVXlpazhLR05Ed293PT0iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImlhdCI6MTcyNTg4NDQyNSwiZXhwIjoxNzI1OTcwODI1fQ.F4Su4436smvVDA4gPw8vRPH3CqwjXyK_3Ca3uGZWzNOuTiYuiUHuF1aVCkd02NO3ARvHhi7-1-m0YZKNGa9zFQ
 
 {
-  "customerId": 2,
+  "customerId": 1,
   "items": [
     {
-      "id": 6,
+      "id": 15,
       "storeId": 2,
       "sellerId": 1,
       "storeName": "달달구리해닮",
       "name": "샹티크림끌레오르",
       "options": [
         {
-          "id": 11,
-          "name": "얼그레이샹티크림 끌레오르",
-          "quantity": 2,
+          "id": 31,
+          "name": "블루베리샹티크림 끌레오르",
+          "quantity": 3,
           "price": 26000
         }
       ]
@@ -103,7 +103,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYWg0WSthVnpjbzNDMDYwYWMvR
         {
           "id": 1,
           "name": "비트(ABC)주스 200ml 10병",
-          "quantity": 5,
+          "quantity": -1,
           "price": 32000
         }
       ]

@@ -6,9 +6,7 @@ spring:
     active: dev
   application:
     name: member-api
-  redis:
-    host: 127.0.0.1
-    port: 6379
+
   cloud:
     config:
       label: master
@@ -18,15 +16,12 @@ spring:
   config:
     import: optional:configserver:http://localhost:8888
 
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   main:
     allow-bean-definition-overriding: true
 
 eureka: # eureka client 등록
-#  instance:
-#    preferIpAddress: true # 컨테이너 기반 배포면 임의의 호스트이름이 부여되므로 true이용해 ip주소로 등록해 찾도록
+  instance:
+    preferIpAddress: true # 컨테이너 기반 배포면 임의의 호스트이름이 부여되므로 true이용해 ip주소로 등록해 찾도록
 
   client:
     register-with-eureka: true
@@ -45,14 +40,14 @@ external-api:
   #    url: http://localhost:8090/api/member
 #  member:
 #    url: http://member-api:8090/api/member
-  store:
-    url: http://localhost:8091/api/store
 #  store:
-#    url: http://store-api:8091/api/store
-  order:
-    url: http://localhost:8092/api/order
+#    url: http://localhost:8091/api/store
+  store:
+    url: http://store-api:8091/api/store
 #  order:
-#    url: http://order-api:8092/api/order
+#    url: http://localhost:8092/api/order
+  order:
+    url: http://order-api:8092/api/order
 
 
 level:
