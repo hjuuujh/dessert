@@ -3,6 +3,7 @@ package com.zerobase.orderapi.controller;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.orderapi.client.MemberClient;
+import com.zerobase.orderapi.client.from.RefundForm;
 import com.zerobase.orderapi.client.to.OrderResult;
 import com.zerobase.orderapi.domain.CancelOrder;
 import com.zerobase.orderapi.domain.order.OrderDto;
@@ -26,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +41,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -105,7 +106,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -147,7 +148,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -222,7 +223,7 @@ class OrderControllerTest {
                                         fieldWithPath("content[].optionName").description("주문 옵션 이름"),
                                         fieldWithPath("content[].optionPrice").description("주문 옵션 가격"),
                                         fieldWithPath("content[].optionQuantity").description("주문 옵션 수량"),
-                                        fieldWithPath("content[].status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("content[].orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -291,7 +292,7 @@ class OrderControllerTest {
                                         fieldWithPath("content[].optionName").description("주문 옵션 이름"),
                                         fieldWithPath("content[].optionPrice").description("주문 옵션 가격"),
                                         fieldWithPath("content[].optionQuantity").description("주문 옵션 수량"),
-                                        fieldWithPath("content[].status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("content[].orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -444,7 +445,7 @@ class OrderControllerTest {
                                         fieldWithPath("content[].optionName").description("주문 옵션 이름"),
                                         fieldWithPath("content[].optionPrice").description("주문 옵션 가격"),
                                         fieldWithPath("content[].optionQuantity").description("주문 옵션 수량"),
-                                        fieldWithPath("content[].status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("content[].orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -515,7 +516,7 @@ class OrderControllerTest {
                                         fieldWithPath("content[].optionName").description("주문 옵션 이름"),
                                         fieldWithPath("content[].optionPrice").description("주문 옵션 가격"),
                                         fieldWithPath("content[].optionQuantity").description("주문 옵션 수량"),
-                                        fieldWithPath("content[].status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("content[].orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -590,7 +591,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -631,7 +632,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -680,7 +681,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -721,7 +722,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -740,24 +741,32 @@ class OrderControllerTest {
         given(memberClient.getMemberId(anyString()))
                 .willReturn(1L);
         OrderDto orderDto = getOrderDto();
-
-        given(orderService.approveRequestRefund(anyString(), anyLong(), anyLong()))
+        RefundForm form = RefundForm.builder()
+                .id(1L)
+                .date(LocalDate.now())
+                .build();
+        given(orderService.approveRequestRefund(anyString(), anyLong(), any()))
                 .willReturn(orderDto);
         //when
 
         //then
         // asciidoc
-        mvc.perform(patch("/api/order/seller/refund/approve/{id}", 1)
+        mvc.perform(patch("/api/order/seller/refund/approve")
                         .header("Authorization", "token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(
+                                form
+                        ))
                 )
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("apporve-request-refund",
+                .andDo(document("approve-request-refund",
                                 requestHeaders(
                                         headerWithName("Authorization").description("JWT Bearer 인증 token")
                                 ),
-                                pathParameters(
-                                        parameterWithName("id").description("환불 수락 원하는 주문 id")
+                                requestFields(
+                                        fieldWithPath("id").description("환불 수락 원하는 주문 id"),
+                                        fieldWithPath("date").description("환불 수락 원하는 주문 날짜")
                                 )
                                 , responseFields(
                                         fieldWithPath("id").description("주문 id"),
@@ -770,7 +779,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -783,12 +792,16 @@ class OrderControllerTest {
                 );
 
         // openapi3
-        mvc.perform(patch("/api/order/seller/refund/approve/{id}", 1)
+        mvc.perform(patch("/api/order/seller/refund/approve")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(
+                                form
+                        ))
                 )
                 .andExpect(status().isOk())
-                .andDo(document("cancel-request-refund",
+                .andDo(document("approve-request-refund",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         resource(ResourceSnippetParameters.builder()
@@ -797,8 +810,9 @@ class OrderControllerTest {
                                 .requestHeaders(
                                         headerWithName("Authorization").description("JWT Bearer 인증 token")
                                 )
-                                .pathParameters(
-                                        parameterWithName("id").description("환불 수락 원하는 주문 id")
+                                .requestFields(
+                                        fieldWithPath("id").description("환불 수락 원하는 주문 id"),
+                                        fieldWithPath("date").description("환불 수락 원하는 주문 날짜")
                                 )
                                 .responseFields(
                                         fieldWithPath("id").description("주문 id"),
@@ -811,7 +825,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -860,7 +874,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +
@@ -901,7 +915,7 @@ class OrderControllerTest {
                                         fieldWithPath("optionName").description("주문 옵션 이름"),
                                         fieldWithPath("price").description("주문 옵션 가격"),
                                         fieldWithPath("quantity").description("주문 옵션 수량"),
-                                        fieldWithPath("status").description("주문 상태 - ORDERED : 주문 완료 " +
+                                        fieldWithPath("orderStatus").description("주문 상태 - ORDERED : 주문 완료 " +
                                                 "    ORDERED_COMPLETED : 주문/정산 완료," +
                                                 "    REFUND_REQUEST : 환불 신청," +
                                                 "    REFUND_APPROVED : 환불 승인," +

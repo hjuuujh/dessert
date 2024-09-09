@@ -42,7 +42,6 @@ public class LockAopAspect {
                                String token,
                                BalanceLockIdInterface form) throws Throwable{
         // 얘가 chrgebalance면 토큰으로 이메일 구해서 바로 락 취득
-        System.out.println("#######################");
         if("chargeBalance".equals(joinPoint.getSignature().getName())) {
             lockService.lock(tokenProvider.getUsernameFromToken(token.substring(7))); // Bearer 제외
         }else {

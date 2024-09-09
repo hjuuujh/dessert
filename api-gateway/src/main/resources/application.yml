@@ -14,7 +14,7 @@ spring:
         - id: customer-api
           uri: http://localhost:8090
           predicates:
-            - Path=/api/member/customer/*
+            - Path=/api/member/customer/**
           filters:
             - name: AuthorizationHeaderFilter
               args:
@@ -24,7 +24,7 @@ spring:
         - id: seller-api
           uri: http://localhost:8090
           predicates:
-            - Path=/api/member/seller/*
+            - Path=/api/member/seller/**
           filters:
             - name: AuthorizationHeaderFilter
               args:

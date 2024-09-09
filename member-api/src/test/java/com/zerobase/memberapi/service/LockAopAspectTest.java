@@ -2,6 +2,8 @@ package com.zerobase.memberapi.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.zerobase.memberapi.aop.BalanceLockIdInterface;
+import com.zerobase.memberapi.domain.member.form.ChargeForm;
 import com.zerobase.memberapi.security.TokenProvider;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.junit.jupiter.api.Test;
@@ -41,7 +43,7 @@ class LockAopAspectTest {
                 .willReturn("aaa@gmail.com");
 
         //when
-        lockAopAspect.aroundMethod(proceedingJoinPoint, token);
+        lockAopAspect.sellerAroundMethod(proceedingJoinPoint, token);
 
         //then
         verify(lockService, times(1)).lock(lockArg.capture());

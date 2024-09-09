@@ -24,15 +24,6 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberClient memberClient;
 
-//    @GetMapping
-//    public ResponseEntity<?> timeCheck(){
-//        Optional<Orders> byId = orderRepository.findById(1L);
-//        Optional<Seller> byId1 = sellerRepository.findById(1L);
-
-//        return ResponseEntity.ok(byId.get().getPrice() + byId1.get().getEmail());
-//        return ResponseEntity.ok(orderService.settleOrder());
-//    }
-//
     @PostMapping
     public ResponseEntity<?> order(@RequestHeader(name = "Authorization") String token,
                                    @RequestBody Cart cart){

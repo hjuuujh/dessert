@@ -15,7 +15,7 @@ GET http://localhost:8080/api/store/item/search/price/high?keyword=노밀가루&
 Content-Type: application/json
 
 ### search item by keyword + category
-GET http://localhost:8080/api/store/item/search/category?keyword=&category=cake&page=0&size=5
+GET http://localhost:8080/api/store/item/search/category?keyword=&category=cookie&page=0&size=5
 Content-Type: application/json
 
 ### search item by store
